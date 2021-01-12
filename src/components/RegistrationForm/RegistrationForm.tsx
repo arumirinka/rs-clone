@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
-  Modal, Button, Form, Input, Checkbox,
+  Button, Form, Input, Checkbox,
 } from 'antd';
 import 'antd/dist/antd.css';
 import { GithubOutlined } from '@ant-design/icons';
@@ -14,11 +14,10 @@ const tailLayout = {
   wrapperCol: { offset: 8, span: 8 },
 };
 
-const Demo: React.FC = () => {
+const RegistrationForm: React.FC = () => {
   const onFinish = (values: any) => {
     console.log('Success:', values);
   };
-
   const onFinishFailed = (errorInfo: any) => {
     console.log('Failed:', errorInfo);
   };
@@ -71,47 +70,6 @@ const Demo: React.FC = () => {
         </Button>
       </Form.Item>
     </Form>
-  );
-};
-
-const RegistrationForm: React.FC = () => {
-  const [visible, setVisible]: any[] = useState(false);
-  // const [confirmLoading, setConfirmLoading]: any[] = useState(false);
-  // const [modalText, setModalText]: any[] = useState('Content of the modal');
-
-  const showModal = (): void => {
-    setVisible(true);
-  };
-
-  // const handleOk = (): void => {
-  //   // setModalText('The modal will be closed after two seconds');
-  //   setConfirmLoading(true);
-  //   setTimeout(() => {
-  //     setVisible(false);
-  //     setConfirmLoading(false);
-  //   }, 2000);
-  // };
-
-  const handleCancel = () => {
-    setVisible(false);
-  };
-
-  return (
-    <>
-      <Button type="primary" onClick={showModal}>
-        Регистрация/ Вход
-      </Button>
-      <Modal
-        title="Пожалуйста, войдите в аккаунт или зарегистрируйтесь"
-        visible={visible}
-        // onOk={handleOk}
-        // confirmLoading={confirmLoading}
-        onCancel={handleCancel}
-        footer={null}
-      >
-        <Demo />
-      </Modal>
-    </>
   );
 };
 

@@ -1,10 +1,10 @@
 import React from 'react';
 import './App.css';
-import RegistrationForm from './components/RegistrationForm/RegistrationForm';
+import RegistrationFormInModal from './components/RegistrationForm/RegistrationFormInModal';
 
 function App() {
   return (
-    <RegistrationForm />
+    <RegistrationFormInModal />
   );
 }
 
