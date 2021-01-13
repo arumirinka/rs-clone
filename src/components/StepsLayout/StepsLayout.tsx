@@ -1,23 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import CSS from 'csstype';
 import './StepsLayout.css';
 import arrowLogo from '../../assets/arrowRight.svg';
 import kittyImg from '../../assets/superKitty.svg';
 
 const StepsLayout: React.FC = () => {
-  const [position, setPosition] = useState({
+  const [kittyPosition, setKittyPosition] = useState({
     left: '5%',
     top: '46%',
   });
+  const refContainer:any = useRef(0);
   const setLessonsPage = (event: React.MouseEvent) => {
-    event.preventDefault();
-    const left:string = `${(event.pageX - 30).toString()}px`;
-    const top:string = `${(event.pageY - 30).toString()}px`;
+    const containerMaxWidth: number = 1200;
+    const distanceFromTop:number = window.pageYOffset
+    + refContainer.current.getBoundingClientRect().top;
+    let left:string;
+    const top:string = `${event.pageY - distanceFromTop}px`;
+    if (window.screen.availWidth > containerMaxWidth) {
+      left = `calc(${(event.pageX).toString()}px - ((100vw - ${containerMaxWidth}px) / 2})`;
+    } else {
+      left = `${(event.pageX - 30).toString()}px`;
+    }
+
     const obj = {
       left,
       top,
     };
-    setPosition(obj);
+    setKittyPosition(obj);
   };
 
   const styles: CSS.Properties = {
@@ -25,8 +34,8 @@ const StepsLayout: React.FC = () => {
   };
 
   return (
-    <div style={styles}>
-      <img src={kittyImg} alt="super kitty" className="kitty-img anim-11" style={position} />
+    <div style={styles} ref={refContainer}>
+      <img src={kittyImg} alt="super kitty" className="kitty-img anim-11" style={kittyPosition} />
       <div className="steps-сontainer">
         <div className="steps-container__step">
           <img src={arrowLogo} alt="arrow right" className="step__arrow-right anim-2" />

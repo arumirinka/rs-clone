@@ -7,8 +7,6 @@
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  border-radius: 5px;
-  border: 3px solid black;
   --steps: 5;
 }
 .steps-container__step{
@@ -64,8 +62,6 @@
 .kitty-img{
   width:70px;
   position: absolute;
-  /* left: 5%;
-  bottom: 22%; */
   z-index: 20;
 }
 
@@ -169,6 +165,7 @@
   @media(max-width:400px){
     .step__level{
         font-size: 0.7em;
+        padding: 0;
     }
     .kitty-img{
         width:40px;
