@@ -16,7 +16,7 @@ const StepsLayout: React.FC = () => {
     + refContainer.current.getBoundingClientRect().top;
     let left:string;
     const top:string = `${event.pageY - distanceFromTop}px`;
-    if (window.screen.availWidth > containerMaxWidth) {
+    if (window.innerWidth > containerMaxWidth) {
       left = `calc(${(event.pageX).toString()}px - ((100vw - ${containerMaxWidth}px) / 2})`;
     } else {
       left = `${(event.pageX - 30).toString()}px`;
