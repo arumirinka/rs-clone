@@ -10,6 +10,7 @@ const StepsLayout: React.FC = () => {
     top: '46%',
   });
   const setLessonsPage = (event: React.MouseEvent) => {
+    event.preventDefault();
     const left:string = `${(event.pageX - 30).toString()}px`;
     const top:string = `${(event.pageY - 30).toString()}px`;
     const obj = {
@@ -29,32 +30,32 @@ const StepsLayout: React.FC = () => {
       <div className="steps-сontainer">
         <div className="steps-container__step">
           <img src={arrowLogo} alt="arrow right" className="step__arrow-right anim-2" />
-          <div className="step__level anim-1" data-id="1" onClick={(event: React.MouseEvent) => setLessonsPage(event)}>
+          <button type="button" className="step__level anim-1" data-id="1" onClick={(event: React.MouseEvent) => setLessonsPage(event)}>
             Уровень 1
-          </div>
+          </button>
         </div>
         <div className="steps-container__step">
           <img src={arrowLogo} alt="arrow right" className="step__arrow-right anim-4" />
-          <div className="step__level anim-3" data-id="2" onClick={(event: React.MouseEvent) => setLessonsPage(event)}>
+          <button type="button" className="step__level anim-3" data-id="2" onClick={(event: React.MouseEvent) => setLessonsPage(event)}>
             Уровень 2
-          </div>
+          </button>
         </div>
         <div className="steps-container__step">
           <img src={arrowLogo} alt="arrow right" className="step__arrow-right anim-6" />
-          <div className="step__level anim-5" data-id="3" onClick={(event: React.MouseEvent) => setLessonsPage(event)}>
+          <button type="button" className="step__level anim-5" data-id="3" onClick={(event: React.MouseEvent) => setLessonsPage(event)}>
             Уровень 3
-          </div>
+          </button>
         </div>
         <div className="steps-container__step">
           <img src={arrowLogo} alt="arrow right" className="step__arrow-right anim-8" />
-          <div className="step__level anim-7" data-id="4" onClick={(event: React.MouseEvent) => setLessonsPage(event)}>
+          <button type="button" className="step__level anim-7" data-id="4" onClick={(event: React.MouseEvent) => setLessonsPage(event)}>
             Уровень 4
-          </div>
+          </button>
         </div>
         <div className="steps-container__step anim-10">
-          <div className="step__level anim-9" data-id="5" onClick={(event: React.MouseEvent) => setLessonsPage(event)}>
+          <button type="button" className="step__level anim-9" data-id="5" onClick={(event: React.MouseEvent) => setLessonsPage(event)}>
             Уровень 5
-          </div>
+          </button>
         </div>
       </div>
     </div>
