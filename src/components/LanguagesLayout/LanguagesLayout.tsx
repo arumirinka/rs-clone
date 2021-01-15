@@ -2,6 +2,7 @@ import React from 'react';
 import './LanguagesLayout.css';
 import BlaBlaImg from './BlaBlaImg';
 import KittyImg from './KittySvg';
+import LanguageButton from './LanguageButton';
 import { languagesText, languagesList } from './languagesTranslate';
 
 const LanguagesLayout: React.FC = () => (
@@ -17,19 +18,13 @@ const LanguagesLayout: React.FC = () => (
         </div>
         <div className="content__languages">
           <div className="languages__language">
-            <button type="button" className="language__button">
-              {languagesList.lang1[0]}
-            </button>
+            <LanguageButton language={languagesList.lang1[0]} />
           </div>
           <div className="languages__language">
-            <button type="button" className="language__button">
-              {languagesList.lang2[0]}
-            </button>
+            <LanguageButton language={languagesList.lang2[0]} />
           </div>
           <div className="languages__language">
-            <button type="button" className="language__button">
-              {languagesList.lang3[0]}
-            </button>
+            <LanguageButton language={languagesList.lang3[0]} />
           </div>
         </div>
       </div>
