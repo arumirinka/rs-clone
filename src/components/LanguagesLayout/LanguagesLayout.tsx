@@ -6,7 +6,7 @@ import { languagesText, languagesList } from './languagesTranslate';
 
 const LanguagesLayout: React.FC = () => (
   <div className="main-container">
-    <div className="inner-container">
+    <div className="main-container__inner-container">
       <div className="inner-container__images">
         <KittyImg />
         <BlaBlaImg />
@@ -16,15 +16,21 @@ const LanguagesLayout: React.FC = () => (
           {languagesText[0]}
         </div>
         <div className="content__languages">
-          <button type="button" className="languages__language">
-            {languagesList.lang1[0]}
-          </button>
-          <button type="button" className="languages__language">
-            {languagesList.lang2[0]}
-          </button>
-          <button type="button" className="languages__language">
-            {languagesList.lang3[0]}
-          </button>
+          <div className="languages__language">
+            <button type="button" className="language__button">
+              {languagesList.lang1[0]}
+            </button>
+          </div>
+          <div className="languages__language">
+            <button type="button" className="language__button">
+              {languagesList.lang2[0]}
+            </button>
+          </div>
+          <div className="languages__language">
+            <button type="button" className="language__button">
+              {languagesList.lang3[0]}
+            </button>
+          </div>
         </div>
       </div>
     </div>
