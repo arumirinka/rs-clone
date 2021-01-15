@@ -161,8 +161,10 @@
             ["This is Anna, she is famous.", "Это Анна, она известная."],
             ["This is Michael Jordan, he is famous.", "Это Майкл Джордан, он известный."]
           ]
-        },
-        "lesson5": {
+        }
+      },
+      "level2": {
+        "lesson1": {
           "words": [
             ["in", "в"],
             ["but", "но"],
@@ -207,7 +209,7 @@
             ["I work in Russia, but Sveta works in America.", "Я работаю в России, но Света работает в Америке."]
           ]
         },
-        "lesson6": {
+        "lesson2": {
           "words": [
             ["hi", "привет"],
             ["thanks", "спасибо"],
@@ -265,7 +267,7 @@
             ["Good night, and thanks!", "Спокойной ночи, и спасибо!"]
           ]
         },
-        "lesson7": {
+        "lesson3": {
           "words": [
             ["basketball", "баскетбол"],
             ["soccer", "футбол"],
@@ -327,7 +329,7 @@
             ["Yes, basketball is cool.", "Да, баскетбол классный."]
           ]
         },
-        "lesson8": {
+        "lesson4": {
           "words": [
             ["restaurant", "ресторан"],
             ["menu", "меню"],
@@ -387,8 +389,10 @@
             ["This is your check.", "Это ваш чек."],
             ["a cup of coffee", "чашка кофе"]
           ]
-        },
-        "lesson9": {
+        }
+      },
+      "level3": {
+        "lesson1": {
           "words": [
             ["cat", "кошка"],
             ["dog", "собака"],
@@ -443,7 +447,7 @@
             ["Sharik is not old!", "Шарик не старый!"]
           ]
         },
-        "lesson10": {
+        "lesson2": {
           "words": [
             ["food", "еда"],
             ["pasta", "паста"],
