@@ -3,6 +3,7 @@ import Lesson from './Lesson';
 import PieChart from './PieChart';
 import './LessonsLayout.css';
 import kitty from '../../assets/kittyWIthLaptop.svg';
+import '../../assets/lock.svg';
 import { lesson, lessonsText, chartLegend } from './lessonsTranslate';
 
 const LessonsLayout: React.FC = () => {
@@ -20,10 +21,12 @@ const LessonsLayout: React.FC = () => {
             <img src={kitty} alt="kitty with laptop" />
           </div>
           <div className="content__lessons">
-            <Lesson lesson={lesson[0]} number={1} />
-            <Lesson lesson={lesson[0]} number={2} />
-            <Lesson lesson={lesson[0]} number={3} />
-            <Lesson lesson={lesson[0]} number={4} />
+            <Lesson lesson={lesson[0]} number={1} open />
+            <Lesson lesson={lesson[0]} number={2} open={false} />
+            <Lesson lesson={lesson[0]} number={3} open={false} />
+            <Lesson lesson={lesson[0]} number={4} open={false} />
+            <Lesson lesson={lesson[0]} number={5} open={false} />
+            <Lesson lesson={lesson[0]} number={6} open={false} />
           </div>
           <div className="content__chart">
             <PieChart done={chartLegend[0][0]} toDo={chartLegend[1][0]} value={chartValue} />

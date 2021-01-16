@@ -42,10 +42,11 @@
 .content__chart{
     flex-basis: 33%;
     position: relative; 
-    height:30vh; 
-    width:30vw;
+    height:30%; 
+    width:30%;
 }
 .lessons__lesson{
+    position:relative;
     width: 41%;
     height: 80px;
     margin: 0 0.5em 0.5em 0;
@@ -54,7 +55,88 @@
     font-weight: 800;
     -webkit-text-stroke: 1px #146455;
 }
+.lessons__lesson--closed::after{
+    content: '';
+    position: absolute;
+    left: 50%;
+    width: 30px;
+    height: 30px;
+    background-image: url('../../assets/lock.svg');
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+@keyframes rotateLesson  {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(1080deg);
+    }  
+} 
 .lessons__lesson:hover, .lessons__lesson:focus{
     background:#135a4d;
     border-color:#135a4d;
+}
+
+@media(max-width:800px){
+    .inner-container__text{
+        font-size: 1.1em;
+    }
+    .content__image > img {
+        width: 110px;
+    }
+    .lessons__lesson{
+        height: 60px;
+        font-size: 1.2em;
+    }
+    .lessons__lesson--closed::after{
+        width: 23px;
+        height: 23px;
+    }
+
+}
+@media(max-width:600px){
+    .inner-container__text{
+        font-size: 1em;
+    }
+    .content__image{
+        flex-basis:20%;
+        padding-right:10px;
+    }
+    .content__lessons{
+        flex-basis:40%;
+    }
+    .content__chart{
+        flex-basis:40%;
+    }
+    .content__image > img {
+        width: 85px;
+    }
+    .lessons__lesson{
+        height: 50px;
+        font-size: 1em;
+    }
+}
+@media(max-width:500px){
+    .inner-container__text{
+        font-size: 0.9em;
+    }
+    .content__image{
+        flex-basis: 40%;
+        padding-right:10px;
+    }
+    .content__lessons{
+        flex-basis: 60%;
+    }
+    .content__chart{
+        flex-basis:100%;
+    }
+    .content__image > img {
+        width: 85px;
+    }
+    .lessons__lesson{
+        height: 50px;
+        font-size: 1em;
+    }
+
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button } from 'antd';
 import 'antd/dist/antd.css';
 import './Lesson.css';
@@ -6,9 +6,34 @@ import './Lesson.css';
 type Props = {
   lesson: string,
   number: number,
+  open:boolean,
 };
-
-const Lesson = ({ lesson, number }: Props) => (
-  <Button type="primary" className="lessons__lesson">{lesson} {number}</Button>
-);
+const Lesson = ({ lesson, number, open }: Props) => {
+  const [levelOpen, setLevelOpen] = useState({});
+  const style = {
+    background: '#17B699',
+    filter: 'none',
+    animation: 'rotateLesson 2s 1',
+  };
+  console.log(open);
+  const openLesson = (event:any) => {
+    event.target.classList.remove('lessons__lesson--closed');
+    return setLevelOpen(style);
+  };
+  if (open) {
+    return (
+      <Button
+        type="primary"
+        className="lessons__lesson"
+        style={style}
+        onClick={(event: React.MouseEvent) => openLesson(event)}
+      >{lesson}
+        {number}
+      </Button>
+    );
+  }
+  return (
+    <Button type="primary" className="lessons__lesson lessons__lesson--closed" onClick={(event: React.MouseEvent) => openLesson(event)} style={levelOpen}>{lesson} {number} </Button>
+  );
+};
 export default Lesson;
