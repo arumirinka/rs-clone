@@ -25,22 +25,31 @@
 }
 .content__image{
     flex-basis:33%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
 }
 .content__image > img{
-    width: 140px;
+    width: 130px;
 }
 .content__lessons{
-    display:flex;
-    flex-direction: column;
     flex-basis:33%;
+    display:flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
 }
 .content__chart{
     flex-basis: 33%;
+    position: relative; 
+    height:30vh; 
+    width:30vw;
 }
 .lessons__lesson{
-    width: 150px;
-    height: fit-content;
-    margin-bottom:0.8em;
+    width: 41%;
+    height: 80px;
+    margin: 0 0.5em 0.5em 0;
+    font-size: 1.5em;
     font-size: 1.5em;
     font-weight: 800;
     -webkit-text-stroke: 1px #146455;

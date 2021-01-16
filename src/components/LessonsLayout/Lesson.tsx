@@ -7,6 +7,7 @@ type Props = {
   lesson: string,
   number: number,
 };
+
 const Lesson = ({ lesson, number }: Props) => (
   <Button type="primary" className="lessons__lesson">{lesson} {number}</Button>
 );

@@ -3,3 +3,7 @@
     border-radius: 15px;
     border-color: #146455;
 }
+.ant-btn-primary:hover, .ant-btn-primary:focus{
+    background:#135a4d;
+    border-color:#135a4d;
+}
