@@ -29,8 +29,17 @@
     justify-content: center;
     align-items: flex-start;
 }
-.content__image > img{
+.content__image > svg{
     width: 130px;
+}
+.svg__tail{
+    animation: moveTail 1.5s ease infinite;
+}
+.svg__ears{
+    animation: moveEar 1.5s ease infinite;
+}
+.svg__face{
+    animation: moveFace 1s ease infinite;
 }
 .content__lessons{
     flex-basis:33%;
@@ -77,12 +86,24 @@
     background:#135a4d;
     border-color:#135a4d;
 }
+@keyframes moveTail {
+    0% { transform: translate(0px, 0px); }
+    50% {  transform: translate(10px,0px);  }
+}
+@keyframes moveEar {
+    0% { transform: translate(0px, 0px); }
+    50% {  transform: translate(0px,-8px);  }
+}
+@keyframes moveFace{
+    0% { transform: rotate(0deg); }
+    50% {  transform: rotate(-1deg); }
+}
 
 @media(max-width:800px){
     .inner-container__text{
         font-size: 1.1em;
     }
-    .content__image > img {
+    .content__image > svg {
         width: 110px;
     }
     .lessons__lesson{
@@ -109,7 +130,7 @@
     .content__chart{
         flex-basis:40%;
     }
-    .content__image > img {
+    .content__image > svg {
         width: 85px;
     }
     .lessons__lesson{
@@ -131,12 +152,8 @@
     .content__chart{
         flex-basis:100%;
     }
-    .content__image > img {
-        width: 85px;
-    }
     .lessons__lesson{
         height: 50px;
         font-size: 1em;
     }
-
 }

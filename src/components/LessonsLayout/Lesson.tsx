@@ -18,8 +18,11 @@ const Lesson = ({ lesson, number, open }: Props) => {
   console.log(open);
   const openLesson = (event:any) => {
     event.target.classList.remove('lessons__lesson--closed');
+    /* eslint-disable no-param-reassign */
+    open = true;
     return setLevelOpen(style);
   };
+  console.log(open);
   if (open) {
     return (
       <Button
