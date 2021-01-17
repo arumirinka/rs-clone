@@ -20,7 +20,7 @@ const RegistrationFormInModal: React.FC = () => {
   return (
     <>
       <Button type="primary" onClick={showModal}>
-        Регистрация/ Вход
+        Войти
       </Button>
       <Modal
         title="Пожалуйста, войдите в аккаунт или зарегистрируйтесь"

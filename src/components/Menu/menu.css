@@ -1,0 +1,36 @@
+.ant-menu-item-selected a,
+.ant-menu-item-selected a:hover,
+.ant-menu-item a:hover {
+  color: #1c8673;
+}
+
+.ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
+  background-color: #e6ffec;
+}
+
+.ant-menu-item-selected {
+  color: #1c8673;
+}
+
+.ant-menu-vertical .ant-menu-item::after,
+.ant-menu-vertical-left .ant-menu-item::after,
+.ant-menu-vertical-right .ant-menu-item::after,
+.ant-menu-inline .ant-menu-item::after {
+    border-right: 3px solid #1c8673;
+}
+
+.ant-menu-item:hover,
+.ant-menu-item-active,
+.ant-menu:not(.ant-menu-inline) .ant-menu-submenu-open,
+.ant-menu-submenu-active,
+.ant-menu-submenu-title:hover {
+  color: #136052;
+}
+
+.ant-menu-dark.ant-menu-dark:not(.ant-menu-horizontal) .ant-menu-item-selected {
+  background-color: #136052;
+}
+
+.ant-switch-checked {
+  background-color: #1c8673;
+}
