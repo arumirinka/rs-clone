@@ -3,7 +3,6 @@ import KittyImg from './KittyImg';
 import Lesson from './Lesson';
 import PieChart from './PieChart';
 import './LessonsLayout.css';
-// import kitty from '../../assets/kittyWIthLaptop.svg';
 import '../../assets/lock.svg';
 import { lesson, lessonsText, chartLegend } from './lessonsTranslate';
 
@@ -20,7 +19,6 @@ const LessonsLayout: React.FC = () => {
         <div className="inner-container__content">
           <div className="content__image">
             <KittyImg />
-            {/* <img src={kitty} alt="kitty with laptop" /> */}
           </div>
           <div className="content__lessons">
             <Lesson lesson={lesson[0]} number={1} open />

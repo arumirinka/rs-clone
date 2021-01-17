@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
-import {
-  Modal, Button,
-} from 'antd';
+import { Modal } from 'antd';
 import 'antd/dist/antd.css';
-import './RegistrationForm.css';
-import RegistrationForm from './RegistrationForm';
+import './LanguagesLayout.css';
+import RegistrationForm from '../RegistrationForm/RegistrationForm';
+import '../RegistrationForm/RegistrationForm.css';
 
-const RegistrationFormInModal: React.FC = () => {
+type Props = {
+  language: string;
+};
+
+const LanguageButton = ({ language }: Props) => {
   const [visible, setVisible]: any[] = useState(false);
 
   const showModal = (): void => {
@@ -16,12 +19,11 @@ const RegistrationFormInModal: React.FC = () => {
   const handleCancel = () => {
     setVisible(false);
   };
-
   return (
     <>
-      <Button type="primary" onClick={showModal}>
-        Войти
-      </Button>
+      <button type="button" className="language__button" onClick={showModal}>
+        {language}
+      </button>
       <Modal
         title="Пожалуйста, войдите в аккаунт или зарегистрируйтесь"
         visible={visible}
@@ -33,5 +35,4 @@ const RegistrationFormInModal: React.FC = () => {
     </>
   );
 };
-
-export default RegistrationFormInModal;
+export default LanguageButton;

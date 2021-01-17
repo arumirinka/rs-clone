@@ -1,7 +1,4 @@
 import React, { useState } from 'react';
-import { Button } from 'antd';
-import 'antd/dist/antd.css';
-import './Lesson.css';
 
 type Props = {
   lesson: string,
@@ -25,18 +22,23 @@ const Lesson = ({ lesson, number, open }: Props) => {
   console.log(open);
   if (open) {
     return (
-      <Button
-        type="primary"
+      <button
+        type="button"
         className="lessons__lesson"
         style={style}
         onClick={(event: React.MouseEvent) => openLesson(event)}
-      >{lesson}
-        {number}
-      </Button>
+      >{lesson} {number}
+      </button>
     );
   }
   return (
-    <Button type="primary" className="lessons__lesson lessons__lesson--closed" onClick={(event: React.MouseEvent) => openLesson(event)} style={levelOpen}>{lesson} {number} </Button>
+    <button
+      type="button"
+      className="lessons__lesson lessons__lesson--closed"
+      onClick={(event: React.MouseEvent) => openLesson(event)}
+      style={levelOpen}
+    >{lesson} {number}
+    </button>
   );
 };
 export default Lesson;
