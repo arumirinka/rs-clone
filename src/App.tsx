@@ -6,6 +6,7 @@ import Header from './components/Header/Header';
 import Main from './pages/Main/Main';
 import StatsPage from './pages/StatsPage/StatsPage';
 import Footer from './components/Footer/Footer';
+import StepsLayout from './components/StepsLayout/StepsLayout';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Switch>
           <Route path="/" component={Main} exact />
           <Route path="/stats" component={StatsPage} exact />
+          <Route path="/steps" component={StepsLayout} exact />
         </Switch>
       </div>
       <Divider />

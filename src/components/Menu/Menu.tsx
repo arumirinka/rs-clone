@@ -1,12 +1,13 @@
 /* eslint-disable react/destructuring-assignment */
 import React from 'react';
 import 'antd/dist/antd.css';
+import './menu.css';
 import { Link } from 'react-router-dom';
 import { Menu, Switch } from 'antd';
 import { MailOutlined, CalendarOutlined } from '@ant-design/icons';
-import './menu.css';
 
 interface IProps {
+  onClick: any,
 }
 
 interface IState {
@@ -14,11 +15,11 @@ interface IState {
   current: string,
 }
 
-class Sider extends React.Component<IProps, IState> {
+class SideMenu extends React.Component<IProps, IState> {
   constructor(props: IProps) {
     super(props);
     this.state = {
-      theme: 'dark',
+      theme: 'light',
       current: '1',
     };
   }
@@ -33,6 +34,7 @@ class Sider extends React.Component<IProps, IState> {
     this.setState({
       current: e.key,
     });
+    this.props.onClick();
   };
 
   render() {
@@ -48,7 +50,7 @@ class Sider extends React.Component<IProps, IState> {
         <br />
         <Menu
           onClick={this.handleClick}
-          style={{ width: 256 }}
+          style={{ width: 200 }}
           selectedKeys={[this.state.current]}
           mode="inline"
           theme={this.state.theme}
@@ -69,4 +71,4 @@ class Sider extends React.Component<IProps, IState> {
   }
 }
 
-export default Sider;
+export default SideMenu;

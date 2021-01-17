@@ -1,7 +1,7 @@
 import React from 'react';
 import HelloWorld from '../../components/HelloWorld/HelloWorld';
 
-function StatsPage() {
+const StatsPage: React.FC = () => {
   const num: number = 2;
   return (
     <div className="stats">
@@ -27,6 +27,6 @@ function StatsPage() {
       </header>
     </div>
   );
-}
+};
 
 export default StatsPage;

@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import {
-  Menu, Dropdown, Button, message, Space,
+  Menu, Dropdown, Button, message, Space, Drawer,
 } from 'antd';
 import {
   DownOutlined, MenuOutlined, UserOutlined, SettingOutlined,
 } from '@ant-design/icons';
-import Sider from '../Menu/Menu';
-import ModalBtn from '../ModalBtn/ModalBtn';
+import SideMenu from '../Menu/Menu';
+import RegistrationFormInModal from '../RegistrationForm/RegistrationFormInModal';
+import Settings from '../Settings/Settings';
 import './header.css';
 
 function handleMenuClick(e: any) {
@@ -28,26 +29,52 @@ const menu = (
   </Menu>
 );
 
-const Header = () => {
-  const [menuOpen, setMenuOpen] = useState(false);
+const Header: React.FC = () => {
+  const [visibleMenu, setVisibleMenu] = useState(false);
+  const toggleMenu = () => {
+    setVisibleMenu(!visibleMenu);
+  };
+  const onCloseMenu = () => {
+    setVisibleMenu(false);
+  };
 
-  const handleBurgerClick = () => {
-    setMenuOpen(!menuOpen);
+  const [visibleSettings, setVisibleSettings] = useState(false);
+  const toggleSettings = () => {
+    setVisibleSettings(!visibleSettings);
+  };
+  const onCloseSettings = () => {
+    setVisibleSettings(false);
   };
 
   return (
     <div>
-      {menuOpen ? <Sider /> : null}
-      <Space wrap className="header-wrapper">
-        <MenuOutlined onClick={handleBurgerClick} />
+      <Drawer
+        placement="left"
+        closable={false}
+        onClose={onCloseMenu}
+        visible={visibleMenu}
+      >
+        <SideMenu onClick={toggleMenu} />
+      </Drawer>
+      <Space wrap>
+        <MenuOutlined onClick={toggleMenu} className="header__icon" />
         <Dropdown overlay={menu}>
           <Button>
             Choose Lang <DownOutlined />
           </Button>
         </Dropdown>
-        <ModalBtn />
-        <SettingOutlined />
+        <RegistrationFormInModal />
+        <SettingOutlined onClick={toggleSettings} className="header__icon" />
       </Space>
+      <Drawer
+        title="Settings"
+        placement="right"
+        closable={false}
+        onClose={onCloseSettings}
+        visible={visibleSettings}
+      >
+        <Settings />
+      </Drawer>
     </div>
   );
 };

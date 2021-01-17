@@ -1,4 +1,13 @@
-.header-wrapper {
-  position: relative;
-  z-index: 15;
+.ant-btn:hover, .ant-btn:focus {
+  color: #1c8673;
+  border-color: #1c8673;
+}
+
+.ant-btn-primary:hover, .ant-btn-primary:focus {
+  color: #ffffff;
+}
+
+.header__icon {
+  color: #135a4d;
+  font-size: 1.5rem;
 }

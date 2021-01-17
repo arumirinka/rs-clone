@@ -1,3 +1,11 @@
-.footer-img {
+.footer__img {
   height: 1.25rem;
+}
+
+.footer__link {
+  color: #336058;
+}
+
+.footer__link:hover {
+  color: #002d24;
 }
