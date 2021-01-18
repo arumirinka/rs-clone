@@ -26,6 +26,10 @@
   cursor: pointer;
 }
 
+.words__play-button:hover path {
+  fill: #1c8673;
+}
+
 @media (max-width: 768px) {
 
   .words__word {
