@@ -9,7 +9,7 @@ const KittySvg: React.FC = () => (
     version="1.1"
     viewBox="0 0 512.001 512.001"
     xmlSpace="preserve"
-    className="images__kitty"
+    className="svg__kitty"
   >
     <path
       fill="#EDA751"
