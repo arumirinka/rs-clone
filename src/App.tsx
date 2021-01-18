@@ -8,6 +8,7 @@ import StatsPage from './pages/StatsPage/StatsPage';
 import Footer from './components/Footer/Footer';
 import StepsLayout from './components/StepsLayout/StepsLayout';
 import LessonsLayout from './components/LessonsLayout/LessonsLayout';
+import ExercisesLayout from './components/Exercises/ExercisesLayout';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/stats" component={StatsPage} exact />
           <Route path="/steps" component={StepsLayout} exact />
           <Route path="/lessons" component={LessonsLayout} exact />
+          <Route path="/lessons/exercises" component={ExercisesLayout} exact />
         </Switch>
       </div>
       <Divider />
