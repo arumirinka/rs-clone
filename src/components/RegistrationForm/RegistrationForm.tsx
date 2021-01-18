@@ -1,14 +1,14 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-console */
 /* eslint-disable no-empty */
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import {
   Button, message, Form, Input, Checkbox,
 } from 'antd';
 import 'antd/dist/antd.css';
 import { GithubOutlined } from '@ant-design/icons';
 import { useHttp } from '../../hooks/http.hook';
-// import { AuthContext } from '../context/AuthContext';
-
+import { AuthContext } from '../../context/AuthContext';
 import './RegistrationForm.css';
 
 const layout = {
@@ -20,6 +20,7 @@ const tailLayout = {
 };
 
 const RegistrationForm: React.FC = () => {
+  const auth = useContext(AuthContext);
   const { loading, request } = useHttp();
   const [form, setForm] = useState({
     email: '',
@@ -46,7 +47,9 @@ const RegistrationForm: React.FC = () => {
   const loginHandler = async () => {
     try {
       const data = await request('/api/auth/login', 'POST', { ...form });
+      console.log(data);
       message.success(data.message);
+      auth.login(data.token, data.userId);
     } catch (e) {
       message.error(e.message);
     }
