@@ -14,9 +14,21 @@
   padding: 5px 10px;
 }
 
+.words__word {
+  max-width: 300px;
+  word-wrap: break-word;
+}
+
 .words__play-button {
   background: transparent;
   border: none;
   outline: none;
   cursor: pointer;
+}
+
+@media (max-width: 768px) {
+
+  .words__word {
+    max-width: 150px;
+  }
 }

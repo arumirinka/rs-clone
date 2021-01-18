@@ -40,14 +40,14 @@ const WordsList: React.FC = () => {
           {words.map((word:string[]) => (
             <tr key={word.toString()}>
               <td>
-                <div>{word[0]}</div>
+                <div className="words__word">{word[0]}</div>
               </td>
-              <td>
+              <td className="words__play-word">
                 <button className="words__play-button" type="button" onClick={() => handleWordClick(word[0])}>
                   <PlayCircleOutlined />
                 </button>
               </td>
-              <td>
+              <td className="words__word">
                 <div>{word[1]}</div>
               </td>
             </tr>
