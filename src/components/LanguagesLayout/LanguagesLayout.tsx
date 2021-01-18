@@ -9,8 +9,13 @@ const LanguagesLayout: React.FC = () => (
   <div className="main-container">
     <div className="main-container__inner-container">
       <div className="inner-container__images">
-        <KittyImg />
-        <BlaBlaImg />
+        <div className="images__logo">
+          CATalie wanna speak
+        </div>
+        <div className="images__svg">
+          <KittyImg />
+          <BlaBlaImg />
+        </div>
       </div>
       <div className="inner-container__content">
         <div className="content__text">
