@@ -9,7 +9,7 @@ import { lesson, lessonsText, chartLegend } from './lessonsTranslate';
 const LessonsLayout: React.FC = () => {
   /* eslint-disable @typescript-eslint/no-unused-vars */
   /* setChartValue - to update %  of completed lessons in chart => remove previous line */
-  const [chartValue, setChartValue] = useState(2);
+  const [chartValue, setChartValue] = useState(0);
   return (
     <div className="outer-container">
       <div className="outer-container__inner-container">
