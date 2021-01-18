@@ -1,10 +1,10 @@
-export const wordsListHeader: string [] = [
-  'Слова к уроку',
-  'Words for the Lesson',
-  'Worte für die Lektion',
-];
-export const practiseButtonText: string [] = [
-  'К упражнениям',
-  'Go practise',
-  'Üben',
-];
+export const wordsListHeader: { [key: string]: string } = {
+  russian: 'Слова к уроку',
+  english: 'Words for the Lesson',
+  german: 'Worte für die Lektion',
+};
+export const practiseButtonText: { [key: string]: string } = {
+  russian: 'К упражнениям',
+  english: 'Go practise',
+  german: 'Üben',
+};

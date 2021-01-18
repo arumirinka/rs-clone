@@ -33,7 +33,7 @@ const WordsList: React.FC = () => {
 
   return (
     <div className="words">
-      <h2 className="words__header">{wordsListHeader[0]}</h2>
+      <h2 className="words__header">{wordsListHeader[current.UI]}</h2>
       <table className="words__table">
         <thead />
         <tbody>
@@ -55,7 +55,7 @@ const WordsList: React.FC = () => {
         </tbody>
       </table>
       <Button type="primary">
-        {practiseButtonText[0]}
+        {practiseButtonText[current.UI]}
       </Button>
     </div>
   );
