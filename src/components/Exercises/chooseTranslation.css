@@ -5,6 +5,9 @@
     max-width:1200px;
     margin: 1em auto 0;
 }
+.chooseTranslation-container--disabled{
+    pointer-events: none;
+}
 .chooseTranslation-container__word{
     margin: 0 0 1em;
     font-size: 1.5em;
@@ -28,7 +31,26 @@
     font-size: 1.2em;
     cursor: pointer;
 }
+.buttons__translateBtn--disabled{
+    pointer-events: none;
+}
 .buttons__translateBtn:hover{
     background:#d5f6f0;
     transform: scale(1.1);
+}
+.buttons__translateBtn--wrong{
+    border-color: red;
+    background: #eaaeae;
+}
+.buttons__translateBtn--correct{
+    border-color: green;
+    background: #acecac;
+}
+.buttons__translateBtn--correct:hover{
+    border-color: green;
+    background: #acecac;
+}
+.buttons__translateBtn--wrong:hover{
+    border-color: red;
+    background: #eaaeae;
 }

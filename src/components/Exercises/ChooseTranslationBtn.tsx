@@ -5,21 +5,36 @@ type Props = {
   translationToCheck:string,
   currentProgress: number,
   updateProgress: any,
+  updateBtnStyle:any,
+
+  updateContinueBtn:any,
+  buttonsContainer:any
 };
 
 const chooseTranslationBtn = ({
-  translation, translationToCheck, currentProgress, updateProgress,
+  translation, translationToCheck,
+  currentProgress, updateProgress,
+  updateBtnStyle,
+  updateContinueBtn,
+  buttonsContainer,
 }:Props) => {
   const checkWord = (event:React.MouseEvent) => {
     const word:string | null = event.currentTarget.getAttribute('data-id');
-    console.log(word);
     if (word === translationToCheck) {
       updateProgress(currentProgress + 20);
-      alert(true);
+      event.currentTarget.classList.add('buttons__translateBtn--correct');
     } else {
-      alert(false);
       updateProgress(currentProgress);
+      event.currentTarget.classList.add('buttons__translateBtn--wrong');
     }
+    updateBtnStyle({ pointerEvents: 'all' });
+    updateContinueBtn({
+      pointerEvents: 'all',
+      transform: 'scale(1.2)',
+      boxShadow: '2px 2px 10px 2px #e3fa70',
+    });
+    const m = buttonsContainer;
+    m.current.style.pointerEvents = 'none';
   };
   return (
     <button
