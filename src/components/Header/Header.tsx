@@ -1,35 +1,54 @@
 import React, { useState } from 'react';
 import {
-  Menu, Dropdown, Button, message, Space, Drawer,
+  Menu, Dropdown, Button, Space, Drawer,
 } from 'antd';
-import {
-  DownOutlined, MenuOutlined, UserOutlined, SettingOutlined,
+import Icon, {
+  DownOutlined, MenuOutlined, SettingOutlined,
 } from '@ant-design/icons';
 import SideMenu from '../Menu/Menu';
 import RegistrationFormInModal from '../RegistrationForm/RegistrationFormInModal';
 import Settings from '../Settings/Settings';
 import './header.css';
+import { appLangConst } from '../../assets/appLangConst';
+import flag_RU from '../../assets/RU.svg';
+import flag_US from '../../assets/US.svg';
+import flag_DE from '../../assets/DE.svg';
 
-function handleMenuClick(e: any) {
-  message.info('Click on lang menu item.');
-  console.log('click', e);
-}
+type IProps = {
+  handleLangChange: any,
+  appLang: string
+};
 
-const menu = (
-  <Menu onClick={handleMenuClick}>
-    <Menu.Item key="ru" icon={<UserOutlined />}>
-      Русский
-    </Menu.Item>
-    <Menu.Item key="en" icon={<UserOutlined />}>
-      English
-    </Menu.Item>
-    <Menu.Item key="de" icon={<UserOutlined />}>
-      Deutsch
-    </Menu.Item>
-  </Menu>
-);
+let currLang = 'Русский';
 
-const Header: React.FC = () => {
+const Header: React.FC<IProps> = ({ handleLangChange, appLang }: IProps) => {
+  const handleLangMenuClick = (e: any) => {
+    if (e.key === 'russian') {
+      currLang = 'Русский';
+    }
+    if (e.key === 'english') {
+      currLang = 'English';
+    }
+    if (e.key === 'german') {
+      currLang = 'Deutsch';
+    }
+    handleLangChange(e.key);
+  };
+
+  const langMenu = (
+    <Menu onClick={handleLangMenuClick}>
+      <Menu.Item key="russian" icon={<Icon component={() => (<img src={flag_RU} alt="ru" className="lang-img" />)} />}>
+        Русский
+      </Menu.Item>
+      <Menu.Item key="english" icon={<Icon component={() => (<img src={flag_US} alt="ru" className="lang-img" />)} />}>
+        English
+      </Menu.Item>
+      <Menu.Item key="german" icon={<Icon component={() => (<img src={flag_DE} alt="ru" className="lang-img" />)} />}>
+        Deutsch
+      </Menu.Item>
+    </Menu>
+  );
+
   const [visibleMenu, setVisibleMenu] = useState(false);
   const toggleMenu = () => {
     setVisibleMenu(!visibleMenu);
@@ -46,6 +65,11 @@ const Header: React.FC = () => {
     setVisibleSettings(false);
   };
 
+  const [theme, setTheme] = useState('light');
+  const onChangeTheme = (value: any) => {
+    setTheme(value ? 'dark' : 'light');
+  };
+
   return (
     <div>
       <Drawer
@@ -53,21 +77,22 @@ const Header: React.FC = () => {
         closable={false}
         onClose={onCloseMenu}
         visible={visibleMenu}
+        className={(theme === 'light') ? 'drawer-light' : 'drawer-dark'}
       >
-        <SideMenu onClick={toggleMenu} />
+        <SideMenu onClick={toggleMenu} onChangeTheme={onChangeTheme} appLang={appLang} />
       </Drawer>
       <Space wrap>
         <MenuOutlined onClick={toggleMenu} className="header__icon" />
-        <Dropdown overlay={menu}>
+        <Dropdown overlay={langMenu}>
           <Button>
-            Choose Lang <DownOutlined />
+            {currLang} <DownOutlined />
           </Button>
         </Dropdown>
-        <RegistrationFormInModal />
+        <RegistrationFormInModal appLang={appLang} />
         <SettingOutlined onClick={toggleSettings} className="header__icon" />
       </Space>
       <Drawer
-        title="Settings"
+        title={appLangConst[appLang].settingsDrawerHeader}
         placement="right"
         closable={false}
         onClose={onCloseSettings}

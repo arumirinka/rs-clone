@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import { Route, withRouter, Switch } from 'react-router-dom';
 import { Divider } from 'antd';
@@ -10,14 +10,20 @@ import StepsLayout from './components/StepsLayout/StepsLayout';
 import LessonsLayout from './components/LessonsLayout/LessonsLayout';
 
 function App() {
+  const [appLang, setAppLang] = useState('russian');
+
+  const handleLangChange:any = (lang: string) => {
+    setAppLang(lang);
+  };
+
   return (
     <div className="App">
-      <Header />
+      <Header handleLangChange={handleLangChange} appLang={appLang} />
       <Divider />
       <div className="content-wrapper">
         <Switch>
           <Route path="/" component={Main} exact />
-          <Route path="/stats" component={StatsPage} exact />
+          <Route path="/stats" render={() => <StatsPage appLang={appLang} />} exact />
           <Route path="/steps" component={StepsLayout} exact />
           <Route path="/lessons" component={LessonsLayout} exact />
         </Switch>
