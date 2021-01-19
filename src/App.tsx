@@ -7,6 +7,7 @@ import Main from './pages/Main/Main';
 import StatsPage from './pages/StatsPage/StatsPage';
 import Footer from './components/Footer/Footer';
 import StepsLayout from './components/StepsLayout/StepsLayout';
+import WordsList from './components/WordsList/WordsList';
 import LessonsLayout from './components/LessonsLayout/LessonsLayout';
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
           <Route path="/" component={Main} exact />
           <Route path="/stats" component={StatsPage} exact />
           <Route path="/steps" component={StepsLayout} exact />
+          <Route path="/words" component={WordsList} exact />
           <Route path="/lessons" component={LessonsLayout} exact />
         </Switch>
       </div>
