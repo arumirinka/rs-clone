@@ -1,21 +1,20 @@
 import React from 'react';
 import './App.css';
-import { Route, withRouter, Switch } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { Divider } from 'antd';
 import { useAuth } from './hooks/auth.hook';
 import { AuthContext } from './context/AuthContext';
 import Header from './components/Header/Header';
-import Main from './pages/Main/Main';
-import StatsPage from './pages/StatsPage/StatsPage';
 import Footer from './components/Footer/Footer';
-import StepsLayout from './components/StepsLayout/StepsLayout';
-import LessonsLayout from './components/LessonsLayout/LessonsLayout';
+import { useRoutes } from './routes';
 
 function App() {
   const {
     token, login, logout, userId,
   } = useAuth();
   const isAuthenticated = !!token;
+  console.log(isAuthenticated);
+  const routes = useRoutes(isAuthenticated);
 
   return (
     <AuthContext.Provider
@@ -31,16 +30,10 @@ function App() {
         <Header />
         <Divider />
         <div className="content-wrapper">
-          <Switch>
-            <Route path="/" component={Main} exact />
-            <Route path="/stats" component={StatsPage} exact />
-            <Route path="/steps" component={StepsLayout} exact />
-            <Route path="/lessons" component={LessonsLayout} exact />
-          </Switch>
+          {routes}
         </div>
         <Divider />
         <Footer />
-
       </div>
     </AuthContext.Provider>
   );
