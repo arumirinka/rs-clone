@@ -40,10 +40,10 @@ const Header: React.FC<IProps> = ({ handleLangChange, appLang }: IProps) => {
       <Menu.Item key="russian" icon={<Icon component={() => (<img src={flag_RU} alt="ru" className="lang-img" />)} />}>
         Русский
       </Menu.Item>
-      <Menu.Item key="english" icon={<Icon component={() => (<img src={flag_US} alt="ru" className="lang-img" />)} />}>
+      <Menu.Item key="english" icon={<Icon component={() => (<img src={flag_US} alt="en" className="lang-img" />)} />}>
         English
       </Menu.Item>
-      <Menu.Item key="german" icon={<Icon component={() => (<img src={flag_DE} alt="ru" className="lang-img" />)} />}>
+      <Menu.Item key="german" icon={<Icon component={() => (<img src={flag_DE} alt="de" className="lang-img" />)} />}>
         Deutsch
       </Menu.Item>
     </Menu>
