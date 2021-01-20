@@ -1,14 +1,17 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import {
   Menu, Dropdown, Button, message, Space, Drawer,
 } from 'antd';
 import {
   DownOutlined, MenuOutlined, UserOutlined, SettingOutlined,
 } from '@ant-design/icons';
+import { useHistory } from 'react-router-dom';
 import SideMenu from '../Menu/Menu';
 import RegistrationFormInModal from '../RegistrationForm/RegistrationFormInModal';
 import Settings from '../Settings/Settings';
 import './header.css';
+import { useAuth } from '../../hooks/auth.hook';
+import { AuthContext } from '../../context/AuthContext';
 
 function handleMenuClick(e: any) {
   message.info('Click on lang menu item.');
@@ -46,6 +49,17 @@ const Header: React.FC = () => {
     setVisibleSettings(false);
   };
 
+  const { token } = useAuth();
+  const isAuthenticated = !!token;
+
+  const history = useHistory();
+  const auth = useContext(AuthContext);
+
+  const logoutHandler = () => {
+    auth.logout();
+    history.push('/');
+  };
+
   return (
     <div>
       <Drawer
@@ -57,13 +71,21 @@ const Header: React.FC = () => {
         <SideMenu onClick={toggleMenu} />
       </Drawer>
       <Space wrap>
+        {isAuthenticated && (
         <MenuOutlined onClick={toggleMenu} className="header__icon" />
+        )}
         <Dropdown overlay={menu}>
           <Button>
             Choose Lang <DownOutlined />
           </Button>
         </Dropdown>
-        <RegistrationFormInModal />
+        {!isAuthenticated && <RegistrationFormInModal />}
+        {isAuthenticated && (
+        <Button type="primary" htmlType="submit" onClick={logoutHandler}>
+          Выйти
+        </Button>
+        )}
+
         <SettingOutlined onClick={toggleSettings} className="header__icon" />
       </Space>
       <Drawer

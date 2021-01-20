@@ -29,9 +29,7 @@ function App() {
       <div className="App">
         <Header />
         <Divider />
-        <div className="content-wrapper">
-          {routes}
-        </div>
+        <div className="content-wrapper">{routes}</div>
         <Divider />
         <Footer />
       </div>

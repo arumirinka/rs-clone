@@ -4,7 +4,9 @@ import 'antd/dist/antd.css';
 import './menu.css';
 import { Link } from 'react-router-dom';
 import { Menu, Switch } from 'antd';
-import { MailOutlined, CalendarOutlined } from '@ant-design/icons';
+import {
+  MailOutlined, CalendarOutlined, ArrowUpOutlined, BarChartOutlined,
+} from '@ant-design/icons';
 
 interface IProps {
   onClick: any,
@@ -56,14 +58,16 @@ class SideMenu extends React.Component<IProps, IState> {
           theme={this.state.theme}
         >
           <Menu.Item key="1" icon={<MailOutlined />}>
-            <Link to="/">
-              Main
-            </Link>
+            <Link to="/">Main</Link>
           </Menu.Item>
-          <Menu.Item key="2" icon={<CalendarOutlined />}>
-            <Link to="/stats">
-              Stats
-            </Link>
+          <Menu.Item key="2" icon={<BarChartOutlined />}>
+            <Link to="/stats">Stats</Link>
+          </Menu.Item>
+          <Menu.Item key="3" icon={<ArrowUpOutlined />}>
+            <Link to="/steps">Steps</Link>
+          </Menu.Item>
+          <Menu.Item key="4" icon={<CalendarOutlined />}>
+            <Link to="/lessons">Lessons</Link>
           </Menu.Item>
         </Menu>
       </div>

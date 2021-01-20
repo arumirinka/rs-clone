@@ -72,8 +72,8 @@ const RegistrationForm: React.FC = () => {
       // onFinishFailed={onFinishFailed}
     >
       <Form.Item
-        label="Логин"
-        rules={[{ required: true, message: 'Пожалуйста, введите логин.' }]}
+        label="Email"
+        rules={[{ required: true, message: 'Некорректный email' }]}
       >
         <Input
           name="email"
@@ -85,7 +85,7 @@ const RegistrationForm: React.FC = () => {
 
       <Form.Item
         label="Пароль"
-        rules={[{ required: true, message: 'Пожалуйста, введите пароль.' }]}
+        rules={[{ required: true, message: 'Пароль должен содержать не менее 6 символов' }]}
       >
         <Input.Password
           name="password"
