@@ -12,7 +12,7 @@ let array = getRandomIndexes();
 type Props={
   randomWords:string[][]
 };
-const chooseTranslation = (randomWords:Props) => {
+const chooseTranslation:React.FC<Props> = (randomWords:Props) => {
   const [wordsArray, setWordsArray] = useState(randomWords.randomWords);
   const wordToCheck:any = wordsArray[0][0];
   const translationToCheck:string = wordsArray[0][1];
@@ -31,7 +31,7 @@ const chooseTranslation = (randomWords:Props) => {
   const showNewWords = ():void => {
     const n = wordsArray;
     const newWords = wordsArray
-      .slice(1, 5);
+      .slice(1, 10);
     newWords.push(n[0]);
     setWordsArray(newWords);
     array = getRandomIndexes();
@@ -46,50 +46,49 @@ const chooseTranslation = (randomWords:Props) => {
       button.classList.remove('buttons__translateBtn--correct', 'buttons__translateBtn--wrong');
     });
   };
-  console.log(btnStyle);
   return (
     <div className="chooseTranslation-container">
       <div className="exercises-container__progress-bar">
         <Progress percent={progress} showInfo={false} />
       </div>
       <div className="chooseTranslation-container__word">Выберите перевод для слова &quot;{wordToCheck}&quot;</div>
-      <div className="chooseTranslation-container__buttons" ref={buttonsContainer}>
+      <div className="chooseTranslation-container__buttons" ref={buttonsContainer} style={btnStyle}>
         <ChooseTranslationBtn
+          index={1}
           translation={wordsArray[array[0]][1]}
           translationToCheck={translationToCheck}
           currentProgress={progress}
           updateProgress={setProgress}
-          // btnStyle={btnStyle}
           updateBtnStyle={setBtnStyle}
           updateContinueBtn={setContinueBtnStyle}
           buttonsContainer={buttonsContainer}
         />
         <ChooseTranslationBtn
+          index={2}
           translation={wordsArray[array[1]][1]}
           translationToCheck={translationToCheck}
           currentProgress={progress}
           updateProgress={setProgress}
-          // btnStyle={btnStyle}
           updateBtnStyle={setBtnStyle}
           updateContinueBtn={setContinueBtnStyle}
           buttonsContainer={buttonsContainer}
         />
         <ChooseTranslationBtn
+          index={3}
           translation={wordsArray[array[2]][1]}
           translationToCheck={translationToCheck}
           currentProgress={progress}
           updateProgress={setProgress}
-          // btnStyle={btnStyle}
           updateBtnStyle={setBtnStyle}
           updateContinueBtn={setContinueBtnStyle}
           buttonsContainer={buttonsContainer}
         />
         <ChooseTranslationBtn
+          index={4}
           translation={wordsArray[array[3]][1]}
           translationToCheck={translationToCheck}
           currentProgress={progress}
           updateProgress={setProgress}
-          // btnStyle={btnStyle}
           updateBtnStyle={setBtnStyle}
           updateContinueBtn={setContinueBtnStyle}
           buttonsContainer={buttonsContainer}

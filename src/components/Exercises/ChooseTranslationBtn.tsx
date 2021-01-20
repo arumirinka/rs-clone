@@ -1,17 +1,18 @@
 import React from 'react';
 
 type Props = {
+  index:number,
   translation: string,
   translationToCheck:string,
   currentProgress: number,
   updateProgress: any,
   updateBtnStyle:any,
-
   updateContinueBtn:any,
   buttonsContainer:any
 };
 
 const chooseTranslationBtn = ({
+  index,
   translation, translationToCheck,
   currentProgress, updateProgress,
   updateBtnStyle,
@@ -21,12 +22,12 @@ const chooseTranslationBtn = ({
   const checkWord = (event:React.MouseEvent) => {
     const word:string | null = event.currentTarget.getAttribute('data-id');
     if (word === translationToCheck) {
-      updateProgress(currentProgress + 20);
       event.currentTarget.classList.add('buttons__translateBtn--correct');
     } else {
-      updateProgress(currentProgress);
       event.currentTarget.classList.add('buttons__translateBtn--wrong');
     }
+
+    updateProgress(currentProgress + 10);
     updateBtnStyle({ pointerEvents: 'all' });
     updateContinueBtn({
       pointerEvents: 'all',
@@ -43,7 +44,7 @@ const chooseTranslationBtn = ({
       data-id={translation}
       onClick={(event) => checkWord(event)}
     >
-      {translation}
+      {index}. {translation}
     </button>
   );
 };
