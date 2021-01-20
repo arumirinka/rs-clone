@@ -55,12 +55,12 @@ const RegistrationForm: React.FC = () => {
     }
   };
 
-  // const onFinish = (values: any) => {
-  //   console.log('Success:', values);
-  // };
-  // const onFinishFailed = (errorInfo: any) => {
-  //   console.log('Failed:', errorInfo);
-  // };
+  const onFinish = (values: any) => {
+    console.log('Success:', values);
+  };
+  const onFinishFailed = (errorInfo: any) => {
+    console.log('Failed:', errorInfo);
+  };
 
   return (
     <Form
@@ -68,12 +68,22 @@ const RegistrationForm: React.FC = () => {
       {...layout}
       name="basic"
       initialValues={{ remember: true }}
-      // onFinish={onFinish}
-      // onFinishFailed={onFinishFailed}
+      onFinish={onFinish}
+      onFinishFailed={onFinishFailed}
     >
       <Form.Item
         label="Email"
-        rules={[{ required: true, message: 'Некорректный email' }]}
+        rules={[
+          {
+            type: 'email',
+            message: 'Некорректный email',
+          },
+          {
+            required: true,
+            message: 'Введите email!',
+          },
+        ]}
+        name="email"
       >
         <Input
           name="email"
@@ -85,7 +95,8 @@ const RegistrationForm: React.FC = () => {
 
       <Form.Item
         label="Пароль"
-        rules={[{ required: true, message: 'Пароль должен содержать не менее 6 символов' }]}
+        rules={[{ min: 6, message: 'Не менее 6 символов' }]}
+        name="password"
       >
         <Input.Password
           name="password"
@@ -93,10 +104,6 @@ const RegistrationForm: React.FC = () => {
           value={form.password}
           onChange={changeHandler}
         />
-      </Form.Item>
-
-      <Form.Item {...tailLayout} name="remember" valuePropName="checked">
-        <Checkbox>Запомнить меня</Checkbox>
       </Form.Item>
 
       <div className="sign-in-wrapper">

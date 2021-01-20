@@ -27,7 +27,8 @@ function App() {
       }}
     >
       <div className="App">
-        <Header />
+        {isAuthenticated && <Header />}
+        {!isAuthenticated && <Header />}
         <Divider />
         <div className="content-wrapper">{routes}</div>
         <Divider />

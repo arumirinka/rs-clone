@@ -10,7 +10,7 @@ export const useRoutes = (isAuthenticated: boolean) => {
   if (isAuthenticated) {
     return (
       <Switch>
-        {/* <Route path="/" component={Main} exact /> */}
+        <Route path="/" component={Main} exact />
         <Route path="/stats" component={StatsPage} exact />
         <Route path="/steps" component={StepsLayout} exact />
         <Route path="/lessons" component={LessonsLayout} exact />
