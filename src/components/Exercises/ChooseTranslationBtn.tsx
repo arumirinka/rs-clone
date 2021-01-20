@@ -8,7 +8,9 @@ type Props = {
   updateProgress: any,
   updateBtnStyle:any,
   updateContinueBtn:any,
-  buttonsContainer:any
+  buttonsContainer:any,
+  points:number,
+  setPoints:any,
 };
 
 const chooseTranslationBtn = ({
@@ -18,11 +20,13 @@ const chooseTranslationBtn = ({
   updateBtnStyle,
   updateContinueBtn,
   buttonsContainer,
+  points, setPoints,
 }:Props) => {
   const checkWord = (event:React.MouseEvent) => {
     const word:string | null = event.currentTarget.getAttribute('data-id');
     if (word === translationToCheck) {
       event.currentTarget.classList.add('buttons__translateBtn--correct');
+      setPoints(points + 10);
     } else {
       event.currentTarget.classList.add('buttons__translateBtn--wrong');
     }

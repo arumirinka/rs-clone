@@ -13,6 +13,7 @@ type Props={
   randomWords:string[][]
 };
 const chooseTranslation:React.FC<Props> = (randomWords:Props) => {
+  const [points, setPoints] = useState(0);
   const [wordsArray, setWordsArray] = useState(randomWords.randomWords);
   const wordToCheck:any = wordsArray[0][0];
   const translationToCheck:string = wordsArray[0][1];
@@ -29,6 +30,9 @@ const chooseTranslation:React.FC<Props> = (randomWords:Props) => {
   const buttonsContainer = useRef<HTMLDivElement>(null!);
   const [continueBtnStyle, setContinueBtnStyle] = useState(continueBtnStyles);
   const showNewWords = ():void => {
+    if (progress === 100) {
+      alert('Конец! Баллы за урок:{points / 100}, проценты:{(points / 6).toFixed(2)}');
+    }
     const n = wordsArray;
     const newWords = wordsArray
       .slice(1, 10);
@@ -62,6 +66,8 @@ const chooseTranslation:React.FC<Props> = (randomWords:Props) => {
           updateBtnStyle={setBtnStyle}
           updateContinueBtn={setContinueBtnStyle}
           buttonsContainer={buttonsContainer}
+          points={points}
+          setPoints={setPoints}
         />
         <ChooseTranslationBtn
           index={2}
@@ -72,6 +78,8 @@ const chooseTranslation:React.FC<Props> = (randomWords:Props) => {
           updateBtnStyle={setBtnStyle}
           updateContinueBtn={setContinueBtnStyle}
           buttonsContainer={buttonsContainer}
+          points={points}
+          setPoints={setPoints}
         />
         <ChooseTranslationBtn
           index={3}
@@ -82,6 +90,8 @@ const chooseTranslation:React.FC<Props> = (randomWords:Props) => {
           updateBtnStyle={setBtnStyle}
           updateContinueBtn={setContinueBtnStyle}
           buttonsContainer={buttonsContainer}
+          points={points}
+          setPoints={setPoints}
         />
         <ChooseTranslationBtn
           index={4}
@@ -92,6 +102,8 @@ const chooseTranslation:React.FC<Props> = (randomWords:Props) => {
           updateBtnStyle={setBtnStyle}
           updateContinueBtn={setContinueBtnStyle}
           buttonsContainer={buttonsContainer}
+          points={points}
+          setPoints={setPoints}
         />
       </div>
       <Button
