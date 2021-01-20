@@ -1,7 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { Button, Progress } from 'antd';
 import CSS from 'csstype';
-import content from '../../content.json';
 import ChooseTranslationBtn from './ChooseTranslationBtn';
 import './chooseTranslation.css';
 
@@ -10,28 +9,12 @@ const getRandomIndexes = ():number[] => {
   return arr.sort(() => 0.5 - Math.random());
 };
 let array = getRandomIndexes();
-
-const chooseTranslation = () => {
-  const theContent:any = content;
-  interface Lesson {
-    UI:string;
-    learning:string;
-    level:number;
-    lesson:number;
-  }
-  const current:Lesson = {
-    UI: 'russian',
-    learning: 'english',
-    level: 1,
-    lesson: 1,
-  };
-  const { words } = theContent[current.UI][current.learning][`level${current.level}`][`lesson${current.lesson}`];
-
-  const randomWords:string[][] = words
-    .sort(() => 0.5 - Math.random())
-    .slice(0, 4);
-  const [wordsArray, setWordsArray] = useState(randomWords);
-  const wordToCheck:string = wordsArray[0][0];
+type Props={
+  randomWords:string[][]
+};
+const chooseTranslation = (randomWords:Props) => {
+  const [wordsArray, setWordsArray] = useState(randomWords.randomWords);
+  const wordToCheck:any = wordsArray[0][0];
   const translationToCheck:string = wordsArray[0][1];
 
   const [progress, setProgress] = useState(0);
@@ -46,9 +29,10 @@ const chooseTranslation = () => {
   const buttonsContainer = useRef<HTMLDivElement>(null!);
   const [continueBtnStyle, setContinueBtnStyle] = useState(continueBtnStyles);
   const showNewWords = ():void => {
-    const newWords = words
-      .sort(() => 0.5 - Math.random())
-      .slice(0, 4);
+    const n = wordsArray;
+    const newWords = wordsArray
+      .slice(1, 5);
+    newWords.push(n[0]);
     setWordsArray(newWords);
     array = getRandomIndexes();
     setContinueBtnStyle({
