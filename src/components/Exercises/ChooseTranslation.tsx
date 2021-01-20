@@ -12,6 +12,7 @@ let array = getRandomIndexes();
 type Props={
   randomWords:string[][]
 };
+let showNewWords:() => void;
 const chooseTranslation:React.FC<Props> = (randomWords:Props) => {
   const [points, setPoints] = useState(0);
   const [wordsArray, setWordsArray] = useState(randomWords.randomWords);
@@ -29,9 +30,9 @@ const chooseTranslation:React.FC<Props> = (randomWords:Props) => {
   };
   const buttonsContainer = useRef<HTMLDivElement>(null!);
   const [continueBtnStyle, setContinueBtnStyle] = useState(continueBtnStyles);
-  const showNewWords = ():void => {
+  showNewWords = () => {
     if (progress === 100) {
-      alert('Конец! Баллы за урок:{points / 100}, проценты:{(points / 6).toFixed(2)}');
+      alert(`Конец! Баллы за урок:${points}, проценты:${(points / 6).toFixed(2)}`);
     }
     const n = wordsArray;
     const newWords = wordsArray
@@ -117,3 +118,8 @@ const chooseTranslation:React.FC<Props> = (randomWords:Props) => {
   );
 };
 export default chooseTranslation;
+window.addEventListener('keypress', (event) => {
+  if (event.key === 'Enter') {
+    showNewWords();
+  }
+});

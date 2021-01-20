@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 
 type Props = {
   index:number,
@@ -12,8 +12,8 @@ type Props = {
   points:number,
   setPoints:any,
 };
-
-const chooseTranslationBtn = ({
+let checkWord:(event:any)=>void;
+const ChooseTranslationBtn:React.FC<Props> = ({
   index,
   translation, translationToCheck,
   currentProgress, updateProgress,
@@ -22,15 +22,24 @@ const chooseTranslationBtn = ({
   buttonsContainer,
   points, setPoints,
 }:Props) => {
-  const checkWord = (event:React.MouseEvent) => {
-    const word:string | null = event.currentTarget.getAttribute('data-id');
+  const btn = useRef<HTMLButtonElement>(null!);
+  checkWord = (event:any) => {
+    let currentButton;
+    if (event.type !== 'click') {
+      const pressedButton:any[] = Array.from(buttonsContainer.current.children).filter(
+        (child:any) => child.dataset.index === event.key,
+      );
+      [currentButton] = pressedButton;
+    } else {
+      currentButton = event.currentTarget;
+    }
+    const word:string | null = currentButton.getAttribute('data-id');
     if (word === translationToCheck) {
-      event.currentTarget.classList.add('buttons__translateBtn--correct');
+      currentButton.classList.add('buttons__translateBtn--correct');
       setPoints(points + 10);
     } else {
-      event.currentTarget.classList.add('buttons__translateBtn--wrong');
+      currentButton.classList.add('buttons__translateBtn--wrong');
     }
-
     updateProgress(currentProgress + 10);
     updateBtnStyle({ pointerEvents: 'all' });
     updateContinueBtn({
@@ -46,10 +55,17 @@ const chooseTranslationBtn = ({
       type="button"
       className="buttons__translateBtn"
       data-id={translation}
+      data-index={index}
       onClick={(event) => checkWord(event)}
+      ref={btn}
     >
       {index}. {translation}
     </button>
   );
 };
-export default chooseTranslationBtn;
+export default ChooseTranslationBtn;
+window.addEventListener('keypress', (event) => {
+  if (event.key === '1' || event.key === '2' || event.key === '3' || event.key === '4') {
+    checkWord(event);
+  }
+});
