@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import content from '../../content.json';
 import './MatchWords.css';
 import voiceLanguage from './voiceLanguage';
@@ -50,6 +50,13 @@ const WordsList: React.FC = () => {
     }
   }, [picked.size]);
 
+  const audioRef:any = useRef(null);
+
+  function playSound(url: string) {
+    audioRef.current.src = url;
+    audioRef.current.play();
+  }
+
   function buttonClickHandler(evt: any) {
     const button = evt.target;
     const isOriginal = words.some((pair: string[]) => pair[0] === button.innerText);
@@ -64,12 +71,15 @@ const WordsList: React.FC = () => {
     } else {
       const wordPair = words.find((pair: string[]) => pair.includes(prev.target.innerText));
       if (wordPair.includes(button.innerText)) {
+        const CORRECT_URL = './sounds/correct.mp3';
+        playSound(CORRECT_URL);
         button.classList.add('match-words__word--picked');
         setPicked(() => picked.add(button.innerText));
         setPrev(null);
         button.disabled = true;
       } else {
-        console.log('This is wrong');
+        const ERROR_URL = './sounds/error.mp3';
+        playSound(ERROR_URL);
         prev.target.classList.remove('match-words__word--picked');
         prev.target.disabled = false;
         setPrev(null);
@@ -83,6 +93,9 @@ const WordsList: React.FC = () => {
       <div className="match-words__words-container">
         {currentWords.map((word: string) => <button className="match-words__word" type="button" key={word.toString()} onClick={(evt) => buttonClickHandler(evt)}>{word}</button>)}
       </div>
+      <audio ref={audioRef}>
+        <track kind="captions" />
+      </audio>
     </div>
   );
 };
