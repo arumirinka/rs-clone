@@ -3,6 +3,7 @@ import './MatchWords.css';
 import { Button } from 'antd';
 import content from '../../content.json';
 import voiceLanguage from './voiceLanguage';
+import { matchWordsHeader, nextButtonText } from './matchWordsTranslate';
 
 const WordsList: React.FC = () => {
   const [picked, setPicked] = useState(new Set(''));
@@ -93,11 +94,11 @@ const WordsList: React.FC = () => {
 
   return (
     <div className="match-words">
-      <h2>Match words and translations</h2>
+      <h2>{matchWordsHeader[current.UI]}</h2>
       <div className="match-words__words-container">
         {currentWords.map((word: string) => <button className="match-words__word" type="button" key={word.toString()} onClick={(evt) => buttonClickHandler(evt)}>{word}</button>)}
       </div>
-      <Button ref={nextButtonRef} className="match-word__next-button match-word__next-button--hidden" type="primary" disabled>Next</Button>
+      <Button ref={nextButtonRef} className="match-word__next-button match-word__next-button--hidden" type="primary" disabled>{nextButtonText[current.UI]}</Button>
       <audio ref={audioRef}>
         <track kind="captions" />
       </audio>
