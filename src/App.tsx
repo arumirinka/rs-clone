@@ -9,6 +9,7 @@ import Footer from './components/Footer/Footer';
 import StepsLayout from './components/StepsLayout/StepsLayout';
 import WordsList from './components/WordsList/WordsList';
 import LessonsLayout from './components/LessonsLayout/LessonsLayout';
+import MatchWords from './components/MatchWords/MatchWords';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path="/steps" component={StepsLayout} exact />
           <Route path="/words" component={WordsList} exact />
           <Route path="/lessons" component={LessonsLayout} exact />
+          <Route path="/match-words" component={MatchWords} exact />
         </Switch>
       </div>
       <Divider />
