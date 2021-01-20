@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
-import content from '../../content.json';
 import './MatchWords.css';
+import { Button } from 'antd';
+import content from '../../content.json';
 import voiceLanguage from './voiceLanguage';
 
 const WordsList: React.FC = () => {
@@ -44,9 +45,12 @@ const WordsList: React.FC = () => {
 
   const [prev, setPrev]: [any, any] = useState(null);
 
+  const nextButtonRef:any = useRef(null);
+
   useEffect(() => {
     if (picked.size === currentWords.length) {
-      console.log('You won');
+      nextButtonRef.current.disabled = false;
+      nextButtonRef.current.classList.remove('match-word__next-button--hidden');
     }
   }, [picked.size]);
 
@@ -93,6 +97,7 @@ const WordsList: React.FC = () => {
       <div className="match-words__words-container">
         {currentWords.map((word: string) => <button className="match-words__word" type="button" key={word.toString()} onClick={(evt) => buttonClickHandler(evt)}>{word}</button>)}
       </div>
+      <Button ref={nextButtonRef} className="match-word__next-button match-word__next-button--hidden" type="primary" disabled>Next</Button>
       <audio ref={audioRef}>
         <track kind="captions" />
       </audio>

@@ -1,5 +1,5 @@
 .match-words__words-container {
-  margin: 0 auto;
+  margin: 0 auto 20px;
   max-width: 600px;
 }
 
@@ -13,4 +13,8 @@
 
 .match-words__word--picked {
   background: #00ff00;
+}
+
+.match-word__next-button--hidden {
+  visibility: hidden;
 }
