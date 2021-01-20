@@ -50,6 +50,12 @@ const ChooseTranslationBtn:React.FC<Props> = ({
     const m = buttonsContainer;
     m.current.style.pointerEvents = 'none';
   };
+  window.addEventListener('keypress', (event) => {
+    if ((buttonsContainer.current.style.pointerEvents !== 'none')
+    && (event.key === '1' || event.key === '2' || event.key === '3' || event.key === '4')) {
+      checkWord(event);
+    }
+  });
   return (
     <button
       type="button"
@@ -64,8 +70,3 @@ const ChooseTranslationBtn:React.FC<Props> = ({
   );
 };
 export default ChooseTranslationBtn;
-window.addEventListener('keypress', (event) => {
-  if (event.key === '1' || event.key === '2' || event.key === '3' || event.key === '4') {
-    checkWord(event);
-  }
-});
