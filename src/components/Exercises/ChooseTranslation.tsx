@@ -39,10 +39,9 @@ const chooseTranslation = (randomWords:Props) => {
       while (parent!.firstChild) { parent!.firstChild.remove(); }
       showModal();
     }
-    const n = wordsArray;
     const newWords = wordsArray
       .slice(1, 10);
-    newWords.push(n[0]);
+    newWords.push(wordsArray[0]);
     setWordsArray(newWords);
     randomNumbersArray = getRandomNumbers();
     setContinueBtnStyle({
@@ -53,7 +52,7 @@ const chooseTranslation = (randomWords:Props) => {
     buttonsContainer.current.style.pointerEvents = 'all';
     const buttons = Array.from(buttonsContainer.current.children);
     buttons.forEach((button) => {
-      button.classList.remove('buttons__translateBtn--correct', 'buttons__translateBtn--wrong');
+      button.classList.remove('buttons__translateBtn--correct', 'buttons__translateBtn--wrong', 'buttons__translateBtn--bigger');
     });
   };
   window.addEventListener('keypress', (event) => {

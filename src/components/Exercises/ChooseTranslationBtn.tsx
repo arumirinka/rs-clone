@@ -25,6 +25,7 @@ const ChooseTranslationBtn:React.FC<Props> = ({
   const translationButton = useRef<HTMLButtonElement>(null!);
   checkWord = (event:any) => {
     let currentButton;
+    let audioPath:string;
     if (event.type !== 'click') {
       const pressedButton:any[] = Array.from(buttonsContainer.current.children).filter(
         (child:any) => child.dataset.index === event.key,
@@ -37,9 +38,20 @@ const ChooseTranslationBtn:React.FC<Props> = ({
     if (word === translationToCheck) {
       currentButton.classList.add('buttons__translateBtn--correct');
       setPoints(points + 10);
+      audioPath = 'https://notificationsounds.com/storage/sounds/file-sounds-1151-swiftly.mp3';
     } else {
       currentButton.classList.add('buttons__translateBtn--wrong');
+      const correctButton:any[] = Array.from(buttonsContainer.current.children).filter(
+        (child:any) => child.dataset.id === translationToCheck,
+      );
+      console.log(correctButton);
+      const [correctBtn] = correctButton;
+      setTimeout(() => correctBtn.classList.add('buttons__translateBtn--correct', 'buttons__translateBtn--bigger'),
+        100);
+      audioPath = 'https://notificationsounds.com/storage/sounds/file-sounds-1114-unsure.mp3';
     }
+    const audio = new Audio(audioPath);
+    audio.play();
     updateProgress(currentProgress + 10);
     updateBtnStyle({ pointerEvents: 'all' });
     updateContinueBtn({

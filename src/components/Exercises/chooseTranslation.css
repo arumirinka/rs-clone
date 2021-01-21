@@ -64,6 +64,14 @@
     border-color: green;
     background: #acecac;
 }
+.buttons__translateBtn--bigger{
+    animation:btnAnimation 0.5s 1 ease;
+}
+@keyframes btnAnimation{
+    0% { transform: rotateZ(5deg); }
+    50% {transform: rotateZ(-5deg);}
+    100% { transform: rotateZ(5deg); }    
+}
 .buttons__translateBtn--correct:hover{
     border-color: green;
     background: #acecac;
