@@ -11,3 +11,20 @@
   color: #135a4d;
   font-size: 1.5rem;
 }
+
+.drawer-dark .ant-drawer-content {
+  background-color: #135a4d;
+}
+
+.drawer-light .ant-drawer-content {
+  background-color: #ffffff;
+}
+
+.lang-img {
+  width: 24px;
+}
+
+.ant-dropdown-menu-item {
+  display: flex;
+  align-items: center;
+}

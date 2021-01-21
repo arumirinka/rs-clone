@@ -5,8 +5,13 @@ import {
 import 'antd/dist/antd.css';
 import './RegistrationForm.css';
 import RegistrationForm from './RegistrationForm';
+import { appLangConst } from '../../assets/appLangConst';
 
-const RegistrationFormInModal: React.FC = () => {
+interface IProps {
+  appLang: string
+}
+
+const RegistrationFormInModal: React.FC<IProps> = ({ appLang }: IProps) => {
   const [visible, setVisible]: any[] = useState(false);
 
   const showModal = (): void => {
@@ -20,10 +25,10 @@ const RegistrationFormInModal: React.FC = () => {
   return (
     <>
       <Button type="primary" onClick={showModal}>
-        Войти
+        {appLangConst[appLang].login}
       </Button>
       <Modal
-        title="Пожалуйста, войдите в аккаунт или зарегистрируйтесь"
+        title={appLangConst[appLang].plzLogin}
         visible={visible}
         onCancel={handleCancel}
         footer={null}
