@@ -46,7 +46,11 @@ const RegistrationForm: React.FC = () => {
 
   const loginHandler = async () => {
     try {
-      const data = await request('/api/auth/login', 'POST', { ...form });
+      const data = await request(
+        '/api/auth/login',
+        'POST',
+        { ...form },
+      );
       console.log(data);
       message.success(data.message);
       auth.login(data.token, data.userId);
