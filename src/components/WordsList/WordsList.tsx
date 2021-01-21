@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { PlayCircleOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
 import content from '../../content.json';
@@ -54,9 +55,11 @@ const WordsList: React.FC = () => {
           ))}
         </tbody>
       </table>
-      <Button type="primary">
-        {practiseButtonText[current.UI]}
-      </Button>
+      <Link to="/lessons/exercises">
+        <Button type="primary">
+          {practiseButtonText[current.UI]}
+        </Button>
+      </Link>
     </div>
   );
 };
