@@ -1,13 +1,20 @@
 import React from 'react';
 import HelloWorld from '../../components/HelloWorld/HelloWorld';
 
-const StatsPage: React.FC = () => {
+interface IProps {
+  appLang: string
+}
+
+const StatsPage: React.FC<IProps> = ({ appLang }: IProps) => {
   const num: number = 2;
   return (
     <div className="stats">
       <header className="stats-header">
         <p>
           This is going to be the statistics page!
+        </p>
+        <p>
+          This is the appLang: {appLang}!
         </p>
         <p>
           This is the way to print variables inside jsx/tsx.
