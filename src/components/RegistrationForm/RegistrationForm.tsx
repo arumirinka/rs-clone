@@ -1,9 +1,6 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable no-console */
-/* eslint-disable no-empty */
 import React, { useContext, useState } from 'react';
 import {
-  Button, message, Form, Input, Checkbox,
+  Button, message, Form, Input,
 } from 'antd';
 import 'antd/dist/antd.css';
 import { GithubOutlined } from '@ant-design/icons';
@@ -51,19 +48,11 @@ const RegistrationForm: React.FC = () => {
         'POST',
         { ...form },
       );
-      console.log(data);
       message.success(data.message);
       auth.login(data.token, data.userId);
     } catch (e) {
       message.error(e.message);
     }
-  };
-
-  const onFinish = (values: any) => {
-    console.log('Success:', values);
-  };
-  const onFinishFailed = (errorInfo: any) => {
-    console.log('Failed:', errorInfo);
   };
 
   return (
@@ -72,8 +61,6 @@ const RegistrationForm: React.FC = () => {
       {...layout}
       name="basic"
       initialValues={{ remember: true }}
-      onFinish={onFinish}
-      onFinishFailed={onFinishFailed}
     >
       <Form.Item
         label="Email"
@@ -99,7 +86,15 @@ const RegistrationForm: React.FC = () => {
 
       <Form.Item
         label="Пароль"
-        rules={[{ min: 6, message: 'Не менее 6 символов' }]}
+        rules={[
+          {
+            min: 6, message: 'Не менее 6 символов',
+          },
+          {
+            required: true,
+            message: 'Введите пароль!',
+          },
+        ]}
         name="password"
       >
         <Input.Password
