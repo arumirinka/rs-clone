@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import { Button, Progress } from 'antd';
 import CSS from 'csstype';
 import ChooseTranslationBtn from './ChooseTranslationBtn';
+import EndOfExerciseModal from './EndOfExerciseModal';
 import './chooseTranslation.css';
 
 const getRandomNumbers = ():number[] => {
@@ -28,11 +29,15 @@ const chooseTranslation = (randomWords:Props) => {
   const [continueBtnStyle, setContinueBtnStyle] = useState<CSS.Properties>({
     pointerEvents: 'none',
   });
+  const [visible, setVisible]: any[] = useState(false);
+  const showModal = (): void => {
+    setVisible(true);
+  };
   showNewWords = () => {
     if (progress === 100) {
       const parent = buttonsContainer.current.parentNode;
       while (parent!.firstChild) { parent!.firstChild.remove(); }
-      alert(`Конец! Баллы за урок:${points}, проценты:${(points / 6).toFixed(2)}`);
+      showModal();
     }
     const n = wordsArray;
     const newWords = wordsArray
@@ -107,6 +112,10 @@ const chooseTranslation = (randomWords:Props) => {
           setPoints={setPoints}
         />
       </div>
+      <EndOfExerciseModal
+        visible={visible}
+        points={points}
+      />
       <Button
         type="primary"
         htmlType="submit"
