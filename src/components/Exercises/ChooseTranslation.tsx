@@ -56,6 +56,11 @@ const chooseTranslation = (randomWords:Props) => {
       button.classList.remove('buttons__translateBtn--correct', 'buttons__translateBtn--wrong');
     });
   };
+  window.addEventListener('keypress', (event) => {
+    if (event.key === 'Enter' && buttonsContainer.current.style.pointerEvents === 'none') {
+      showNewWords();
+    }
+  });
   return (
     <div className="chooseTranslation-container">
       <div className="exercises-container__progress-bar">
@@ -127,8 +132,3 @@ const chooseTranslation = (randomWords:Props) => {
   );
 };
 export default chooseTranslation;
-window.addEventListener('keypress', (event) => {
-  if (event.key === 'Enter') {
-    showNewWords();
-  }
-});
