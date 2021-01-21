@@ -22,7 +22,7 @@ const ChooseTranslationBtn:React.FC<Props> = ({
   buttonsContainer,
   points, setPoints,
 }:Props) => {
-  const btn = useRef<HTMLButtonElement>(null!);
+  const translationButton = useRef<HTMLButtonElement>(null!);
   checkWord = (event:any) => {
     let currentButton;
     if (event.type !== 'click') {
@@ -63,7 +63,7 @@ const ChooseTranslationBtn:React.FC<Props> = ({
       data-id={translation}
       data-index={index}
       onClick={(event) => checkWord(event)}
-      ref={btn}
+      ref={translationButton}
     >
       {index}. {translation}
     </button>

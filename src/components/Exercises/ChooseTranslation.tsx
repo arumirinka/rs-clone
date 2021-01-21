@@ -4,16 +4,16 @@ import CSS from 'csstype';
 import ChooseTranslationBtn from './ChooseTranslationBtn';
 import './chooseTranslation.css';
 
-const getRandomIndexes = ():number[] => {
+const getRandomNumbers = ():number[] => {
   const arr:number[] = [0, 1, 2, 3];
   return arr.sort(() => 0.5 - Math.random());
 };
-let array = getRandomIndexes();
+let randomNumbersArray = getRandomNumbers();
 type Props={
   randomWords:string[][]
 };
 let showNewWords:() => void;
-const chooseTranslation:React.FC<Props> = (randomWords:Props) => {
+const chooseTranslation = (randomWords:Props) => {
   const [points, setPoints] = useState(0);
   const [wordsArray, setWordsArray] = useState(randomWords.randomWords);
   const wordToCheck:any = wordsArray[0][0];
@@ -21,17 +21,17 @@ const chooseTranslation:React.FC<Props> = (randomWords:Props) => {
 
   const [progress, setProgress] = useState(0);
 
-  const btnStyles: CSS.Properties = {
+  const [btnStyle, setBtnStyle] = useState<CSS.Properties>({
     pointerEvents: 'all',
-  };
-  const [btnStyle, setBtnStyle] = useState(btnStyles);
-  const continueBtnStyles: CSS.Properties = {
-    pointerEvents: 'none',
-  };
+  });
   const buttonsContainer = useRef<HTMLDivElement>(null!);
-  const [continueBtnStyle, setContinueBtnStyle] = useState(continueBtnStyles);
+  const [continueBtnStyle, setContinueBtnStyle] = useState<CSS.Properties>({
+    pointerEvents: 'none',
+  });
   showNewWords = () => {
     if (progress === 100) {
+      const parent = buttonsContainer.current.parentNode;
+      while (parent!.firstChild) { parent!.firstChild.remove(); }
       alert(`Конец! Баллы за урок:${points}, проценты:${(points / 6).toFixed(2)}`);
     }
     const n = wordsArray;
@@ -39,7 +39,7 @@ const chooseTranslation:React.FC<Props> = (randomWords:Props) => {
       .slice(1, 10);
     newWords.push(n[0]);
     setWordsArray(newWords);
-    array = getRandomIndexes();
+    randomNumbersArray = getRandomNumbers();
     setContinueBtnStyle({
       pointerEvents: 'none',
       boxShadow: 'none',
@@ -60,7 +60,7 @@ const chooseTranslation:React.FC<Props> = (randomWords:Props) => {
       <div className="chooseTranslation-container__buttons" ref={buttonsContainer} style={btnStyle}>
         <ChooseTranslationBtn
           index={1}
-          translation={wordsArray[array[0]][1]}
+          translation={wordsArray[randomNumbersArray[0]][1]}
           translationToCheck={translationToCheck}
           currentProgress={progress}
           updateProgress={setProgress}
@@ -72,7 +72,7 @@ const chooseTranslation:React.FC<Props> = (randomWords:Props) => {
         />
         <ChooseTranslationBtn
           index={2}
-          translation={wordsArray[array[1]][1]}
+          translation={wordsArray[randomNumbersArray[1]][1]}
           translationToCheck={translationToCheck}
           currentProgress={progress}
           updateProgress={setProgress}
@@ -84,7 +84,7 @@ const chooseTranslation:React.FC<Props> = (randomWords:Props) => {
         />
         <ChooseTranslationBtn
           index={3}
-          translation={wordsArray[array[2]][1]}
+          translation={wordsArray[randomNumbersArray[2]][1]}
           translationToCheck={translationToCheck}
           currentProgress={progress}
           updateProgress={setProgress}
@@ -96,7 +96,7 @@ const chooseTranslation:React.FC<Props> = (randomWords:Props) => {
         />
         <ChooseTranslationBtn
           index={4}
-          translation={wordsArray[array[3]][1]}
+          translation={wordsArray[randomNumbersArray[3]][1]}
           translationToCheck={translationToCheck}
           currentProgress={progress}
           updateProgress={setProgress}
