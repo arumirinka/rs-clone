@@ -5,11 +5,15 @@ import './menu.css';
 import { Link } from 'react-router-dom';
 import { Menu, Switch } from 'antd';
 import {
-  MailOutlined, CalendarOutlined, ArrowUpOutlined, BarChartOutlined,
+  CalendarOutlined, ArrowUpOutlined, HomeOutlined, LineChartOutlined,
 } from '@ant-design/icons';
+
+import { appLangConst } from '../../assets/appLangConst';
 
 interface IProps {
   onClick: any,
+  onChangeTheme: any
+  appLang: string
 }
 
 interface IState {
@@ -30,6 +34,7 @@ class SideMenu extends React.Component<IProps, IState> {
     this.setState({
       theme: value ? 'dark' : 'light',
     });
+    this.props.onChangeTheme(value);
   };
 
   handleClick = (e: { key: any; }) => {
@@ -45,8 +50,8 @@ class SideMenu extends React.Component<IProps, IState> {
         <Switch
           checked={this.state.theme === 'dark'}
           onChange={this.changeTheme}
-          checkedChildren="Dark"
-          unCheckedChildren="Light"
+          checkedChildren={appLangConst[this.props.appLang].darkTheme}
+          unCheckedChildren={appLangConst[this.props.appLang].lightTheme}
         />
         <br />
         <br />
@@ -57,17 +62,22 @@ class SideMenu extends React.Component<IProps, IState> {
           mode="inline"
           theme={this.state.theme}
         >
-          <Menu.Item key="1" icon={<MailOutlined />}>
-            <Link to="/">Main</Link>
+          <Menu.Item key="1" icon={<HomeOutlined />}>
+            <Link to="/">
+              {appLangConst[this.props.appLang].menuMain}
+            </Link>
           </Menu.Item>
-          <Menu.Item key="2" icon={<BarChartOutlined />}>
-            <Link to="/stats">Stats</Link>
+          <Menu.Item key="2" icon={<LineChartOutlined />}>
+            <Link to="/stats">
+              {appLangConst[this.props.appLang].menuStats}
+            </Link>
           </Menu.Item>
           <Menu.Item key="3" icon={<ArrowUpOutlined />}>
             <Link to="/steps">Steps</Link>
           </Menu.Item>
           <Menu.Item key="4" icon={<CalendarOutlined />}>
             <Link to="/lessons">Lessons</Link>
+
           </Menu.Item>
         </Menu>
       </div>
