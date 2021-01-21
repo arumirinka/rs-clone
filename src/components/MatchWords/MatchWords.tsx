@@ -79,6 +79,8 @@ const WordsList: React.FC = () => {
         const CORRECT_URL = './sounds/correct.mp3';
         playSound(CORRECT_URL);
         button.classList.add('match-words__word--picked');
+        button.classList.add('match-words__word--animate');
+        prev.target.classList.add('match-words__word--animate');
         setPicked(() => picked.add(button.innerText));
         setPrev(null);
         button.disabled = true;

@@ -18,3 +18,16 @@
 .match-word__next-button--hidden {
   visibility: hidden;
 }
+
+@keyframes btnAnimation{
+
+  0% { transform: rotateZ(5deg); }
+
+  50% {transform: rotateZ(-5deg);}
+
+  100% { transform: rotateZ(5deg); }
+}
+
+.match-words__word--animate {
+  animation: btnAnimation 0.5s 1 ease;
+}
