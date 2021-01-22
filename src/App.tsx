@@ -9,6 +9,7 @@ import Footer from './components/Footer/Footer';
 import StepsLayout from './components/StepsLayout/StepsLayout';
 import WordsList from './components/WordsList/WordsList';
 import LessonsLayout from './components/LessonsLayout/LessonsLayout';
+import ExercisesLayout from './components/Exercises/ExercisesLayout';
 
 function App() {
   const [appLang, setAppLang] = useState('russian');
@@ -28,6 +29,7 @@ function App() {
           <Route path="/steps" component={StepsLayout} exact />
           <Route path="/words" component={WordsList} exact />
           <Route path="/lessons" component={LessonsLayout} exact />
+          <Route path="/lessons/exercises" component={ExercisesLayout} exact />
         </Switch>
       </div>
       <Divider />
