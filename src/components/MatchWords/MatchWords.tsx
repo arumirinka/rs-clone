@@ -76,7 +76,7 @@ const WordsList: React.FC = () => {
     } else {
       const wordPair = words.find((pair: string[]) => pair.includes(prev.target.innerText));
       if (wordPair.includes(button.innerText)) {
-        const CORRECT_URL = './sounds/correct.mp3';
+        const CORRECT_URL = 'https://notificationsounds.com/storage/sounds/file-sounds-1151-swiftly.mp3';
         playSound(CORRECT_URL);
         button.classList.add('match-words__word--picked');
         button.classList.add('match-words__word--animate');
@@ -85,7 +85,7 @@ const WordsList: React.FC = () => {
         setPrev(null);
         button.disabled = true;
       } else {
-        const ERROR_URL = './sounds/error.mp3';
+        const ERROR_URL = 'https://notificationsounds.com/storage/sounds/file-sounds-1114-unsure.mp3';
         playSound(ERROR_URL);
         prev.target.classList.remove('match-words__word--picked');
         prev.target.classList.add('match-words__word--wrong');
