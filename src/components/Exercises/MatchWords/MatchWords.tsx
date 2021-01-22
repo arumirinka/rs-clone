@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './MatchWords.css';
-import { Button, Progress } from 'antd';
+import { Button } from 'antd';
 import voiceLanguage from './voiceLanguage';
 import { matchWordsHeader, nextButtonText } from './matchWordsTranslate';
 import EndOfExerciseModal from '../EndOfExerciseModal';
@@ -8,9 +8,13 @@ import EndOfExerciseModal from '../EndOfExerciseModal';
 type Props={
   words:string[][],
   current: any,
+  progress:number,
+  setProgress:any,
 };
 
-const MatchWords = ({ words, current }:Props) => {
+const MatchWords = ({
+  words, current, progress, setProgress,
+}:Props) => {
   function shuffle(array: any) {
     const shuffled = array.slice();
     for (let i = shuffled.length - 1; i > 0; i -= 1) {
@@ -27,7 +31,6 @@ const MatchWords = ({ words, current }:Props) => {
   const [picked, setPicked] = useState(new Set(''));
   const [prev, setPrev]: [any, any] = useState(null);
   const [isDisables, setDisabled]: [any, any] = useState(true);
-  const [progress, setProgress] = useState(0);
   const [points, setPoints] = useState(0);
   const [visible, setVisible]: any[] = useState(false);
   const [pointsPenalty, setPointsPenalty] = useState(0);
@@ -132,9 +135,6 @@ const MatchWords = ({ words, current }:Props) => {
 
   return (
     <div className="match-words">
-      <div className="exercises-container__progress-bar">
-        <Progress percent={progress} showInfo={false} />
-      </div>
       <h2>{matchWordsHeader[current.UI]}</h2>
       <div ref={wordsContainerRef} className="match-words__words-container">
         {currentWords.map((word: string) => <button className="match-words__word" type="button" key={word.toString()} onClick={(evt) => buttonClickHandler(evt)}>{word}</button>)}
