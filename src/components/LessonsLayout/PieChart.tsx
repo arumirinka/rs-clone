@@ -7,36 +7,33 @@ type Props = {
   value: number
 };
 
-const PieChart = ({ done, toDo, value }:Props) => {
-  console.log(toDo, done);
-  return (
-    <Pie
-      data={{
-        datasets: [{
-          data: [value, 100 - value],
-          backgroundColor: [
-            'rgba(101, 219, 98, 1)',
-            'rgba(238, 232, 89, 1)',
-          ],
-        }],
-        labels: [
-          `${done} (%)`,
-          `${toDo} (%)`,
+const PieChart = ({ done, toDo, value }:Props) => (
+  <Pie
+    data={{
+      datasets: [{
+        data: [value, 100 - value],
+        backgroundColor: [
+          'rgba(101, 219, 98, 1)',
+          'rgba(238, 232, 89, 1)',
         ],
-      }}
-      width={300}
-      height={200}
-      options={{
-        maintainAspectRatio: false,
-        legend: {
-          display: true,
-          labels: {
-            fontSize: 14,
-            fontColor: 'black',
-          },
+      }],
+      labels: [
+        `${done} (%)`,
+        `${toDo} (%)`,
+      ],
+    }}
+    width={300}
+    height={200}
+    options={{
+      maintainAspectRatio: false,
+      legend: {
+        display: true,
+        labels: {
+          fontSize: 14,
+          fontColor: 'black',
         },
-      }}
-    />
-  );
-};
+      },
+    }}
+  />
+);
 export default PieChart;

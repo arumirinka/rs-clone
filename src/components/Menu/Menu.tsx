@@ -4,10 +4,13 @@ import 'antd/dist/antd.css';
 import './menu.css';
 import { Link } from 'react-router-dom';
 import { Menu, Switch } from 'antd';
-import { MailOutlined, CalendarOutlined } from '@ant-design/icons';
+import { HomeOutlined, LineChartOutlined } from '@ant-design/icons';
+import { appLangConst } from '../../assets/appLangConst';
 
 interface IProps {
   onClick: any,
+  onChangeTheme: any
+  appLang: string
 }
 
 interface IState {
@@ -28,6 +31,7 @@ class SideMenu extends React.Component<IProps, IState> {
     this.setState({
       theme: value ? 'dark' : 'light',
     });
+    this.props.onChangeTheme(value);
   };
 
   handleClick = (e: { key: any; }) => {
@@ -43,8 +47,8 @@ class SideMenu extends React.Component<IProps, IState> {
         <Switch
           checked={this.state.theme === 'dark'}
           onChange={this.changeTheme}
-          checkedChildren="Dark"
-          unCheckedChildren="Light"
+          checkedChildren={appLangConst[this.props.appLang].darkTheme}
+          unCheckedChildren={appLangConst[this.props.appLang].lightTheme}
         />
         <br />
         <br />
@@ -55,14 +59,14 @@ class SideMenu extends React.Component<IProps, IState> {
           mode="inline"
           theme={this.state.theme}
         >
-          <Menu.Item key="1" icon={<MailOutlined />}>
+          <Menu.Item key="1" icon={<HomeOutlined />}>
             <Link to="/">
-              Main
+              {appLangConst[this.props.appLang].menuMain}
             </Link>
           </Menu.Item>
-          <Menu.Item key="2" icon={<CalendarOutlined />}>
+          <Menu.Item key="2" icon={<LineChartOutlined />}>
             <Link to="/stats">
-              Stats
+              {appLangConst[this.props.appLang].menuStats}
             </Link>
           </Menu.Item>
         </Menu>
