@@ -40,7 +40,7 @@ const ChooseTranslationBtn:React.FC<Props> = ({
     if (word === translationToCheck) {
       currentButton.classList.add('buttons__translateBtn--correct');
       setPoints(points + 10);
-      audioPath = 'https://notificationsounds.com/storage/sounds/file-sounds-1151-swiftly.mp3';
+      audioPath = '../../audio/success_sound.mp3';
     } else {
       currentButton.classList.add('buttons__translateBtn--wrong');
       const correctButton:any[] = Array.from(buttonsContainer.current.children).filter(
@@ -49,7 +49,7 @@ const ChooseTranslationBtn:React.FC<Props> = ({
       const [correctBtn] = correctButton;
       setTimeout(() => correctBtn.classList.add('buttons__translateBtn--correct', 'buttons__translateBtn--bigger'),
         100);
-      audioPath = 'https://notificationsounds.com/storage/sounds/file-sounds-1114-unsure.mp3';
+      audioPath = '../../audio/mistake_sound.mp3';
     }
     const audio = new Audio(audioPath);
     audio.play();
