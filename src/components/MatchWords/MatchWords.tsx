@@ -6,7 +6,14 @@ import voiceLanguage from './voiceLanguage';
 import { matchWordsHeader, nextButtonText } from './matchWordsTranslate';
 
 const WordsList: React.FC = () => {
-  const [picked, setPicked] = useState(new Set(''));
+  function shuffle(array: any) {
+    const shuffled = array.slice();
+    for (let i = shuffled.length - 1; i > 0; i -= 1) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+  }
 
   interface Lesson {
     UI:string;
@@ -22,20 +29,32 @@ const WordsList: React.FC = () => {
     lesson: 1,
   };
 
-  function shuffle(array: any) {
-    const shuffled = array.slice();
-    for (let i = shuffled.length - 1; i > 0; i -= 1) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-    }
-    return shuffled;
-  }
-
   const theContent:any = content;
   const { words } = theContent[current.UI][current.learning][`level${current.level}`][`lesson${current.lesson}`];
   const NUMBER_OF_WORDS = 5;
-  const currentArray = shuffle(shuffle(words).slice(0, NUMBER_OF_WORDS).flat());
-  const [currentWords] = useState(currentArray);
+  let currentArray = shuffle(shuffle(words).slice(0, NUMBER_OF_WORDS).flat());
+
+  const [currentWords, setCurrentWords] = useState(currentArray);
+  const [picked, setPicked] = useState(new Set(''));
+  const [prev, setPrev]: [any, any] = useState(null);
+  const [isDisables, setDisabled]: [any, any] = useState(true);
+  const wordsContainerRef:any = useRef(null);
+  const nextButtonRef:any = useRef(null);
+  const audioRef:any = useRef(null);
+
+  const showNewWords = () => {
+    Array.from(wordsContainerRef.current.children).forEach((button:any) => {
+      const theButton:HTMLButtonElement = button;
+      theButton.classList.remove('match-words__word--picked');
+      theButton.classList.remove('match-words__word--animate');
+      theButton.disabled = false;
+    });
+    setDisabled(true);
+    nextButtonRef.current.classList.add('match-word__next-button--hidden');
+    currentArray = shuffle(shuffle(words).slice(0, NUMBER_OF_WORDS).flat());
+    setCurrentWords(currentArray);
+    setPicked(new Set(''));
+  };
 
   function pronounceWord(word: string) {
     const utter = new SpeechSynthesisUtterance();
@@ -44,18 +63,12 @@ const WordsList: React.FC = () => {
     window.speechSynthesis.speak(utter);
   }
 
-  const [prev, setPrev]: [any, any] = useState(null);
-
-  const nextButtonRef:any = useRef(null);
-
   useEffect(() => {
     if (picked.size === currentWords.length) {
-      nextButtonRef.current.disabled = false;
+      setDisabled(false);
       nextButtonRef.current.classList.remove('match-word__next-button--hidden');
     }
   }, [picked.size]);
-
-  const audioRef:any = useRef(null);
 
   function playSound(url: string) {
     audioRef.current.src = url;
@@ -72,7 +85,7 @@ const WordsList: React.FC = () => {
       setPicked(() => picked.add(button.innerText));
       button.classList.add('match-words__word--picked');
       setPrev(evt);
-      button.disabled = true;
+      setDisabled(false);
     } else {
       const wordPair = words.find((pair: string[]) => pair.includes(prev.target.innerText));
       if (wordPair.includes(button.innerText)) {
@@ -103,10 +116,10 @@ const WordsList: React.FC = () => {
   return (
     <div className="match-words">
       <h2>{matchWordsHeader[current.UI]}</h2>
-      <div className="match-words__words-container">
+      <div ref={wordsContainerRef} className="match-words__words-container">
         {currentWords.map((word: string) => <button className="match-words__word" type="button" key={word.toString()} onClick={(evt) => buttonClickHandler(evt)}>{word}</button>)}
       </div>
-      <Button ref={nextButtonRef} className="match-word__next-button match-word__next-button--hidden" type="primary" disabled>{nextButtonText[current.UI]}</Button>
+      <Button ref={nextButtonRef} className="match-word__next-button match-word__next-button--hidden" type="primary" onClick={() => { showNewWords(); }} disabled={isDisables}>{nextButtonText[current.UI]}</Button>
       <audio ref={audioRef}>
         <track kind="captions" />
       </audio>
