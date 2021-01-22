@@ -14,6 +14,7 @@ import LessonsLayout from './components/LessonsLayout/LessonsLayout';
 import StatsPage from './pages/StatsPage/StatsPage';
 import Main from './pages/Main/Main';
 import LoginPage from './pages/LoginPage/LoginPage';
+import ExercisesLayout from './components/Exercises/ExercisesLayout';
 
 function App() {
   const [appLang, setAppLang] = useState('russian');
@@ -48,6 +49,7 @@ function App() {
             <Route path="/steps" component={StepsLayout} exact />
             <Route path="/words" component={WordsList} exact />
             <Route path="/lessons" component={LessonsLayout} exact />
+            <Route path="/lessons/exercises" component={ExercisesLayout} exact />
             <Redirect to="/main" />
           </Switch>
           )}
