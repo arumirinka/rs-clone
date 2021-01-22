@@ -1,8 +1,8 @@
 import React, { useState, useRef } from 'react';
 import { Button, Progress } from 'antd';
-import CSS from 'csstype';
 import ChooseTranslationBtn from './ChooseTranslationBtn';
 import EndOfExerciseModal from './EndOfExerciseModal';
+import checkIfButtonsEnabled from './checkIfButtonsEnabled';
 import './chooseTranslation.css';
 
 const getRandomNumbers = ():number[] => {
@@ -22,41 +22,33 @@ const chooseTranslation = (randomWords:Props) => {
 
   const [progress, setProgress] = useState(0);
 
-  const [btnStyle, setBtnStyle] = useState<CSS.Properties>({
-    pointerEvents: 'all',
-  });
+  const [btnStyle, setBtnStyle] = useState(false);
   const buttonsContainer = useRef<HTMLDivElement>(null!);
-  const [continueBtnStyle, setContinueBtnStyle] = useState<CSS.Properties>({
-    pointerEvents: 'none',
-  });
+  const [continueBtnDisabled, setContinueBtnDisabled] = useState(true);
   const [visible, setVisible]: any[] = useState(false);
   const showModal = (): void => {
     setVisible(true);
   };
   showNewWords = () => {
     if (progress === 100) {
-      const parent = buttonsContainer.current.parentNode;
-      while (parent!.firstChild) { parent!.firstChild.remove(); }
+      setBtnStyle(true);
       showModal();
+    } else {
+      const buttons = Array.from(buttonsContainer.current.children);
+      buttons.forEach((button) => {
+        button.classList.remove('buttons__translateBtn--correct', 'buttons__translateBtn--wrong', 'buttons__translateBtn--bigger');
+      });
+      const newWords = wordsArray
+        .slice(1, 10);
+      newWords.push(wordsArray[0]);
+      setWordsArray(newWords);
+      randomNumbersArray = getRandomNumbers();
+      setContinueBtnDisabled(true);
+      setBtnStyle(false);
     }
-    const newWords = wordsArray
-      .slice(1, 10);
-    newWords.push(wordsArray[0]);
-    setWordsArray(newWords);
-    randomNumbersArray = getRandomNumbers();
-    setContinueBtnStyle({
-      pointerEvents: 'none',
-      boxShadow: 'none',
-      transform: 'scale(1)',
-    });
-    buttonsContainer.current.style.pointerEvents = 'all';
-    const buttons = Array.from(buttonsContainer.current.children);
-    buttons.forEach((button) => {
-      button.classList.remove('buttons__translateBtn--correct', 'buttons__translateBtn--wrong', 'buttons__translateBtn--bigger');
-    });
   };
   window.addEventListener('keypress', (event) => {
-    if (event.key === 'Enter' && buttonsContainer.current.style.pointerEvents === 'none') {
+    if (event.key === 'Enter' && !checkIfButtonsEnabled(buttonsContainer)) {
       showNewWords();
     }
   });
@@ -66,15 +58,16 @@ const chooseTranslation = (randomWords:Props) => {
         <Progress percent={progress} showInfo={false} />
       </div>
       <div className="chooseTranslation-container__word">Выберите перевод для слова &quot;{wordToCheck}&quot;</div>
-      <div className="chooseTranslation-container__buttons" ref={buttonsContainer} style={btnStyle}>
+      <div className="chooseTranslation-container__buttons" ref={buttonsContainer}>
         <ChooseTranslationBtn
           index={1}
           translation={wordsArray[randomNumbersArray[0]][1]}
           translationToCheck={translationToCheck}
           currentProgress={progress}
           updateProgress={setProgress}
+          btnStyle={btnStyle}
           updateBtnStyle={setBtnStyle}
-          updateContinueBtn={setContinueBtnStyle}
+          updateContinueBtn={setContinueBtnDisabled}
           buttonsContainer={buttonsContainer}
           points={points}
           setPoints={setPoints}
@@ -85,8 +78,9 @@ const chooseTranslation = (randomWords:Props) => {
           translationToCheck={translationToCheck}
           currentProgress={progress}
           updateProgress={setProgress}
+          btnStyle={btnStyle}
           updateBtnStyle={setBtnStyle}
-          updateContinueBtn={setContinueBtnStyle}
+          updateContinueBtn={setContinueBtnDisabled}
           buttonsContainer={buttonsContainer}
           points={points}
           setPoints={setPoints}
@@ -97,8 +91,9 @@ const chooseTranslation = (randomWords:Props) => {
           translationToCheck={translationToCheck}
           currentProgress={progress}
           updateProgress={setProgress}
+          btnStyle={btnStyle}
           updateBtnStyle={setBtnStyle}
-          updateContinueBtn={setContinueBtnStyle}
+          updateContinueBtn={setContinueBtnDisabled}
           buttonsContainer={buttonsContainer}
           points={points}
           setPoints={setPoints}
@@ -109,8 +104,9 @@ const chooseTranslation = (randomWords:Props) => {
           translationToCheck={translationToCheck}
           currentProgress={progress}
           updateProgress={setProgress}
+          btnStyle={btnStyle}
           updateBtnStyle={setBtnStyle}
-          updateContinueBtn={setContinueBtnStyle}
+          updateContinueBtn={setContinueBtnDisabled}
           buttonsContainer={buttonsContainer}
           points={points}
           setPoints={setPoints}
@@ -124,7 +120,8 @@ const chooseTranslation = (randomWords:Props) => {
         type="primary"
         htmlType="submit"
         onClick={() => { showNewWords(); }}
-        style={continueBtnStyle}
+        className="chooseTranslation-container__continueButton"
+        disabled={continueBtnDisabled}
       >Продолжить
       </Button>
     </div>

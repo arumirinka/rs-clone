@@ -67,6 +67,10 @@
 .buttons__translateBtn--bigger{
     animation:btnAnimation 0.5s 1 ease;
 }
+.chooseTranslation-container__continueButton{
+    transform: scale(1.2);
+    box-shadow: 2px 2px 10px 2px #e3fa70;
+}
 @keyframes btnAnimation{
     0% { transform: rotateZ(5deg); }
     50% {transform: rotateZ(-5deg);}

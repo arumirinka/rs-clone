@@ -1,4 +1,5 @@
 import React, { useRef } from 'react';
+import checkIfButtonsEnabled from './checkIfButtonsEnabled';
 
 type Props = {
   index:number,
@@ -6,6 +7,7 @@ type Props = {
   translationToCheck:string,
   currentProgress: number,
   updateProgress: any,
+  btnStyle:any,
   updateBtnStyle:any,
   updateContinueBtn:any,
   buttonsContainer:any,
@@ -17,7 +19,7 @@ const ChooseTranslationBtn:React.FC<Props> = ({
   index,
   translation, translationToCheck,
   currentProgress, updateProgress,
-  updateBtnStyle,
+  btnStyle, updateBtnStyle,
   updateContinueBtn,
   buttonsContainer,
   points, setPoints,
@@ -44,7 +46,6 @@ const ChooseTranslationBtn:React.FC<Props> = ({
       const correctButton:any[] = Array.from(buttonsContainer.current.children).filter(
         (child:any) => child.dataset.id === translationToCheck,
       );
-      console.log(correctButton);
       const [correctBtn] = correctButton;
       setTimeout(() => correctBtn.classList.add('buttons__translateBtn--correct', 'buttons__translateBtn--bigger'),
         100);
@@ -53,18 +54,14 @@ const ChooseTranslationBtn:React.FC<Props> = ({
     const audio = new Audio(audioPath);
     audio.play();
     updateProgress(currentProgress + 10);
-    updateBtnStyle({ pointerEvents: 'all' });
-    updateContinueBtn({
-      pointerEvents: 'all',
-      transform: 'scale(1.2)',
-      boxShadow: '2px 2px 10px 2px #e3fa70',
-    });
-    const m = buttonsContainer;
-    m.current.style.pointerEvents = 'none';
+    updateContinueBtn(false);
+    updateBtnStyle(true);
   };
+
   window.addEventListener('keypress', (event) => {
-    if ((buttonsContainer.current.style.pointerEvents !== 'none')
-    && (event.key === '1' || event.key === '2' || event.key === '3' || event.key === '4')) {
+    if ((checkIfButtonsEnabled(buttonsContainer))
+     && (event.key === '1' || event.key === '2' || event.key === '3' || event.key === '4')
+     && (currentProgress < 20)) {
       checkWord(event);
     }
   });
@@ -76,6 +73,7 @@ const ChooseTranslationBtn:React.FC<Props> = ({
       data-index={index}
       onClick={(event) => checkWord(event)}
       ref={translationButton}
+      disabled={btnStyle}
     >
       {index}. {translation}
     </button>
