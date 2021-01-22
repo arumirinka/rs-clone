@@ -88,6 +88,12 @@ const WordsList: React.FC = () => {
         const ERROR_URL = './sounds/error.mp3';
         playSound(ERROR_URL);
         prev.target.classList.remove('match-words__word--picked');
+        prev.target.classList.add('match-words__word--wrong');
+        button.classList.add('match-words__word--wrong');
+        setTimeout(() => {
+          prev.target.classList.remove('match-words__word--wrong');
+          button.classList.remove('match-words__word--wrong');
+        }, 300);
         prev.target.disabled = false;
         setPrev(null);
       }
