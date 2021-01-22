@@ -9,7 +9,6 @@ import Footer from './components/Footer/Footer';
 import StepsLayout from './components/StepsLayout/StepsLayout';
 import WordsList from './components/WordsList/WordsList';
 import LessonsLayout from './components/LessonsLayout/LessonsLayout';
-import MatchWords from './components/MatchWords/MatchWords';
 import ExercisesLayout from './components/Exercises/ExercisesLayout';
 
 function App() {
@@ -28,10 +27,10 @@ function App() {
           <Route path="/" component={Main} exact />
           <Route path="/stats" render={() => <StatsPage appLang={appLang} />} exact />
           <Route path="/steps" component={StepsLayout} exact />
-          <Route path="/words" component={WordsList} exact />
           <Route path="/lessons" component={LessonsLayout} exact />
-          <Route path="/match-words" component={MatchWords} exact />
+          <Route path="/lessons/words" component={WordsList} exact />
           <Route path="/lessons/exercises" component={ExercisesLayout} exact />
+
         </Switch>
       </div>
       <Divider />

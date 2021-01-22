@@ -1,11 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './MatchWords.css';
-import { Button } from 'antd';
-import content from '../../content.json';
+import { Button, Progress } from 'antd';
 import voiceLanguage from './voiceLanguage';
 import { matchWordsHeader, nextButtonText } from './matchWordsTranslate';
+import EndOfExerciseModal from '../EndOfExerciseModal';
 
-const WordsList: React.FC = () => {
+type Props={
+  words:string[][],
+  current: any,
+};
+
+const WordsList = ({ words, current }:Props) => {
   function shuffle(array: any) {
     const shuffled = array.slice();
     for (let i = shuffled.length - 1; i > 0; i -= 1) {
@@ -15,22 +20,6 @@ const WordsList: React.FC = () => {
     return shuffled;
   }
 
-  interface Lesson {
-    UI:string;
-    learning:string;
-    level:number;
-    lesson:number;
-  }
-
-  const current:Lesson = {
-    UI: 'russian',
-    learning: 'english',
-    level: 1,
-    lesson: 1,
-  };
-
-  const theContent:any = content;
-  const { words } = theContent[current.UI][current.learning][`level${current.level}`][`lesson${current.lesson}`];
   const NUMBER_OF_WORDS = 5;
   let currentArray = shuffle(shuffle(words).slice(0, NUMBER_OF_WORDS).flat());
 
@@ -38,11 +27,23 @@ const WordsList: React.FC = () => {
   const [picked, setPicked] = useState(new Set(''));
   const [prev, setPrev]: [any, any] = useState(null);
   const [isDisables, setDisabled]: [any, any] = useState(true);
+  const [progress, setProgress] = useState(0);
+  const [points, setPoints] = useState(0);
+  const [visible, setVisible]: any[] = useState(false);
   const wordsContainerRef:any = useRef(null);
   const nextButtonRef:any = useRef(null);
   const audioRef:any = useRef(null);
 
+  const showModal = (): void => {
+    setVisible(true);
+  };
+
   const showNewWords = () => {
+    if (progress === 100) {
+      const parent = wordsContainerRef.current.parentNode;
+      while (parent!.firstChild) { parent!.firstChild.remove(); }
+      showModal();
+    }
     Array.from(wordsContainerRef.current.children).forEach((button:any) => {
       const theButton:HTMLButtonElement = button;
       theButton.classList.remove('match-words__word--picked');
@@ -67,6 +68,8 @@ const WordsList: React.FC = () => {
     if (picked.size === currentWords.length) {
       setDisabled(false);
       nextButtonRef.current.classList.remove('match-word__next-button--hidden');
+      setProgress(progress + 10);
+      setPoints(points + 10);
     }
   }, [picked.size]);
 
@@ -87,18 +90,19 @@ const WordsList: React.FC = () => {
       setPrev(evt);
       setDisabled(false);
     } else {
-      const wordPair = words.find((pair: string[]) => pair.includes(prev.target.innerText));
+      const wordPair:any = words.find((pair: string[]) => pair.includes(prev.target.innerText));
       if (wordPair.includes(button.innerText)) {
-        const CORRECT_URL = 'https://notificationsounds.com/storage/sounds/file-sounds-1151-swiftly.mp3';
+        const CORRECT_URL = '../../../audio/success_sound.mp3';
         playSound(CORRECT_URL);
         button.classList.add('match-words__word--picked');
         button.classList.add('match-words__word--animate');
         prev.target.classList.add('match-words__word--animate');
+        prev.target.disabled = true;
         setPicked(() => picked.add(button.innerText));
         setPrev(null);
         button.disabled = true;
       } else {
-        const ERROR_URL = 'https://notificationsounds.com/storage/sounds/file-sounds-1114-unsure.mp3';
+        const ERROR_URL = '../../../audio/mistake_sound.mp3';
         playSound(ERROR_URL);
         prev.target.classList.remove('match-words__word--picked');
         prev.target.classList.add('match-words__word--wrong');
@@ -115,10 +119,17 @@ const WordsList: React.FC = () => {
 
   return (
     <div className="match-words">
+      <div className="exercises-container__progress-bar">
+        <Progress percent={progress} showInfo={false} />
+      </div>
       <h2>{matchWordsHeader[current.UI]}</h2>
       <div ref={wordsContainerRef} className="match-words__words-container">
         {currentWords.map((word: string) => <button className="match-words__word" type="button" key={word.toString()} onClick={(evt) => buttonClickHandler(evt)}>{word}</button>)}
       </div>
+      <EndOfExerciseModal
+        visible={visible}
+        points={points}
+      />
       <Button ref={nextButtonRef} className="match-word__next-button match-word__next-button--hidden" type="primary" onClick={() => { showNewWords(); }} disabled={isDisables}>{nextButtonText[current.UI]}</Button>
       <audio ref={audioRef}>
         <track kind="captions" />

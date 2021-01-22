@@ -1,5 +1,6 @@
 import React from 'react';
-import ChooseTranslation from './ChooseTranslation';
+// import ChooseTranslation from './ChooseTranslation';
+import MatchWords from './MatchWords/MatchWords';
 import content from '../../content.json';
 import KittyWithPencil from './KittyWithPencil';
 
@@ -21,13 +22,15 @@ const { words } = theContent[current.UI][current.learning][`level${current.level
 const randomWords:string[][] = words
   .sort(() => 0.5 - Math.random())
   .slice(0, 10);
+console.log(randomWords);
 
 const ExercisesLayout: React.FC = () => (
   <div className="exercises-container">
     <div className="exercises-container__kitty">
       <KittyWithPencil />
     </div>
-    <ChooseTranslation randomWords={randomWords} />
+    {/* <ChooseTranslation randomWords={randomWords} /> */}
+    <MatchWords words={words} current={current} />
   </div>
 );
 export default ExercisesLayout;
