@@ -88,7 +88,8 @@ const RegistrationForm: React.FC = () => {
         label="Пароль"
         rules={[
           {
-            min: 6, message: 'Не менее 6 символов',
+            min: 6,
+            message: 'Не менее 6 символов',
           },
           {
             required: true,
@@ -117,24 +118,24 @@ const RegistrationForm: React.FC = () => {
           </Button>
         </Form.Item>
         <Form.Item {...tailLayout} style={{ marginBottom: '1em' }}>
-          <Button type="primary" htmlType="submit">
+          <Button type="primary" htmlType="submit" disabled={loading}>
             Войти через Github
             <GithubOutlined style={{ color: 'black' }} />
           </Button>
         </Form.Item>
-      </div>
 
-      <Form.Item {...tailLayout}>
-        <Button
-          type="primary"
-          htmlType="submit"
-          className="signup-btn"
-          onClick={registerHandler}
-          disabled={loading}
-        >
-          Зарегистрироваться
-        </Button>
-      </Form.Item>
+        <Form.Item {...tailLayout}>
+          <Button
+            type="primary"
+            htmlType="submit"
+            className="signup-btn"
+            onClick={registerHandler}
+            disabled={loading}
+          >
+            Зарегистрироваться
+          </Button>
+        </Form.Item>
+      </div>
     </Form>
   );
 };

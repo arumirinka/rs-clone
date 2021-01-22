@@ -13,6 +13,7 @@ import WordsList from './components/WordsList/WordsList';
 import LessonsLayout from './components/LessonsLayout/LessonsLayout';
 import StatsPage from './pages/StatsPage/StatsPage';
 import Main from './pages/Main/Main';
+import LoginPage from './pages/LoginPage/LoginPage';
 
 function App() {
   const [appLang, setAppLang] = useState('russian');
@@ -37,22 +38,22 @@ function App() {
       }}
     >
       <div className="App">
-        <Header handleLangChange={handleLangChange} appLang={appLang} />
-        <Divider />
+        {isAuthenticated && <Header handleLangChange={handleLangChange} appLang={appLang} />}
+        {isAuthenticated && <Divider />}
         <div className="content-wrapper">
           {isAuthenticated && (
           <Switch>
-            <Route path="/" component={Main} exact />
+            <Route path="/main" component={Main} exact />
             <Route path="/stats" render={() => <StatsPage appLang={appLang} />} exact />
             <Route path="/steps" component={StepsLayout} exact />
             <Route path="/words" component={WordsList} exact />
             <Route path="/lessons" component={LessonsLayout} exact />
-            <Redirect to="/stats" />
+            <Redirect to="/main" />
           </Switch>
           )}
           {!isAuthenticated && (
           <Switch>
-            <Route path="/" component={Main} exact />
+            <Route path="/" component={LoginPage} exact />
             <Redirect to="/" />
           </Switch>
           )}

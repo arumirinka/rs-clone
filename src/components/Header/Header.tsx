@@ -7,11 +7,9 @@ import Icon, {
 } from '@ant-design/icons';
 import { useHistory } from 'react-router-dom';
 import SideMenu from '../Menu/Menu';
-import RegistrationFormInModal from '../RegistrationForm/RegistrationFormInModal';
 import Settings from '../Settings/Settings';
 import './header.css';
 
-import { useAuth } from '../../hooks/auth.hook';
 import { AuthContext } from '../../context/AuthContext';
 
 import { appLangConst } from '../../assets/appLangConst';
@@ -70,9 +68,6 @@ const Header: React.FC<IProps> = ({ handleLangChange, appLang }: IProps) => {
     setVisibleSettings(false);
   };
 
-  const { token } = useAuth();
-  const isAuthenticated = !!token;
-
   const history = useHistory();
   const auth = useContext(AuthContext);
 
@@ -98,20 +93,15 @@ const Header: React.FC<IProps> = ({ handleLangChange, appLang }: IProps) => {
         <SideMenu onClick={toggleMenu} onChangeTheme={onChangeTheme} appLang={appLang} />
       </Drawer>
       <Space wrap>
-        {isAuthenticated && (
         <MenuOutlined onClick={toggleMenu} className="header__icon" />
-        )}
         <Dropdown overlay={langMenu}>
           <Button>
             {currLang} <DownOutlined />
           </Button>
         </Dropdown>
-        {!isAuthenticated && <RegistrationFormInModal appLang={appLang} />}
-        {isAuthenticated && (
         <Button type="primary" htmlType="submit" onClick={logoutHandler}>
           Выйти
         </Button>
-        )}
 
         <SettingOutlined onClick={toggleSettings} className="header__icon" />
       </Space>

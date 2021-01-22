@@ -63,7 +63,7 @@ class SideMenu extends React.Component<IProps, IState> {
           theme={this.state.theme}
         >
           <Menu.Item key="1" icon={<HomeOutlined />}>
-            <Link to="/">
+            <Link to="/main">
               {appLangConst[this.props.appLang].menuMain}
             </Link>
           </Menu.Item>
