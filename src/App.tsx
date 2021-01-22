@@ -24,11 +24,11 @@ function App() {
       <Divider />
       <div className="content-wrapper">
         <Switch>
-          <Route path="/" component={Main} exact />
+          <Route path="/" render={() => <Main appLang={appLang} />} exact />
           <Route path="/stats" render={() => <StatsPage appLang={appLang} />} exact />
-          <Route path="/steps" component={StepsLayout} exact />
+          <Route path="/steps" render={() => <StepsLayout appLang={appLang} />} exact />
           <Route path="/words" component={WordsList} exact />
-          <Route path="/lessons" component={LessonsLayout} exact />
+          <Route path="/lessons" render={() => <LessonsLayout appLang={appLang} />} exact />
           <Route path="/lessons/exercises" component={ExercisesLayout} exact />
         </Switch>
       </div>

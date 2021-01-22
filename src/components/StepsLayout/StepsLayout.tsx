@@ -3,8 +3,13 @@ import CSS from 'csstype';
 import './StepsLayout.css';
 import arrowLogo from '../../assets/arrowRight.svg';
 import kittyImg from '../../assets/superKitty.svg';
+import { lessonsConst } from '../../assets/appLangConst';
 
-const StepsLayout: React.FC = () => {
+interface IProps {
+  appLang: string
+}
+
+const StepsLayout: React.FC<IProps> = ({ appLang }: IProps) => {
   const [kittyPosition, setKittyPosition] = useState({
     left: '5%',
     top: '46%',
@@ -40,30 +45,30 @@ const StepsLayout: React.FC = () => {
         <div className="steps-container__step">
           <img src={arrowLogo} alt="arrow right" className="step__arrow-right anim-2" />
           <button type="button" className="step__level anim-1" data-id="1" onClick={(event: React.MouseEvent) => setLessonsPage(event)}>
-            Уровень 1
+            { lessonsConst[appLang].level} 1
           </button>
         </div>
         <div className="steps-container__step">
           <img src={arrowLogo} alt="arrow right" className="step__arrow-right anim-4" />
           <button type="button" className="step__level anim-3" data-id="2" onClick={(event: React.MouseEvent) => setLessonsPage(event)}>
-            Уровень 2
+            { lessonsConst[appLang].level} 2
           </button>
         </div>
         <div className="steps-container__step">
           <img src={arrowLogo} alt="arrow right" className="step__arrow-right anim-6" />
           <button type="button" className="step__level anim-5" data-id="3" onClick={(event: React.MouseEvent) => setLessonsPage(event)}>
-            Уровень 3
+            { lessonsConst[appLang].level} 3
           </button>
         </div>
         <div className="steps-container__step">
           <img src={arrowLogo} alt="arrow right" className="step__arrow-right anim-8" />
           <button type="button" className="step__level anim-7" data-id="4" onClick={(event: React.MouseEvent) => setLessonsPage(event)}>
-            Уровень 4
+            { lessonsConst[appLang].level} 4
           </button>
         </div>
         <div className="steps-container__step anim-10">
           <button type="button" className="step__level anim-9" data-id="5" onClick={(event: React.MouseEvent) => setLessonsPage(event)}>
-            Уровень 5
+            { lessonsConst[appLang].level} 5
           </button>
         </div>
       </div>

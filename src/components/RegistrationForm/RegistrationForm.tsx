@@ -1,10 +1,11 @@
 import React from 'react';
 import {
-  Button, Form, Input, Checkbox,
+  Button, Form, Input,
 } from 'antd';
 import 'antd/dist/antd.css';
 import { GithubOutlined } from '@ant-design/icons';
 import './RegistrationForm.css';
+import { appLangConst } from '../../assets/appLangConst';
 
 const layout = {
   labelCol: { span: 8 },
@@ -13,8 +14,10 @@ const layout = {
 const tailLayout = {
   wrapperCol: { offset: 8, span: 8 },
 };
-
-const RegistrationForm: React.FC = () => {
+interface IProps {
+  appLang: string
+}
+const RegistrationForm: React.FC<IProps> = ({ appLang }:IProps) => {
   const onFinish = (values: any) => {
     console.log('Success:', values);
   };
@@ -32,34 +35,30 @@ const RegistrationForm: React.FC = () => {
       onFinishFailed={onFinishFailed}
     >
       <Form.Item
-        label="Логин"
+        label={appLangConst[appLang].email}
         name="username"
-        rules={[{ required: true, message: 'Пожалуйста, введите логин.' }]}
+        rules={[{ required: true, message: appLangConst[appLang].plzLogin }]}
       >
         <Input />
       </Form.Item>
 
       <Form.Item
-        label="Пароль"
+        label={appLangConst[appLang].password}
         name="password"
-        rules={[{ required: true, message: 'Пожалуйста, введите пароль.' }]}
+        rules={[{ required: true, message: appLangConst[appLang].passwordMsg }]}
       >
         <Input.Password />
-      </Form.Item>
-
-      <Form.Item {...tailLayout} name="remember" valuePropName="checked">
-        <Checkbox>Запомнить меня</Checkbox>
       </Form.Item>
 
       <div className="sign-in-wrapper">
         <Form.Item {...tailLayout} style={{ marginBottom: '1em' }}>
           <Button type="primary" htmlType="submit">
-            Войти
+            {appLangConst[appLang].login}
           </Button>
         </Form.Item>
         <Form.Item {...tailLayout} style={{ marginBottom: '1em' }}>
           <Button type="primary" htmlType="submit">
-            Войти через Github
+            {appLangConst[appLang].loginGithub}
             <GithubOutlined style={{ color: 'black' }} />
           </Button>
         </Form.Item>
@@ -67,7 +66,7 @@ const RegistrationForm: React.FC = () => {
 
       <Form.Item {...tailLayout}>
         <Button type="primary" htmlType="submit" className="signup-btn">
-          Зарегистрироваться
+          {appLangConst[appLang].register}
         </Button>
       </Form.Item>
     </Form>
