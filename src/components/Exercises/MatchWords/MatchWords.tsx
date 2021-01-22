@@ -70,6 +70,11 @@ const WordsList = ({ words, current }:Props) => {
       nextButtonRef.current.classList.remove('match-word__next-button--hidden');
       setProgress(progress + 10);
       setPoints(points + 10);
+      window.addEventListener('keypress', (event) => {
+        if (event.key === 'Enter' && !nextButtonRef.current.disabled) {
+          showNewWords();
+        }
+      });
     }
   }, [picked.size]);
 
@@ -87,8 +92,8 @@ const WordsList = ({ words, current }:Props) => {
     if (prev === null) {
       setPicked(() => picked.add(button.innerText));
       button.classList.add('match-words__word--picked');
+      button.disabled = true;
       setPrev(evt);
-      setDisabled(false);
     } else {
       const wordPair:any = words.find((pair: string[]) => pair.includes(prev.target.innerText));
       if (wordPair.includes(button.innerText)) {
