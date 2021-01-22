@@ -30,6 +30,7 @@ const WordsList = ({ words, current }:Props) => {
   const [progress, setProgress] = useState(0);
   const [points, setPoints] = useState(0);
   const [visible, setVisible]: any[] = useState(false);
+  const [pointsPenalty, setPointsPenalty] = useState(0);
   const wordsContainerRef:any = useRef(null);
   const nextButtonRef:any = useRef(null);
   const audioRef:any = useRef(null);
@@ -39,7 +40,8 @@ const WordsList = ({ words, current }:Props) => {
   };
 
   const showNewWords = () => {
-    if (progress === 100) {
+    const MAX_PROGRESS = 100;
+    if (progress === MAX_PROGRESS) {
       const parent = wordsContainerRef.current.parentNode;
       while (parent!.firstChild) { parent!.firstChild.remove(); }
       showModal();
@@ -55,6 +57,7 @@ const WordsList = ({ words, current }:Props) => {
     currentArray = shuffle(shuffle(words).slice(0, NUMBER_OF_WORDS).flat());
     setCurrentWords(currentArray);
     setPicked(new Set(''));
+    setPointsPenalty(0);
   };
 
   function pronounceWord(word: string) {
@@ -68,8 +71,11 @@ const WordsList = ({ words, current }:Props) => {
     if (picked.size === currentWords.length) {
       setDisabled(false);
       nextButtonRef.current.classList.remove('match-word__next-button--hidden');
-      setProgress(progress + 10);
-      setPoints(points + 10);
+      const PROGRESS_STEP = 10;
+      const POINTS_GAIN = 10;
+      const currentGain = POINTS_GAIN - pointsPenalty > 0 ? POINTS_GAIN - pointsPenalty : 0;
+      setProgress(progress + PROGRESS_STEP);
+      setPoints(points + currentGain);
       window.addEventListener('keypress', (event) => {
         if (event.key === 'Enter' && !nextButtonRef.current.disabled) {
           showNewWords();
@@ -107,6 +113,8 @@ const WordsList = ({ words, current }:Props) => {
         setPrev(null);
         button.disabled = true;
       } else {
+        const PENALTY_PER_MISS = 10;
+        setPointsPenalty(pointsPenalty + PENALTY_PER_MISS);
         const ERROR_URL = '../../../audio/mistake_sound.mp3';
         playSound(ERROR_URL);
         prev.target.classList.remove('match-words__word--picked');
