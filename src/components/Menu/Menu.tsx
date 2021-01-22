@@ -5,7 +5,7 @@ import './menu.css';
 import { Link } from 'react-router-dom';
 import { Menu, Switch } from 'antd';
 import {
-  CalendarOutlined, ArrowUpOutlined, HomeOutlined, LineChartOutlined,
+  CalendarOutlined, ArrowUpOutlined, HomeOutlined, LineChartOutlined, FileWordOutlined,
 } from '@ant-design/icons';
 
 import { appLangConst } from '../../assets/appLangConst';
@@ -63,9 +63,7 @@ class SideMenu extends React.Component<IProps, IState> {
           theme={this.state.theme}
         >
           <Menu.Item key="1" icon={<HomeOutlined />}>
-            <Link to="/main">
-              {appLangConst[this.props.appLang].menuMain}
-            </Link>
+            <Link to="/main">{appLangConst[this.props.appLang].menuMain}</Link>
           </Menu.Item>
           <Menu.Item key="2" icon={<LineChartOutlined />}>
             <Link to="/stats">
@@ -77,7 +75,9 @@ class SideMenu extends React.Component<IProps, IState> {
           </Menu.Item>
           <Menu.Item key="4" icon={<CalendarOutlined />}>
             <Link to="/lessons">Lessons</Link>
-
+          </Menu.Item>
+          <Menu.Item key="5" icon={<FileWordOutlined />}>
+            <Link to="/words">Words</Link>
           </Menu.Item>
         </Menu>
       </div>
