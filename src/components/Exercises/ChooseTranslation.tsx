@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { Button, Progress } from 'antd';
+import { Button } from 'antd';
 import ChooseTranslationBtn from './ChooseTranslationBtn';
 import EndOfExerciseModal from './EndOfExerciseModal';
 import checkIfButtonsEnabled from './checkIfButtonsEnabled';
@@ -11,16 +11,16 @@ const getRandomNumbers = ():number[] => {
 };
 let randomNumbersArray = getRandomNumbers();
 type Props={
-  randomWords:string[][]
+  randomWords:string[][],
+  progress:number,
+  setProgress:any
 };
 let showNewWords:() => void;
-const chooseTranslation = (randomWords:Props) => {
+const chooseTranslation = ({ randomWords, progress, setProgress }:Props) => {
   const [points, setPoints] = useState(0);
-  const [wordsArray, setWordsArray] = useState(randomWords.randomWords);
+  const [wordsArray, setWordsArray] = useState(randomWords);
   const wordToCheck:any = wordsArray[0][0];
   const translationToCheck:string = wordsArray[0][1];
-
-  const [progress, setProgress] = useState(0);
 
   const [btnStyle, setBtnStyle] = useState(false);
   const buttonsContainer = useRef<HTMLDivElement>(null!);
@@ -53,10 +53,7 @@ const chooseTranslation = (randomWords:Props) => {
     }
   });
   return (
-    <div className="chooseTranslation-container">
-      <div className="exercises-container__progress-bar">
-        <Progress percent={progress} showInfo={false} />
-      </div>
+    <>
       <div className="chooseTranslation-container__word">Выберите перевод для слова &quot;{wordToCheck}&quot;</div>
       <div className="chooseTranslation-container__buttons" ref={buttonsContainer}>
         <ChooseTranslationBtn
@@ -124,7 +121,7 @@ const chooseTranslation = (randomWords:Props) => {
         disabled={continueBtnDisabled}
       >Продолжить
       </Button>
-    </div>
+    </>
   );
 };
 export default chooseTranslation;

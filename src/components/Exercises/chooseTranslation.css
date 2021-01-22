@@ -10,11 +10,11 @@
     display:flex;
     align-items: center;
 }
+.exercises-container__content{
+    flex-basis:70%;
+}
 .exercises-container__kitty>svg{
     width:150px;
-}
-.chooseTranslation-container{
-    flex-basis:70%;
 }
 .ant-progress-success-bg, .ant-progress-bg {
     background-color: #1c8673;
@@ -88,8 +88,8 @@
     .exercises-container__kitty{
         flex-basis: 25%;
     }
-    .chooseTranslation-container{
-        flex-basis: 75%;
+    .exercises-container__content{
+        flex-basis:75%;
     }
     .exercises-container__kitty>svg{
         width: 120px;
@@ -103,8 +103,8 @@
         flex-basis: 100%;
         justify-content: center;
     }
-    .chooseTranslation-container{
-        flex-basis: 100%;
+    .exercises-container__content{
+        flex-basis:100%;
     }
     .chooseTranslation-container__word{
         font-size: 1.3em;

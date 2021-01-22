@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Progress } from 'antd';
 import ChooseTranslation from './ChooseTranslation';
 import content from '../../content.json';
 import KittyWithPencil from './KittyWithPencil';
@@ -21,13 +22,24 @@ const { words } = theContent[current.UI][current.learning][`level${current.level
 const randomWords:string[][] = words
   .sort(() => 0.5 - Math.random())
   .slice(0, 10);
-
-const ExercisesLayout: React.FC = () => (
-  <div className="exercises-container">
-    <div className="exercises-container__kitty">
-      <KittyWithPencil />
+const ExercisesLayout: React.FC = () => {
+  const [progress, setProgress] = useState(0);
+  return (
+    <div className="exercises-container">
+      <div className="exercises-container__kitty">
+        <KittyWithPencil />
+      </div>
+      <div className="exercises-container__content">
+        <div className="exercises-container__progress-bar">
+          <Progress percent={progress} showInfo={false} />
+        </div>
+        <ChooseTranslation
+          randomWords={randomWords}
+          progress={progress}
+          setProgress={setProgress}
+        />
+      </div>
     </div>
-    <ChooseTranslation randomWords={randomWords} />
-  </div>
-);
+  );
+};
 export default ExercisesLayout;
