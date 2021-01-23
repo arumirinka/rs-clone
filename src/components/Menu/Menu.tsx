@@ -77,7 +77,7 @@ class SideMenu extends React.Component<IProps, IState> {
             <Link to="/lessons">Lessons</Link>
           </Menu.Item>
           <Menu.Item key="5" icon={<FileWordOutlined />}>
-            <Link to="/words">Words</Link>
+            <Link to="/lessons/words">Words</Link>
           </Menu.Item>
         </Menu>
       </div>
