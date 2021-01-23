@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './MatchWords.css';
 import { Button } from 'antd';
-import voiceLanguage from './voiceLanguage';
 import { matchWordsHeader, nextButtonText } from './matchWordsTranslate';
 import EndOfExerciseModal from '../EndOfExerciseModal';
 
@@ -63,13 +62,6 @@ const MatchWords = ({
     setPointsPenalty(0);
   };
 
-  function pronounceWord(word: string) {
-    const utter = new SpeechSynthesisUtterance();
-    utter.lang = voiceLanguage[current.learning];
-    utter.text = word;
-    window.speechSynthesis.speak(utter);
-  }
-
   useEffect(() => {
     if (picked.size === currentWords.length) {
       setDisabled(false);
@@ -94,10 +86,7 @@ const MatchWords = ({
 
   function buttonClickHandler(evt: any) {
     const button = evt.target;
-    const isOriginal = words.some((pair: string[]) => pair[0] === button.innerText);
-    if (isOriginal) {
-      pronounceWord(button.innerText);
-    }
+
     if (prev === null) {
       setPicked(() => picked.add(button.innerText));
       button.classList.add('match-words__word--picked');
