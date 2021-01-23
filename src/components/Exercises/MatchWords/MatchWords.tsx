@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './matchWords.css';
 import { Button } from 'antd';
-import { matchWordsHeader, nextButtonText } from './matchWordsTranslate';
+import { matchWordsConst, nextButtonConst } from '../../../assets/appLangConst';
 import EndOfExerciseModal from '../EndOfExerciseModal';
 
 type Props={
@@ -124,7 +124,7 @@ const MatchWords = ({
 
   return (
     <div className="match-words">
-      <h2>{matchWordsHeader[current.UI]}</h2>
+      <h2>{matchWordsConst[current.UI].header}</h2>
       <div ref={wordsContainerRef} className="match-words__words-container">
         {currentWords.map((word: string) => <button className="match-words__word" type="button" key={word.toString()} onClick={(evt) => buttonClickHandler(evt)}>{word}</button>)}
       </div>
@@ -132,7 +132,15 @@ const MatchWords = ({
         visible={visible}
         points={points}
       />
-      <Button ref={nextButtonRef} className="match-word__next-button match-word__next-button--hidden" type="primary" onClick={() => { showNewWords(); }} disabled={isDisables}>{nextButtonText[current.UI]}</Button>
+      <Button
+        ref={nextButtonRef}
+        className="match-word__next-button match-word__next-button--hidden"
+        type="primary"
+        onClick={() => { showNewWords(); }}
+        disabled={isDisables}
+      >
+        {nextButtonConst[current.UI].nextButton}
+      </Button>
       <audio ref={audioRef}>
         <track kind="captions" />
       </audio>

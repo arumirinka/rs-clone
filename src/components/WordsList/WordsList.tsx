@@ -5,7 +5,7 @@ import { Button } from 'antd';
 import content from '../../content.json';
 import './WordsList.css';
 import voiceLanguage from './voiceLanguage';
-import { wordsListHeader, practiseButtonText } from './wordListTranslate';
+import { wordsListConst, nextButtonConst } from '../../assets/appLangConst';
 
 const WordsList: React.FC = () => {
   interface Lesson {
@@ -34,7 +34,7 @@ const WordsList: React.FC = () => {
 
   return (
     <div className="words">
-      <h2 className="words__header">{wordsListHeader[current.UI]}</h2>
+      <h2 className="words__header">{wordsListConst[current.UI].header}</h2>
       <table className="words__table">
         <thead />
         <tbody>
@@ -57,7 +57,7 @@ const WordsList: React.FC = () => {
       </table>
       <Link to="/lessons/exercises">
         <Button type="primary">
-          {practiseButtonText[current.UI]}
+          {nextButtonConst[current.UI].nextButton}
         </Button>
       </Link>
     </div>

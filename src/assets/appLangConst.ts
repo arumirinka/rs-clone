@@ -34,3 +34,39 @@ export const appLangConst: IAppLangConst = {
     darkTheme: 'Dark',
   },
 };
+
+export const nextButtonConst: IAppLangConst = {
+  russian: {
+    nextButton: 'Дальше',
+  },
+  english: {
+    nextButton: 'Next',
+  },
+  german: {
+    nextButton: 'Nächster',
+  },
+};
+
+export const matchWordsConst: IAppLangConst = {
+  russian: {
+    header: 'Соедините слова и перевод',
+  },
+  english: {
+    header: 'Match words and translations',
+  },
+  german: {
+    header: 'Wörter und übersetzungen abgleichen',
+  },
+};
+
+export const wordsListConst: IAppLangConst = {
+  russian: {
+    header: 'Слова к уроку',
+  },
+  english: {
+    header: 'Words for the Lesson',
+  },
+  german: {
+    header: 'Worte für die Lektion',
+  },
+};
