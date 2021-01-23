@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import './MatchWords.css';
+import './matchWords.css';
 import { Button } from 'antd';
 import { matchWordsHeader, nextButtonText } from './matchWordsTranslate';
 import EndOfExerciseModal from '../EndOfExerciseModal';

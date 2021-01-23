@@ -4,6 +4,7 @@ import { Progress } from 'antd';
 import MatchWords from './MatchWords/MatchWords';
 import content from '../../content.json';
 import KittyWithPencil from './KittyWithPencil';
+import './exercisesLayout.css';
 
 const theContent:any = content;
 interface Lesson {
