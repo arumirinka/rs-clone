@@ -29,6 +29,7 @@ function App() {
   const isAuthenticated = !!token;
 
   return (
+
     <AuthContext.Provider
       value={{
         token,
@@ -47,8 +48,8 @@ function App() {
             <Route path="/main" component={Main} exact />
             <Route path="/stats" render={() => <StatsPage appLang={appLang} />} exact />
             <Route path="/steps" component={StepsLayout} exact />
-            <Route path="/words" component={WordsList} exact />
             <Route path="/lessons" component={LessonsLayout} exact />
+            <Route path="/lessons/words" component={WordsList} exact />            
             <Route path="/lessons/exercises" component={ExercisesLayout} exact />
             <Redirect to="/main" />
           </Switch>
