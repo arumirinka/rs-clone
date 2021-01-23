@@ -1,14 +1,17 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import {
   Menu, Dropdown, Button, Space, Drawer,
 } from 'antd';
 import Icon, {
   DownOutlined, MenuOutlined, SettingOutlined,
 } from '@ant-design/icons';
+import { useHistory } from 'react-router-dom';
 import SideMenu from '../Menu/Menu';
-import RegistrationFormInModal from '../RegistrationForm/RegistrationFormInModal';
 import Settings from '../Settings/Settings';
 import './header.css';
+
+import { AuthContext } from '../../context/AuthContext';
+
 import { appLangConst } from '../../assets/appLangConst';
 import flag_RU from '../../assets/RU.svg';
 import flag_US from '../../assets/US.svg';
@@ -65,6 +68,14 @@ const Header: React.FC<IProps> = ({ handleLangChange, appLang }: IProps) => {
     setVisibleSettings(false);
   };
 
+  const history = useHistory();
+  const auth = useContext(AuthContext);
+
+  const logoutHandler = () => {
+    auth.logout();
+    history.push('/');
+  };
+
   const [theme, setTheme] = useState('light');
   const onChangeTheme = (value: any) => {
     setTheme(value ? 'dark' : 'light');
@@ -88,7 +99,10 @@ const Header: React.FC<IProps> = ({ handleLangChange, appLang }: IProps) => {
             {currLang} <DownOutlined />
           </Button>
         </Dropdown>
-        <RegistrationFormInModal appLang={appLang} />
+        <Button type="primary" htmlType="submit" onClick={logoutHandler}>
+          Выйти
+        </Button>
+
         <SettingOutlined onClick={toggleSettings} className="header__icon" />
       </Space>
       <Drawer
