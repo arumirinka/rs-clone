@@ -8,7 +8,11 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import rootReducer from './redux/rootReducer';
 
-const store = createStore(rootReducer);
+const store = createStore(
+  rootReducer,
+  // eslint-disable-next-line no-underscore-dangle
+  (window as any).__REDUX_DEVTOOLS_EXTENSION__ && (window as any).__REDUX_DEVTOOLS_EXTENSION__(),
+);
 
 ReactDOM.render(
   <Provider store={store}>
