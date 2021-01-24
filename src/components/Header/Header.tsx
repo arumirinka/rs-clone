@@ -6,6 +6,7 @@ import Icon, {
   DownOutlined, MenuOutlined, SettingOutlined,
 } from '@ant-design/icons';
 import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import SideMenu from '../Menu/Menu';
 import Settings from '../Settings/Settings';
 import './header.css';
@@ -16,6 +17,7 @@ import { appLangConst } from '../../assets/appLangConst';
 import flag_RU from '../../assets/RU.svg';
 import flag_US from '../../assets/US.svg';
 import flag_DE from '../../assets/DE.svg';
+import { CHANGE_APP_LANG } from '../../redux/actions';
 
 type IProps = {
   handleLangChange: any,
@@ -25,6 +27,8 @@ type IProps = {
 let currLang = 'Русский';
 
 const Header: React.FC<IProps> = ({ handleLangChange, appLang }: IProps) => {
+  const dispatch = useDispatch();
+
   const handleLangMenuClick = (e: any) => {
     if (e.key === 'russian') {
       currLang = 'Русский';
@@ -36,6 +40,7 @@ const Header: React.FC<IProps> = ({ handleLangChange, appLang }: IProps) => {
       currLang = 'Deutsch';
     }
     handleLangChange(e.key);
+    dispatch({ type: CHANGE_APP_LANG, payload: e.key });
   };
 
   const langMenu = (
