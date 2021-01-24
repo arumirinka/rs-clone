@@ -4,7 +4,6 @@ interface IAppLangConst {
   }
 }
 
-// eslint-disable-next-line import/prefer-default-export
 export const appLangConst: IAppLangConst = {
   russian: {
     login: 'Войти',
@@ -15,6 +14,9 @@ export const appLangConst: IAppLangConst = {
     settingsDrawerHeader: 'Настройки',
     lightTheme: 'Светло',
     darkTheme: 'Темно',
+    lang1: 'Английский',
+    lang2: 'Японский',
+    lang3: 'Французский',
   },
   english: {
     login: 'Log in',
@@ -25,6 +27,9 @@ export const appLangConst: IAppLangConst = {
     settingsDrawerHeader: 'Settings',
     lightTheme: 'Light',
     darkTheme: 'Dark',
+    lang1: 'Russian',
+    lang2: 'Japanese',
+    lang3: 'French',
   },
   german: {
     login: 'Einloggen',
@@ -35,5 +40,29 @@ export const appLangConst: IAppLangConst = {
     settingsDrawerHeader: 'Settings',
     lightTheme: 'Light',
     darkTheme: 'Dark',
+    lang1: 'Englisch',
+    lang2: 'Japanisch',
+    lang3: 'Französisch',
+  },
+};
+
+export const langsLayoutLangConst: IAppLangConst = {
+  russian: {
+    lang1: 'Английский',
+    lang2: 'Японский',
+    lang3: 'Французский',
+    header: 'Помоги Кэтали найти с людьми общий язык!',
+  },
+  english: {
+    lang1: 'Russian',
+    lang2: 'Japanese',
+    lang3: 'French',
+    header: 'Help CATalie to find common language with people!',
+  },
+  german: {
+    lang1: 'Englisch',
+    lang2: 'Japanisch',
+    lang3: 'Französisch',
+    header: 'Hilf CATalie, gemeinsame Sprache mit Menschen zu finden!',
   },
 };
