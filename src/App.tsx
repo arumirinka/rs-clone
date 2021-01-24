@@ -39,7 +39,7 @@ function App() {
       }}
     >
       <div className="App">
-        {isAuthenticated && <Header handleLangChange={handleLangChange} appLang={appLang} />}
+        {isAuthenticated && <Header handleLangChange={handleLangChange} />}
         {isAuthenticated && <Divider />}
         <div className="content-wrapper">
           {isAuthenticated && (
