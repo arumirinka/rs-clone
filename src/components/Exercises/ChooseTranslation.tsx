@@ -1,7 +1,6 @@
-import React, { useState, useRef } from 'react';
-import { Button, Progress } from 'antd';
+import React, { useState, useRef, useEffect } from 'react';
+import { Button } from 'antd';
 import ChooseTranslationBtn from './ChooseTranslationBtn';
-import EndOfExerciseModal from './EndOfExerciseModal';
 import checkIfButtonsEnabled from './checkIfButtonsEnabled';
 import './chooseTranslation.css';
 
@@ -11,33 +10,68 @@ const getRandomNumbers = ():number[] => {
 };
 let randomNumbersArray = getRandomNumbers();
 type Props={
-  randomWords:string[][]
+  randomWords:string[][],
+  progress:number,
+  setProgress:React.Dispatch<React.SetStateAction<number>>,
+  points:number,
+  setPoints:React.Dispatch<React.SetStateAction<number>>,
+  id:number,
+  visibleID:number,
+  setVisibleID:React.Dispatch<React.SetStateAction<number>>,
+  lessonPlan:number[],
+  currentStep:number,
+  setCurrentStep:React.Dispatch<React.SetStateAction<number>>,
+  modalVisible:boolean,
 };
 let showNewWords:() => void;
-const chooseTranslation = (randomWords:Props) => {
-  const [points, setPoints] = useState(0);
-  const [wordsArray, setWordsArray] = useState(randomWords.randomWords);
+const chooseTranslation = ({
+  randomWords, progress, setProgress, points, setPoints, id, visibleID, setVisibleID, lessonPlan,
+  currentStep, setCurrentStep, modalVisible,
+}:Props) => {
+  const [wordsArray, setWordsArray] = useState(randomWords);
   const wordToCheck:any = wordsArray[0][0];
   const translationToCheck:string = wordsArray[0][1];
-
-  const [progress, setProgress] = useState(0);
 
   const [btnStyle, setBtnStyle] = useState(false);
   const buttonsContainer = useRef<HTMLDivElement>(null!);
   const [continueBtnDisabled, setContinueBtnDisabled] = useState(true);
-  const [visible, setVisible]: any[] = useState(false);
-  const showModal = (): void => {
-    setVisible(true);
+
+  const visRef = useRef(visibleID);
+  visRef.current = visibleID;
+  const modalRef = useRef(modalVisible);
+  modalRef.current = modalVisible;
+
+  const handleEnterPress = (event:any) => {
+    if (visRef.current === id
+      && event.key === 'Enter'
+      && !checkIfButtonsEnabled(buttonsContainer)
+      && !modalRef.current) {
+      showNewWords();
+    }
   };
+
+  useEffect(() => {
+    window.addEventListener('keypress', handleEnterPress);
+    return () => {
+      window.removeEventListener('keypress', handleEnterPress);
+    };
+  }, []);
+
+  if (!(id === visibleID)) {
+    return null;
+  }
+
   showNewWords = () => {
     if (progress === 100) {
       setBtnStyle(true);
-      showModal();
     } else {
-      const buttons = Array.from(buttonsContainer.current.children);
-      buttons.forEach((button) => {
-        button.classList.remove('buttons__translateBtn--correct', 'buttons__translateBtn--wrong', 'buttons__translateBtn--bigger');
-      });
+      if (buttonsContainer.current) {
+        const buttons = Array.from(buttonsContainer.current.children);
+        buttons.forEach((button) => {
+          button.classList.remove('buttons__translateBtn--correct', 'buttons__translateBtn--wrong', 'buttons__translateBtn--bigger');
+        });
+      }
+
       const newWords = wordsArray
         .slice(1, 10);
       newWords.push(wordsArray[0]);
@@ -45,18 +79,13 @@ const chooseTranslation = (randomWords:Props) => {
       randomNumbersArray = getRandomNumbers();
       setContinueBtnDisabled(true);
       setBtnStyle(false);
+      setVisibleID(lessonPlan[currentStep + 1]);
+      setCurrentStep(currentStep + 1);
     }
   };
-  window.addEventListener('keypress', (event) => {
-    if (event.key === 'Enter' && !checkIfButtonsEnabled(buttonsContainer)) {
-      showNewWords();
-    }
-  });
+
   return (
-    <div className="chooseTranslation-container">
-      <div className="exercises-container__progress-bar">
-        <Progress percent={progress} showInfo={false} />
-      </div>
+    <>
       <div className="chooseTranslation-container__word">Выберите перевод для слова &quot;{wordToCheck}&quot;</div>
       <div className="chooseTranslation-container__buttons" ref={buttonsContainer}>
         <ChooseTranslationBtn
@@ -112,10 +141,7 @@ const chooseTranslation = (randomWords:Props) => {
           setPoints={setPoints}
         />
       </div>
-      <EndOfExerciseModal
-        visible={visible}
-        points={points}
-      />
+
       <Button
         type="primary"
         htmlType="submit"
@@ -124,7 +150,7 @@ const chooseTranslation = (randomWords:Props) => {
         disabled={continueBtnDisabled}
       >Продолжить
       </Button>
-    </div>
+    </>
   );
 };
 export default chooseTranslation;
