@@ -19,15 +19,11 @@ import flag_US from '../../assets/US.svg';
 import flag_DE from '../../assets/DE.svg';
 import { CHANGE_APP_LANG } from '../../redux/actions';
 
-type IProps = {
-  handleLangChange: any,
-};
-
 let currLang = 'Русский';
 
 const selectAppLang = (state: { app: { appLang: any; }; }) => state.app.appLang;
 
-const Header: React.FC<IProps> = ({ handleLangChange }: IProps) => {
+const Header: React.FC = () => {
   const appLang = useSelector(selectAppLang);
 
   const dispatch = useDispatch();
@@ -42,7 +38,6 @@ const Header: React.FC<IProps> = ({ handleLangChange }: IProps) => {
     if (e.key === 'german') {
       currLang = 'Deutsch';
     }
-    handleLangChange(e.key);
     dispatch({ type: CHANGE_APP_LANG, payload: e.key });
   };
 

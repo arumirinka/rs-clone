@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './App.css';
 import {
   Redirect, Route, Switch, withRouter,
@@ -17,12 +17,6 @@ import LoginPage from './pages/LoginPage/LoginPage';
 import ExercisesLayout from './components/Exercises/ExercisesLayout';
 
 function App() {
-  const [appLang, setAppLang] = useState('russian');
-
-  const handleLangChange:any = (lang: string) => {
-    setAppLang(lang);
-  };
-
   const {
     token, login, logout, userId,
   } = useAuth();
@@ -39,13 +33,13 @@ function App() {
       }}
     >
       <div className="App">
-        {isAuthenticated && <Header handleLangChange={handleLangChange} />}
+        {isAuthenticated && <Header />}
         {isAuthenticated && <Divider />}
         <div className="content-wrapper">
           {isAuthenticated && (
           <Switch>
             <Route path="/main" component={Main} exact />
-            <Route path="/stats" render={() => <StatsPage appLang={appLang} />} exact />
+            <Route path="/stats" component={StatsPage} exact />
             <Route path="/steps" component={StepsLayout} exact />
             <Route path="/words" component={WordsList} exact />
             <Route path="/lessons" component={LessonsLayout} exact />

@@ -1,12 +1,11 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import HelloWorld from '../../components/HelloWorld/HelloWorld';
 
-interface IProps {
-  appLang: string
-}
-
-const StatsPage: React.FC<IProps> = ({ appLang }: IProps) => {
+const StatsPage: React.FC = () => {
   const num: number = 2;
+  const selectAppLang = (state: { app: { appLang: any; }; }) => state.app.appLang;
+  const appLang = useSelector(selectAppLang);
   return (
     <div className="stats">
       <header className="stats-header">
