@@ -133,7 +133,7 @@ const MatchWords = ({
         setPrev(null);
         button.disabled = true;
       } else {
-        const PENALTY_PER_MISS = 10;
+        const PENALTY_PER_MISS = 5;
         setPointsPenalty(pointsPenalty + PENALTY_PER_MISS);
         const ERROR_URL = '../../../audio/mistake_sound.mp3';
         playSound(ERROR_URL);
