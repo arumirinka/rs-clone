@@ -4,13 +4,17 @@ import CSS from 'csstype';
 import EndOfExerciseModal from '../EndOfExerciseModal';
 import './makeAPhrase.css';
 import checkPhrase from './checkPhrase';
+import { exercisesInterface } from '../../../assets/appLangConst';
 
 type Props={
   randomPhrases:string[][],
   progress:number,
-  setProgress:any
+  setProgress:any,
+  appLang:string,
 };
-const MakeAPhrase = ({ randomPhrases, progress, setProgress }:Props) => {
+const MakeAPhrase = ({
+  randomPhrases, progress, setProgress, appLang,
+}:Props) => {
   const maxProgress:number = 100;
   const progressGap:number = 10;
   const [points, setPoints] = useState(0);
@@ -39,7 +43,7 @@ const MakeAPhrase = ({ randomPhrases, progress, setProgress }:Props) => {
   const showModal = (): void => {
     setVisible(true);
   };
-  const showNewWords = ():void => {
+  const checkAndShowNewWords = ():void => {
     setProgress(progress + progressGap);
     setContinueBtnDisabled(true);
     setContainerDisabled({ pointerEvents: 'none' });
@@ -109,7 +113,7 @@ const MakeAPhrase = ({ randomPhrases, progress, setProgress }:Props) => {
 
   return (
     <>
-      <div className="makeAPhrase-container__phrase">Составьте фразу: &quot;{phraseToCheck}&quot;</div>
+      <div className="makeAPhrase-container__phrase">{ exercisesInterface[appLang].makeAPhrase}: &quot;{phraseToCheck}&quot;</div>
       <div className="makeAPhrase-container__phrase-maker">
         <div className="phrase-maker__inner-container" style={containerDisabled} ref={phraseMakerContainer}>
           {words.map((word, index) => (
@@ -151,10 +155,10 @@ const MakeAPhrase = ({ randomPhrases, progress, setProgress }:Props) => {
       <Button
         type="primary"
         htmlType="submit"
-        onClick={() => { showNewWords(); }}
+        onClick={() => { checkAndShowNewWords(); }}
         className="chooseTranslation-container__continueButton"
         disabled={continueBtnDisabled}
-      >Проверить
+      >{exercisesInterface[appLang].сheck}
       </Button>
     </>
   );

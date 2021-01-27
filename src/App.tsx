@@ -50,7 +50,7 @@ function App() {
             <Route path="/steps" render={() => <StepsLayout appLang={appLang} />} exact />
             <Route path="/lessons" render={() => <LessonsLayout appLang={appLang} />} exact />
             <Route path="/lessons/words" component={WordsList} exact />
-            <Route path="/lessons/exercises" component={ExercisesLayout} exact />
+            <Route path="/lessons/exercises" render={() => <ExercisesLayout appLang={appLang} />} exact />
             <Redirect to="/main" />
           </Switch>
           )}
