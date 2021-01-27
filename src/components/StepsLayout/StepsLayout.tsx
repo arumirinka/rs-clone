@@ -1,21 +1,29 @@
 import React, { useState, useRef } from 'react';
+import { useHistory } from 'react-router-dom';
 import CSS from 'csstype';
 import './StepsLayout.css';
 import arrowLogo from '../../assets/arrowRight.svg';
 import kittyImg from '../../assets/superKitty.svg';
 
 const StepsLayout: React.FC = () => {
+  const history = useHistory();
+  const goToLessons = () => {
+    history.push('/lessons');
+  };
+
   const [kittyPosition, setKittyPosition] = useState({
     left: '5%',
     top: '46%',
   });
-  const refContainer:any = useRef(0);
+
+  const refContainer: any = useRef(0);
+
   const setLessonsPage = (event: React.MouseEvent) => {
     const containerMaxWidth: number = 1200;
-    const distanceFromTop:number = window.pageYOffset
+    const distanceFromTop: number = window.pageYOffset
     + refContainer.current.getBoundingClientRect().top;
-    let left:string;
-    const top:string = `${event.pageY - distanceFromTop}px`;
+    let left: string;
+    const top: string = `${event.pageY - distanceFromTop}px`;
     if (window.innerWidth > containerMaxWidth) {
       left = `calc(${event.pageX - ((window.innerWidth - containerMaxWidth) / 2)}px)`;
     } else {
@@ -27,6 +35,10 @@ const StepsLayout: React.FC = () => {
       top,
     };
     setKittyPosition(obj);
+
+    setTimeout(() => {
+      goToLessons();
+    }, 1000);
   };
 
   const styles: CSS.Properties = {
