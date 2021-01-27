@@ -1,26 +1,38 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 type Props = {
   lesson: string,
   number: number,
-  open:boolean,
+  isOpen:boolean,
 };
-const Lesson = ({ lesson, number, open }: Props) => {
+
+const Lesson = ({ lesson, number, isOpen }: Props) => {
   const [levelOpen, setLevelOpen] = useState({});
+
+  const history = useHistory();
+  const goToLesson = () => {
+    history.push('/lessons/exercises');
+  };
+
   const style = {
     background: '#17B699',
     filter: 'none',
     animation: 'rotateLesson 2s 1',
   };
-  console.log(open);
-  const openLesson = (event:any) => {
+
+  const openLesson = (event: any) => {
     event.target.classList.remove('lessons__lesson--closed');
     /* eslint-disable no-param-reassign */
-    open = true;
-    return setLevelOpen(style);
+    isOpen = true;
+    setLevelOpen(style);
+
+    setTimeout(() => {
+      goToLesson();
+    }, 1000);
   };
-  console.log(open);
-  if (open) {
+
+  if (isOpen) {
     return (
       <button
         type="button"

@@ -21,12 +21,12 @@ const LessonsLayout: React.FC = () => {
             <KittyImg />
           </div>
           <div className="content__lessons">
-            <Lesson lesson={lesson[0]} number={1} open />
-            <Lesson lesson={lesson[0]} number={2} open={false} />
-            <Lesson lesson={lesson[0]} number={3} open={false} />
-            <Lesson lesson={lesson[0]} number={4} open={false} />
-            <Lesson lesson={lesson[0]} number={5} open={false} />
-            <Lesson lesson={lesson[0]} number={6} open={false} />
+            <Lesson lesson={lesson[0]} number={1} isOpen />
+            <Lesson lesson={lesson[0]} number={2} isOpen={false} />
+            <Lesson lesson={lesson[0]} number={3} isOpen={false} />
+            <Lesson lesson={lesson[0]} number={4} isOpen={false} />
+            <Lesson lesson={lesson[0]} number={5} isOpen={false} />
+            <Lesson lesson={lesson[0]} number={6} isOpen={false} />
           </div>
           <div className="content__chart">
             <PieChart done={chartLegend[0][0]} toDo={chartLegend[1][0]} value={chartValue} />
