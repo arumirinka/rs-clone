@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { Button } from 'antd';
+import CSS from 'csstype';
 import EndOfExerciseModal from '../EndOfExerciseModal';
 import './makeAPhrase.css';
 import checkPhrase from './checkPhrase';
@@ -34,12 +35,14 @@ const MakeAPhrase = ({ randomPhrases, progress, setProgress }:Props) => {
     .slice(0, (translationToCheck.length + 4))
     .sort(() => Math.random() - 0.5));
   const phraseMakerContainer = useRef<HTMLDivElement>(null!);
+  const [containerDisabled, setContainerDisabled] = useState<CSS.Properties>({ pointerEvents: 'all' });
   const showModal = (): void => {
     setVisible(true);
   };
   const showNewWords = ():void => {
     setProgress(progress + progressGap);
     setContinueBtnDisabled(true);
+    setContainerDisabled({ pointerEvents: 'none' });
     const nextWordsLayout = () => {
       phraseMakerContainer.current.classList.remove('phrase-maker--correct',
         'phrase-maker--wrong');
@@ -53,33 +56,38 @@ const MakeAPhrase = ({ randomPhrases, progress, setProgress }:Props) => {
         .sort(() => Math.random() - 0.5);
       setWordsBtns(newTranslationPerWordArray);
       setWords([]);
+      setContainerDisabled({ pointerEvents: 'all' });
     };
-    if (progress === maxProgress - progressGap) {
-      showModal();
-    } else {
-      const phraseMade:string[] = [];
-      Array.from(phraseMakerContainer.current.children)
-        .map((child:any) => phraseMade.push(child.dataset.id));
-      const isCorrect = checkPhrase(phraseMade, translationToCheck);
-      let audioPath:string;
-      if (isCorrect) {
-        phraseMakerContainer.current.classList.add('phrase-maker--correct');
-        audioPath = '../../audio/success_sound.mp3';
-        setPoints(points + 10);
-        setTimeout(() => nextWordsLayout(), 1000);
+    const phraseMade:string[] = [];
+    Array.from(phraseMakerContainer.current.children)
+      .map((child:any) => phraseMade.push(child.dataset.id));
+    const isCorrect = checkPhrase(phraseMade, translationToCheck);
+    let audioPath:string;
+    if (isCorrect) {
+      phraseMakerContainer.current.classList.add('phrase-maker--correct');
+      audioPath = '../../audio/success_sound.mp3';
+      setPoints(points + progressGap);
+      if (progress === maxProgress - progressGap) {
+        showModal();
       } else {
-        phraseMakerContainer.current.classList.add('phrase-maker--wrong');
-        audioPath = '../../audio/mistake_sound.mp3';
-        setTimeout(() => {
-          setWordsBtns([]);
-          setWordsBtns(translationToCheck);
-          buttonsContainer.current.classList.add('phrase-maker--correct');
-        }, 500);
-        setTimeout(() => nextWordsLayout(), 3000);
+        setTimeout(() => nextWordsLayout(), 1000);
       }
-      const audio = new Audio(audioPath);
-      audio.play();
+    } else {
+      phraseMakerContainer.current.classList.add('phrase-maker--wrong');
+      audioPath = '../../audio/mistake_sound.mp3';
+      setTimeout(() => {
+        setWordsBtns([]);
+        setWordsBtns(translationToCheck);
+        buttonsContainer.current.classList.add('phrase-maker--correct');
+      }, 500);
+      if (progress === maxProgress - progressGap) {
+        setTimeout(() => showModal(), 2500);
+      } else {
+        setTimeout(() => nextWordsLayout(), 2500);
+      }
     }
+    const audio = new Audio(audioPath);
+    audio.play();
   };
 
   const handleClick = (event:any) => {
@@ -103,7 +111,7 @@ const MakeAPhrase = ({ randomPhrases, progress, setProgress }:Props) => {
     <>
       <div className="makeAPhrase-container__phrase">Составьте фразу: &quot;{phraseToCheck}&quot;</div>
       <div className="makeAPhrase-container__phrase-maker">
-        <div className="phrase-maker__inner-container" ref={phraseMakerContainer}>
+        <div className="phrase-maker__inner-container" style={containerDisabled} ref={phraseMakerContainer}>
           {words.map((word, index) => (
             <button
               type="button"
@@ -118,7 +126,11 @@ const MakeAPhrase = ({ randomPhrases, progress, setProgress }:Props) => {
           ))}
         </div>
       </div>
-      <div className="makeAPhrase__buttons" ref={buttonsContainer}>
+      <div
+        className="makeAPhrase__buttons"
+        ref={buttonsContainer}
+        style={containerDisabled}
+      >
         {wordsBtns.map((el:any, index:number) => (
           <button
             type="button"
