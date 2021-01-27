@@ -1,8 +1,9 @@
-import { CHANGE_APP_LANG, CHANGE_LEARN_LANG } from './types';
+import { CHANGE_APP_LANG, CHANGE_LEARN_LANG, CHANGE_LEVEL } from './types';
 
 const initialState = {
   appLang: 'russian',
   learnLang: 'english',
+  level: 1,
 };
 
 export default function appReducer(state = initialState, action) {
@@ -19,6 +20,13 @@ export default function appReducer(state = initialState, action) {
       return {
         ...state,
         learnLang: lang,
+      };
+    }
+    case CHANGE_LEVEL: {
+      const level = action.payload;
+      return {
+        ...state,
+        level,
       };
     }
     default:

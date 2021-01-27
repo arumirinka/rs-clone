@@ -1,4 +1,6 @@
-import { CHANGE_APP_LANG, CHANGE_LEARN_LANG, FETCH_DATA } from './types';
+import {
+  CHANGE_APP_LANG, CHANGE_LEARN_LANG, CHANGE_LEVEL, FETCH_DATA,
+} from './types';
 import content from '../content.json';
 
 const getLearningLang = (lang) => {
@@ -25,6 +27,13 @@ export function changeLearnLang(learnLang) {
   return {
     type: CHANGE_LEARN_LANG,
     payload: learningLang,
+  };
+}
+
+export function changeLevel(level) {
+  return {
+    type: CHANGE_LEVEL,
+    payload: level,
   };
 }
 

@@ -1,6 +1,8 @@
 import React, { useState, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import CSS from 'csstype';
+import { changeLevel } from '../../redux/actions';
 import './StepsLayout.css';
 import arrowLogo from '../../assets/arrowRight.svg';
 import kittyImg from '../../assets/superKitty.svg';
@@ -11,6 +13,11 @@ const StepsLayout: React.FC = () => {
     history.push('/lessons');
   };
 
+  const dispatch = useDispatch();
+  const changeCurrentLevel = (level: number) => {
+    dispatch(changeLevel(level));
+  };
+
   const [kittyPosition, setKittyPosition] = useState({
     left: '5%',
     top: '46%',
@@ -18,7 +25,7 @@ const StepsLayout: React.FC = () => {
 
   const refContainer: any = useRef(0);
 
-  const setLessonsPage = (event: React.MouseEvent) => {
+  const setLessonsPage = (event: React.MouseEvent, levelNum: number) => {
     const containerMaxWidth: number = 1200;
     const distanceFromTop: number = window.pageYOffset
     + refContainer.current.getBoundingClientRect().top;
@@ -36,6 +43,8 @@ const StepsLayout: React.FC = () => {
     };
     setKittyPosition(obj);
 
+    changeCurrentLevel(levelNum);
+
     setTimeout(() => {
       goToLessons();
     }, 1000);
@@ -51,30 +60,30 @@ const StepsLayout: React.FC = () => {
       <div className="steps-сontainer">
         <div className="steps-container__step">
           <img src={arrowLogo} alt="arrow right" className="step__arrow-right anim-2" />
-          <button type="button" className="step__level anim-1" data-id="1" onClick={(event: React.MouseEvent) => setLessonsPage(event)}>
+          <button type="button" className="step__level anim-1" data-id="1" onClick={(event: React.MouseEvent) => setLessonsPage(event, 1)}>
             Уровень 1
           </button>
         </div>
         <div className="steps-container__step">
           <img src={arrowLogo} alt="arrow right" className="step__arrow-right anim-4" />
-          <button type="button" className="step__level anim-3" data-id="2" onClick={(event: React.MouseEvent) => setLessonsPage(event)}>
+          <button type="button" className="step__level anim-3" data-id="2" onClick={(event: React.MouseEvent) => setLessonsPage(event, 2)}>
             Уровень 2
           </button>
         </div>
         <div className="steps-container__step">
           <img src={arrowLogo} alt="arrow right" className="step__arrow-right anim-6" />
-          <button type="button" className="step__level anim-5" data-id="3" onClick={(event: React.MouseEvent) => setLessonsPage(event)}>
+          <button type="button" className="step__level anim-5" data-id="3" onClick={(event: React.MouseEvent) => setLessonsPage(event, 3)}>
             Уровень 3
           </button>
         </div>
         <div className="steps-container__step">
           <img src={arrowLogo} alt="arrow right" className="step__arrow-right anim-8" />
-          <button type="button" className="step__level anim-7" data-id="4" onClick={(event: React.MouseEvent) => setLessonsPage(event)}>
+          <button type="button" className="step__level anim-7" data-id="4" onClick={(event: React.MouseEvent) => setLessonsPage(event, 4)}>
             Уровень 4
           </button>
         </div>
         <div className="steps-container__step anim-10">
-          <button type="button" className="step__level anim-9" data-id="5" onClick={(event: React.MouseEvent) => setLessonsPage(event)}>
+          <button type="button" className="step__level anim-9" data-id="5" onClick={(event: React.MouseEvent) => setLessonsPage(event, 5)}>
             Уровень 5
           </button>
         </div>
