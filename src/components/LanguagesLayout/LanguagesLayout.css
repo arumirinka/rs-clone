@@ -73,6 +73,7 @@
     background: #27B49A;
     font-weight: 600;
     font-size: 1.2em;
+    color: #000000d9;
 }
 .languages__language:nth-child(1) > button{
     margin-left: 5%;

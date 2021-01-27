@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Modal } from 'antd';
 import 'antd/dist/antd.css';
 import './LanguagesLayout.css';
@@ -38,9 +39,11 @@ const LanguageButton = ({ language }: Props) => {
   const isAuthenticated = !!token;
   return (
     <>
-      <button type="button" className="language__button" onClick={handleLangBtnClick}>
-        {language}
-      </button>
+      <Link to="/steps">
+        <button type="button" className="language__button" onClick={handleLangBtnClick}>
+          {language}
+        </button>
+      </Link>
       {!isAuthenticated && (
       <Modal
         title={appLangConst[appLang].plzLogin}
