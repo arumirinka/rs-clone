@@ -1,4 +1,4 @@
-export const checkPhrase = (phraseMade:string[], translationToCheck:string[]) => {
+const checkPhrase = (phraseMade:string[], translationToCheck:string[]) => {
   if (String(phraseMade).toLowerCase() === String(translationToCheck).toLowerCase()) {
     return true;
   }

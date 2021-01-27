@@ -8,6 +8,7 @@ interface IAppLangConst {
 export const appLangConst: IAppLangConst = {
   russian: {
     login: 'Войти',
+    logout: 'Выйти',
     plzLogin: 'Пожалуйста, войдите или зарегистрируйтесь',
     email: 'E-mail',
     password: 'Пароль',
@@ -22,6 +23,7 @@ export const appLangConst: IAppLangConst = {
   },
   english: {
     login: 'Log in',
+    logout: 'Logout',
     plzLogin: 'Please log in or register',
     email: 'E-mail',
     password: 'Password',
@@ -36,6 +38,7 @@ export const appLangConst: IAppLangConst = {
   },
   german: {
     login: 'Einloggen',
+    logout: 'Abmelden',
     plzLogin: 'Bitte einloggen oder anmelden',
     email: 'E-mail',
     password: 'Passwort',
@@ -125,5 +128,41 @@ export const exercisesInterface: IAppLangConst = {
     endOfLessonTitle: 'Und die Lektion ist vorbei!',
     endOfLessonText: 'Sieh mal, wie viele Punkte wir gekriegt haben',
     toLessons: 'Zurück zu Lektionen',
+  },
+};
+
+export const nextButtonConst: IAppLangConst = {
+  russian: {
+    nextButton: 'Дальше',
+  },
+  english: {
+    nextButton: 'Next',
+  },
+  german: {
+    nextButton: 'Nächster',
+  },
+};
+
+export const matchWordsConst: IAppLangConst = {
+  russian: {
+    header: 'Соедините слова и перевод',
+  },
+  english: {
+    header: 'Match words and translations',
+  },
+  german: {
+    header: 'Wörter und übersetzungen abgleichen',
+  },
+};
+
+export const wordsListConst: IAppLangConst = {
+  russian: {
+    header: 'Слова к уроку',
+  },
+  english: {
+    header: 'Words for the Lesson',
+  },
+  german: {
+    header: 'Worte für die Lektion',
   },
 };

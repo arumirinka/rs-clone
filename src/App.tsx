@@ -1,14 +1,20 @@
 import React, { useState } from 'react';
 import './App.css';
-import { Route, withRouter, Switch } from 'react-router-dom';
+import {
+  Redirect,
+  Route, Switch, withRouter,
+} from 'react-router-dom';
 import { Divider } from 'antd';
+import { useAuth } from './hooks/auth.hook';
+import { AuthContext } from './context/AuthContext';
 import Header from './components/Header/Header';
-import Main from './pages/Main/Main';
-import StatsPage from './pages/StatsPage/StatsPage';
 import Footer from './components/Footer/Footer';
 import StepsLayout from './components/StepsLayout/StepsLayout';
 import WordsList from './components/WordsList/WordsList';
 import LessonsLayout from './components/LessonsLayout/LessonsLayout';
+import StatsPage from './pages/StatsPage/StatsPage';
+import Main from './pages/Main/Main';
+import LoginPage from './pages/LoginPage/LoginPage';
 import ExercisesLayout from './components/Exercises/ExercisesLayout';
 
 function App() {
@@ -18,23 +24,47 @@ function App() {
     setAppLang(lang);
   };
 
+  const {
+    token, login, logout, userId,
+  } = useAuth();
+  const isAuthenticated = !!token;
+
   return (
-    <div className="App">
-      <Header handleLangChange={handleLangChange} appLang={appLang} />
-      <Divider />
-      <div className="content-wrapper">
-        <Switch>
-          <Route path="/" render={() => <Main appLang={appLang} />} exact />
-          <Route path="/stats" render={() => <StatsPage appLang={appLang} />} exact />
-          <Route path="/steps" render={() => <StepsLayout appLang={appLang} />} exact />
-          <Route path="/words" component={WordsList} exact />
-          <Route path="/lessons" render={() => <LessonsLayout appLang={appLang} />} exact />
-          <Route path="/lessons/exercises" component={ExercisesLayout} exact />
-        </Switch>
+    <AuthContext.Provider
+      value={{
+        token,
+        login,
+        logout,
+        userId,
+        isAuthenticated,
+      }}
+    >
+      <div className="App">
+        {isAuthenticated && <Header handleLangChange={handleLangChange} appLang={appLang} />}
+        {isAuthenticated && <Divider />}
+        <div className="content-wrapper">
+          {isAuthenticated && (
+          <Switch>
+            <Route path="/main" render={() => <Main appLang={appLang} />} exact />
+            <Route path="/stats" render={() => <StatsPage appLang={appLang} />} exact />
+            <Route path="/steps" render={() => <StepsLayout appLang={appLang} />} exact />
+            <Route path="/lessons" render={() => <LessonsLayout appLang={appLang} />} exact />
+            <Route path="/lessons/words" component={WordsList} exact />
+            <Route path="/lessons/exercises" component={ExercisesLayout} exact />
+            <Redirect to="/main" />
+          </Switch>
+          )}
+          {!isAuthenticated && (
+          <Switch>
+            <Route path="/" render={() => <LoginPage appLang={appLang} />} exact />
+            <Redirect to="/" />
+          </Switch>
+          )}
+        </div>
+        <Divider />
+        <Footer />
       </div>
-      <Divider />
-      <Footer />
-    </div>
+    </AuthContext.Provider>
   );
 }
 

@@ -36,6 +36,7 @@
       "react-app/jest"
     ]
   },
+  "proxy": "https://enigmatic-peak-52817.herokuapp.com",
   "browserslist": {
     "production": [
       ">0.2%",
