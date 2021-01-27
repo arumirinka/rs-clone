@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './App.css';
 import {
-  Redirect,
+  // Redirect,
   Route, Switch, withRouter,
 } from 'react-router-dom';
 import { Divider } from 'antd';
@@ -51,13 +51,13 @@ function App() {
             <Route path="/lessons" render={() => <LessonsLayout appLang={appLang} />} exact />
             <Route path="/lessons/words" component={WordsList} exact />
             <Route path="/lessons/exercises" render={() => <ExercisesLayout appLang={appLang} />} exact />
-            <Redirect to="/main" />
+            {/* <Redirect to="/main" /> */}
           </Switch>
           )}
           {!isAuthenticated && (
           <Switch>
             <Route path="/" render={() => <LoginPage appLang={appLang} />} exact />
-            <Redirect to="/" />
+            {/* <Redirect to="/" /> */}
           </Switch>
           )}
         </div>

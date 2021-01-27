@@ -72,9 +72,6 @@ const MakeAPhrase = ({
         phraseMakerContainer.current.classList.add('phrase-maker--correct');
         audioPath = '../../audio/success_sound.mp3';
         setPoints(points + progressGap);
-        if (progress === maxProgress - progressGap) {
-          showModal();
-        }
       } else {
         phraseMakerContainer.current.classList.add('phrase-maker--wrong');
         audioPath = '../../audio/mistake_sound.mp3';
@@ -112,7 +109,6 @@ const MakeAPhrase = ({
   };
 
   const generateKey = (index:string) => `${index}_${new Date().getMilliseconds()}`;
-
   return (
     <>
       <div className="makeAPhrase-container__phrase">{ exercisesInterface[appLang].makeAPhrase}: &quot;{phraseToCheck}&quot;</div>
