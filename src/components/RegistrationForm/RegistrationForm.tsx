@@ -61,6 +61,7 @@ const RegistrationForm: React.FC = () => {
       {...layout}
       name="basic"
       initialValues={{ remember: true }}
+      onFinish={changeHandler}
     >
       <Form.Item
         label="Email"
@@ -75,6 +76,7 @@ const RegistrationForm: React.FC = () => {
           },
         ]}
         name="email"
+        validateTrigger="onBlur"
       >
         <Input
           name="email"
@@ -97,6 +99,7 @@ const RegistrationForm: React.FC = () => {
           },
         ]}
         name="password"
+        validateTrigger="onBlur"
       >
         <Input.Password
           name="password"
