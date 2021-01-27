@@ -17,7 +17,7 @@ import { appLangConst } from '../../assets/appLangConst';
 import flag_RU from '../../assets/RU.svg';
 import flag_US from '../../assets/US.svg';
 import flag_DE from '../../assets/DE.svg';
-import { CHANGE_APP_LANG } from '../../redux/actions';
+import { changeAppLang } from '../../redux/actions';
 
 let currLang = 'Русский';
 
@@ -38,7 +38,7 @@ const Header: React.FC = () => {
     if (e.key === 'german') {
       currLang = 'Deutsch';
     }
-    dispatch({ type: CHANGE_APP_LANG, payload: e.key });
+    dispatch(changeAppLang(e.key));
   };
 
   const langMenu = (

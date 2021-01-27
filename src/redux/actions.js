@@ -1,2 +1,9 @@
+import { CHANGE_APP_LANG } from './types';
+
 // eslint-disable-next-line import/prefer-default-export
-export const CHANGE_APP_LANG = 'CHANGE_APP_LANG';
+export function changeAppLang(lang) {
+  return {
+    type: CHANGE_APP_LANG,
+    payload: lang,
+  };
+}
