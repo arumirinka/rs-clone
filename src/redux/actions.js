@@ -8,12 +8,12 @@ export function changeAppLang(lang) {
   };
 }
 
-export function fetchData() {
+export function fetchData(appLang) {
   return async (dispatch) => {
     // eslint-disable-next-line no-undef
     // const response = await fetch(url);
     // const json = await response.json();
-    const json = content;
+    const json = content[appLang];
     dispatch({ type: FETCH_DATA, payload: json });
   };
 }
