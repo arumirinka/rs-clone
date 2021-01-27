@@ -17,7 +17,7 @@ const current:Lesson = {
   UI: 'russian',
   learning: 'english',
   level: 1,
-  lesson: 4,
+  lesson: 1,
 };
 // const { words } = theContent[current.UI][current.learning][`level${current.level}`]
 // [`lesson${current.lesson}`];

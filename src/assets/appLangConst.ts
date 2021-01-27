@@ -89,7 +89,7 @@ export const lessonsConst: IAppLangConst = {
   german: {
     level: 'Level',
     lesson: 'Lektion',
-    lessonsIntro: 'Meow, jetzt beginnen wir zu lernen! Ich setze dich ins Bild: du hast vor, 6 Lektionen abzuschließen und mindestens 510/600 Punkten (100 Punkten pro Lektion) oder 85% zu erhalten, um das nächste Level zu starten.',
+    lessonsIntro: 'Meow, jetzt beginnen wir zu lernen! Ich setze dich ins Bild: du hast vor, 6 Lektionen abzuschließen und mindestens 510/600 Punkte (100 Punkte pro Lektion) oder 85% zu erhalten, um das nächste Level zu starten.',
     chartCompleted: 'Abgeschlossen',
     chartLeft: 'Nicht abgeschlossen',
   },
@@ -102,6 +102,9 @@ export const exercisesInterface: IAppLangConst = {
     makeAPhrase: 'Составьте фразу',
     сheck: 'Проверить',
     correctAnswer: 'Правильный ответ',
+    endOfLessonTitle: 'Вот и урок завершён!',
+    endOfLessonText: 'Смотри, сколько баллов мы смогли набрать',
+    toLessons: 'Вернуться к урокам',
   },
   english: {
     chooseTranslation: 'Choose translation for word',
@@ -109,6 +112,9 @@ export const exercisesInterface: IAppLangConst = {
     makeAPhrase: 'Make a phrase',
     сheck: 'Check',
     correctAnswer: 'Correct answer',
+    endOfLessonTitle: 'And the lesson is over!',
+    endOfLessonText: 'Have a look, how many points we have gained',
+    toLessons: 'Back to lessons',
   },
   german: {
     chooseTranslation: 'Wählen Sie eine Übersetzung für das Wort',
@@ -116,5 +122,8 @@ export const exercisesInterface: IAppLangConst = {
     makeAPhrase: 'Bilden Sie die Phrase',
     сheck: 'Prüfen',
     correctAnswer: 'Richtige Antwort',
+    endOfLessonTitle: 'Und die Lektion ist vorbei!',
+    endOfLessonText: 'Sieh mal, wie viele Punkte wir gekriegt haben',
+    toLessons: 'Zurück zu Lektionen',
   },
 };

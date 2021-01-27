@@ -9,8 +9,9 @@ type Props={
   progress:number,
   setProgress:any
 };
-
 const MakeAPhrase = ({ randomPhrases, progress, setProgress }:Props) => {
+  const maxProgress:number = 100;
+  const progressGap:number = 10;
   const [points, setPoints] = useState(0);
   const [phrasesArray, setPhrasesArray] = useState(randomPhrases);
   const phraseToCheck:any = phrasesArray[0][0];
@@ -37,39 +38,48 @@ const MakeAPhrase = ({ randomPhrases, progress, setProgress }:Props) => {
     setVisible(true);
   };
   const showNewWords = ():void => {
-    setProgress(progress + 10);
-    const phraseMade:string[] = [];
-    Array.from(phraseMakerContainer.current.children)
-      .map((child:any) => phraseMade.push(child.dataset.id));
-    const isCorrect = checkPhrase(phraseMade, translationToCheck);
-    let audioPath:string;
-    if (isCorrect) {
-      phraseMakerContainer.current.classList.add('phrase-maker--correct');
-      audioPath = '../../audio/success_sound.mp3';
-      setPoints(points + 10);
+    setProgress(progress + progressGap);
+    setContinueBtnDisabled(true);
+    const nextWordsLayout = () => {
+      phraseMakerContainer.current.classList.remove('phrase-maker--correct',
+        'phrase-maker--wrong');
+      buttonsContainer.current.classList.remove(('phrase-maker--correct'));
+      const newPhrases = phrasesArray.slice(1, 10);
+      newPhrases.push(phrasesArray[0]);
+      setPhrasesArray(newPhrases);
+      setContinueBtnDisabled(true);
+      newTranslationPerWordArray = newTranslationPerWordArray.slice(translationToCheck.length,
+        (Math.ceil(translationPerWordArray.length / 3)))
+        .sort(() => Math.random() - 0.5);
+      setWordsBtns(newTranslationPerWordArray);
+      setWords([]);
+    };
+    if (progress === maxProgress - progressGap) {
+      showModal();
     } else {
-      phraseMakerContainer.current.classList.add('phrase-maker--wrong');
-      audioPath = '../../audio/mistake_sound.mp3';
-    }
-    const audio = new Audio(audioPath);
-    audio.play();
-    setTimeout(() => {
-      if (progress === 90) {
-        showModal();
+      const phraseMade:string[] = [];
+      Array.from(phraseMakerContainer.current.children)
+        .map((child:any) => phraseMade.push(child.dataset.id));
+      const isCorrect = checkPhrase(phraseMade, translationToCheck);
+      let audioPath:string;
+      if (isCorrect) {
+        phraseMakerContainer.current.classList.add('phrase-maker--correct');
+        audioPath = '../../audio/success_sound.mp3';
+        setPoints(points + 10);
+        setTimeout(() => nextWordsLayout(), 1000);
       } else {
-        phraseMakerContainer.current.classList.remove('phrase-maker--correct',
-          'phrase-maker--wrong');
-        const newPhrases = phrasesArray.slice(1, 10);
-        newPhrases.push(phrasesArray[0]);
-        setPhrasesArray(newPhrases);
-        setContinueBtnDisabled(true);
-        newTranslationPerWordArray = newTranslationPerWordArray.slice(translationToCheck.length,
-          (Math.ceil(translationPerWordArray.length / 3)))
-          .sort(() => Math.random() - 0.5);
-        setWordsBtns(newTranslationPerWordArray);
-        setWords([]);
+        phraseMakerContainer.current.classList.add('phrase-maker--wrong');
+        audioPath = '../../audio/mistake_sound.mp3';
+        setTimeout(() => {
+          setWordsBtns([]);
+          setWordsBtns(translationToCheck);
+          buttonsContainer.current.classList.add('phrase-maker--correct');
+        }, 500);
+        setTimeout(() => nextWordsLayout(), 3000);
       }
-    }, 2000);
+      const audio = new Audio(audioPath);
+      audio.play();
+    }
   };
 
   const handleClick = (event:any) => {
@@ -79,7 +89,6 @@ const MakeAPhrase = ({ randomPhrases, progress, setProgress }:Props) => {
       setWordsBtns((prev:string[]) => [...prev, newWord.dataset.id]);
     } else {
       setWords((prev) => [...prev, newWord]);
-      // setWordsBtns((prev)=>prev.filter((word)=>(word.dataset.key!== newWord.dataset.key))
       setWordsBtns((prev:string[]) => {
         prev.splice(prev.indexOf(newWord.dataset.id), 1);
         return prev;

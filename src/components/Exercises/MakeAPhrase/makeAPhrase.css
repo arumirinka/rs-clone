@@ -6,9 +6,12 @@
 .makeAPhrase__buttons{
     max-width: 100%;
     margin: 0 0 1em;
+    padding-top: 10px;
+    border-radius: 10px;
+    background:white;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
 }
 .makeAPhrase-container__phrase-maker{
@@ -34,7 +37,7 @@
     border: 2px black solid;
     border-radius: 10px;
     outline: none;
-    background: #ffffff;
+    background: transparent;
     font-size: 1.2em;
     cursor: pointer;
 }
@@ -47,11 +50,11 @@
     transform: scale(1.1);
 }
 .phrase-maker--wrong{
-    box-shadow: 2px 2px 10px 2px red;
+    box-shadow: 1px 1px 7px 1px red;
     background: #eaaeae;
 }
 .phrase-maker--correct{
-    box-shadow: 2px 2px 10px 2px green;
+    box-shadow: 1px 1px 7px 1px green;
     background: #acecac;
 }
 .buttons__translateBtn--bigger{
