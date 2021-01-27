@@ -26,6 +26,7 @@ const MakeAPhrase = ({
   let newTranslationPerWordArray = [...translationPerWordArray];
   const buttonsContainer = useRef<HTMLDivElement>(null!);
   const [continueBtnDisabled, setContinueBtnDisabled] = useState(true);
+  const [continueBtnName, setContinueBtnName] = useState(exercisesInterface[appLang].сheck);
   const [visible, setVisible]: any[] = useState(false);
   interface IWords{
     type:string
@@ -43,55 +44,56 @@ const MakeAPhrase = ({
   const showModal = (): void => {
     setVisible(true);
   };
-  const checkAndShowNewWords = ():void => {
-    setProgress(progress + progressGap);
+  const nextWordsLayout = () => {
+    phraseMakerContainer.current.classList.remove('phrase-maker--correct',
+      'phrase-maker--wrong');
+    buttonsContainer.current.classList.remove(('phrase-maker--correct'));
+    const newPhrases = phrasesArray.slice(1, 10);
+    newPhrases.push(phrasesArray[0]);
+    setPhrasesArray(newPhrases);
     setContinueBtnDisabled(true);
-    setContainerDisabled({ pointerEvents: 'none' });
-    const nextWordsLayout = () => {
-      phraseMakerContainer.current.classList.remove('phrase-maker--correct',
-        'phrase-maker--wrong');
-      buttonsContainer.current.classList.remove(('phrase-maker--correct'));
-      const newPhrases = phrasesArray.slice(1, 10);
-      newPhrases.push(phrasesArray[0]);
-      setPhrasesArray(newPhrases);
-      setContinueBtnDisabled(true);
-      newTranslationPerWordArray = newTranslationPerWordArray.slice(translationToCheck.length,
-        (Math.ceil(translationPerWordArray.length / 3)))
-        .sort(() => Math.random() - 0.5);
-      setWordsBtns(newTranslationPerWordArray);
-      setWords([]);
-      setContainerDisabled({ pointerEvents: 'all' });
-    };
-    const phraseMade:string[] = [];
-    Array.from(phraseMakerContainer.current.children)
-      .map((child:any) => phraseMade.push(child.dataset.id));
-    const isCorrect = checkPhrase(phraseMade, translationToCheck);
-    let audioPath:string;
-    if (isCorrect) {
-      phraseMakerContainer.current.classList.add('phrase-maker--correct');
-      audioPath = '../../audio/success_sound.mp3';
-      setPoints(points + progressGap);
-      if (progress === maxProgress - progressGap) {
-        showModal();
+    newTranslationPerWordArray = newTranslationPerWordArray.slice(translationToCheck.length,
+      (Math.ceil(translationPerWordArray.length / 3)))
+      .sort(() => Math.random() - 0.5);
+    setWordsBtns(newTranslationPerWordArray);
+    setWords([]);
+    setContainerDisabled({ pointerEvents: 'all' });
+  };
+  const checkAndShowNewWords = ():void => {
+    if (continueBtnName === exercisesInterface[appLang].сheck) {
+      setProgress(progress + progressGap);
+      setContainerDisabled({ pointerEvents: 'none' });
+      const phraseMade:string[] = [];
+      Array.from(phraseMakerContainer.current.children)
+        .map((child:any) => phraseMade.push(child.dataset.id));
+      const isCorrect = checkPhrase(phraseMade, translationToCheck);
+      let audioPath:string;
+      if (isCorrect) {
+        phraseMakerContainer.current.classList.add('phrase-maker--correct');
+        audioPath = '../../audio/success_sound.mp3';
+        setPoints(points + progressGap);
+        if (progress === maxProgress - progressGap) {
+          showModal();
+        }
       } else {
-        setTimeout(() => nextWordsLayout(), 1000);
+        phraseMakerContainer.current.classList.add('phrase-maker--wrong');
+        audioPath = '../../audio/mistake_sound.mp3';
+        setTimeout(() => {
+          setWordsBtns([]);
+          setWordsBtns(translationToCheck);
+          buttonsContainer.current.classList.add('phrase-maker--correct');
+        }, 500);
       }
+      const audio = new Audio(audioPath);
+      audio.play();
+      setContinueBtnName(exercisesInterface[appLang].сontinue);
+    } else if (progress === maxProgress) {
+      showModal();
     } else {
-      phraseMakerContainer.current.classList.add('phrase-maker--wrong');
-      audioPath = '../../audio/mistake_sound.mp3';
-      setTimeout(() => {
-        setWordsBtns([]);
-        setWordsBtns(translationToCheck);
-        buttonsContainer.current.classList.add('phrase-maker--correct');
-      }, 500);
-      if (progress === maxProgress - progressGap) {
-        setTimeout(() => showModal(), 2500);
-      } else {
-        setTimeout(() => nextWordsLayout(), 2500);
-      }
+      nextWordsLayout();
+      setContinueBtnDisabled(true);
+      setContinueBtnName(exercisesInterface[appLang].сheck);
     }
-    const audio = new Audio(audioPath);
-    audio.play();
   };
 
   const handleClick = (event:any) => {
@@ -158,7 +160,7 @@ const MakeAPhrase = ({
         onClick={() => { checkAndShowNewWords(); }}
         className="chooseTranslation-container__continueButton"
         disabled={continueBtnDisabled}
-      >{exercisesInterface[appLang].сheck}
+      >{continueBtnName}
       </Button>
     </>
   );
