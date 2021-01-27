@@ -7,7 +7,7 @@ import RegistrationForm from '../RegistrationForm/RegistrationForm';
 import '../RegistrationForm/RegistrationForm.css';
 import { useAuth } from '../../hooks/auth.hook';
 import { appLangConst } from '../../assets/appLangConst';
-import { fetchData } from '../../redux/actions';
+import { fetchData, changeLearnLang } from '../../redux/actions';
 
 type Props = {
   language: string;
@@ -27,6 +27,7 @@ const LanguageButton = ({ language }: Props) => {
 
   const handleLangBtnClick = (): void => {
     showModal();
+    dispatch(changeLearnLang(language));
     dispatch(fetchData(appLang, language));
   };
 
