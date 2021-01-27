@@ -1,8 +1,8 @@
 import React, { useState, useRef } from 'react';
 import { Button } from 'antd';
 import EndOfExerciseModal from '../EndOfExerciseModal';
-import checkIfButtonsEnabled from '../checkIfButtonsEnabled';
 import './makeAPhrase.css';
+import checkPhrase from './checkPhrase';
 
 type Props={
   randomPhrases:string[][],
@@ -13,14 +13,11 @@ type Props={
 const MakeAPhrase = ({ randomPhrases, progress, setProgress }:Props) => {
   const [points, setPoints] = useState(0);
   const [phrasesArray, setPhrasesArray] = useState(randomPhrases);
-  const randomPhrasesPerWord = phrasesArray.map((phrases) => phrases.map((phrase) => phrase.replace(/[.,!?]+/g, '').split(' ')));
-  const translationPerWordArray = randomPhrasesPerWord.map((el) => el
-    .filter((newEl, index) => index === 1))
-    .flat()
-    .flat();
   const phraseToCheck:any = phrasesArray[0][0];
-  const translationToCheck:string[] = phrasesArray[0][1].replace(/[.,!?]+/g, '').split(' ');
-
+  const translationToCheck = phrasesArray[0][1].replace(/[.,!?]+/g, '').split(' ');
+  const translationPerWordArray = phrasesArray.map((el) => el.filter((newEl, index) => index === 1))
+    .flat().map((phrase) => phrase.replace(/[.,!?]+/g, '').split(' ')).flat();
+  let newTranslationPerWordArray = [...translationPerWordArray];
   const buttonsContainer = useRef<HTMLDivElement>(null!);
   const [continueBtnDisabled, setContinueBtnDisabled] = useState(true);
   const [visible, setVisible]: any[] = useState(false);
@@ -31,56 +28,68 @@ const MakeAPhrase = ({ randomPhrases, progress, setProgress }:Props) => {
     dataset:any
     onClick:any
   }
-  const [phraseArray, setPhraseArray] = useState<string[]>([]);
-  const generateRandomButtons = (x:any) => x.sort(() => Math.random() - 0.5);
-  const [wordsBtns, setWordsBtns] = useState(generateRandomButtons(translationPerWordArray
-    .slice(0, translationToCheck.length + 3)));
   const [words, setWords] = useState<IWords[]>([]);
+  const [wordsBtns, setWordsBtns] = useState(newTranslationPerWordArray
+    .slice(0, (translationToCheck.length + 4))
+    .sort(() => Math.random() - 0.5));
+  const phraseMakerContainer = useRef<HTMLDivElement>(null!);
   const showModal = (): void => {
     setVisible(true);
   };
   const showNewWords = ():void => {
-    if (progress === 100) {
-      showModal();
+    setProgress(progress + 10);
+    const phraseMade:string[] = [];
+    Array.from(phraseMakerContainer.current.children)
+      .map((child:any) => phraseMade.push(child.dataset.id));
+    const isCorrect = checkPhrase(phraseMade, translationToCheck);
+    let audioPath:string;
+    if (isCorrect) {
+      phraseMakerContainer.current.classList.add('phrase-maker--correct');
+      audioPath = '../../audio/success_sound.mp3';
+      setPoints(points + 10);
     } else {
-      const newPhrases = phrasesArray
-        .slice(1, 10);
-      newPhrases.push(phrasesArray[0]);
-      console.log(newPhrases);
-      setPhrasesArray(newPhrases);
-      setContinueBtnDisabled(true);
-      setProgress(progress + 10);
-      setPoints(points + 1);
-      setWords([]);
+      phraseMakerContainer.current.classList.add('phrase-maker--wrong');
+      audioPath = '../../audio/mistake_sound.mp3';
     }
+    const audio = new Audio(audioPath);
+    audio.play();
+    setTimeout(() => {
+      if (progress === 90) {
+        showModal();
+      } else {
+        phraseMakerContainer.current.classList.remove('phrase-maker--correct',
+          'phrase-maker--wrong');
+        const newPhrases = phrasesArray.slice(1, 10);
+        newPhrases.push(phrasesArray[0]);
+        setPhrasesArray(newPhrases);
+        setContinueBtnDisabled(true);
+        newTranslationPerWordArray = newTranslationPerWordArray.slice(translationToCheck.length,
+          (Math.ceil(translationPerWordArray.length / 3)))
+          .sort(() => Math.random() - 0.5);
+        setWordsBtns(newTranslationPerWordArray);
+        setWords([]);
+      }
+    }, 2000);
   };
-  window.addEventListener('keypress', (event) => {
-    if (event.key === 'Enter' && !checkIfButtonsEnabled(buttonsContainer)) {
-      showNewWords();
-    }
-  });
-  const phraseMakerContainer = useRef<HTMLDivElement>(null!);
 
   const handleClick = (event:any) => {
     const newWord = event.target;
-    if (words.find((word) => word.dataset.id === newWord.dataset.id
-    && !Array.from(buttonsContainer.current.children).includes(event.target))) {
-      setWords((prev) => prev.filter((word) => word.dataset.id !== newWord.dataset.id));
+    if (words.find((word) => word.dataset.key === newWord.dataset.key)) {
+      setWords((prev) => prev.filter((word) => (word.dataset.key !== newWord.dataset.key)));
       setWordsBtns((prev:string[]) => [...prev, newWord.dataset.id]);
-      const wordToRemoveIndex = phraseArray.indexOf(newWord.dataset.id);
-      phraseArray.splice(wordToRemoveIndex, 1);
     } else {
       setWords((prev) => [...prev, newWord]);
-      setPhraseArray((prev) => [...prev, newWord.dataset.id]);
-      setWordsBtns((prev:string[]) => prev.filter((word) => word !== newWord.dataset.id));
+      // setWordsBtns((prev)=>prev.filter((word)=>(word.dataset.key!== newWord.dataset.key))
+      setWordsBtns((prev:string[]) => {
+        prev.splice(prev.indexOf(newWord.dataset.id), 1);
+        return prev;
+      });
     }
-    console.log(words);
-    console.log(phraseArray);
-    // if (phraseMakerContainer.current.children.length >= 0) {
     setContinueBtnDisabled(false);
-    // } else { setContinueBtnDisabled(true); }
   };
+
   const generateKey = (index:string) => `${index}_${new Date().getMilliseconds()}`;
+
   return (
     <>
       <div className="makeAPhrase-container__phrase">Составьте фразу: &quot;{phraseToCheck}&quot;</div>
@@ -92,6 +101,7 @@ const MakeAPhrase = ({ randomPhrases, progress, setProgress }:Props) => {
               className="buttons__makeAPhraseBtn"
               key={generateKey(String(index))}
               data-id={word.dataset.id}
+              data-key={word.dataset.key}
               onClick={(event) => handleClick(event)}
             >
               {word.dataset.id}
@@ -106,6 +116,7 @@ const MakeAPhrase = ({ randomPhrases, progress, setProgress }:Props) => {
             className="buttons__makeAPhraseBtn"
             key={generateKey(index.toString())}
             data-id={el}
+            data-key={generateKey(index.toString())}
             onClick={(event) => handleClick(event)}
           >
             {el}

@@ -94,3 +94,27 @@ export const lessonsConst: IAppLangConst = {
     chartLeft: 'Nicht abgeschlossen',
   },
 };
+
+export const exercisesInterface: IAppLangConst = {
+  russian: {
+    chooseTranslation: 'Выберите перевод для слова',
+    сontinue: 'Продолжить',
+    makeAPhrase: 'Составьте фразу',
+    сheck: 'Проверить',
+    correctAnswer: 'Правильный ответ',
+  },
+  english: {
+    chooseTranslation: 'Choose translation for word',
+    сontinue: 'Continue',
+    makeAPhrase: 'Make a phrase',
+    сheck: 'Check',
+    correctAnswer: 'Correct answer',
+  },
+  german: {
+    chooseTranslation: 'Wählen Sie eine Übersetzung für das Wort',
+    сontinue: 'Weiter',
+    makeAPhrase: 'Bilden Sie die Phrase',
+    сheck: 'Prüfen',
+    correctAnswer: 'Richtige Antwort',
+  },
+};
