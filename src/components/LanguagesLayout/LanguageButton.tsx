@@ -27,7 +27,7 @@ const LanguageButton = ({ language }: Props) => {
 
   const handleLangBtnClick = (): void => {
     showModal();
-    dispatch(fetchData(appLang));
+    dispatch(fetchData(appLang, language));
   };
 
   const handleCancel = () => {
