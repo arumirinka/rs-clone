@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { changeLesson } from '../../redux/actions';
 
 type Props = {
   lesson: string,
@@ -9,6 +11,8 @@ type Props = {
 
 const Lesson = ({ lesson, number, isOpen }: Props) => {
   const [levelOpen, setLevelOpen] = useState({});
+
+  const dispatch = useDispatch();
 
   const history = useHistory();
   const goToLesson = () => {
@@ -26,6 +30,8 @@ const Lesson = ({ lesson, number, isOpen }: Props) => {
     /* eslint-disable no-param-reassign */
     isOpen = true;
     setLevelOpen(style);
+
+    dispatch(changeLesson(number));
 
     setTimeout(() => {
       goToLesson();
