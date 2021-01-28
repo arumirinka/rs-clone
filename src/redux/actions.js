@@ -1,5 +1,5 @@
 import {
-  CHANGE_APP_LANG, CHANGE_LEARN_LANG, CHANGE_LEVEL, FETCH_DATA,
+  CHANGE_APP_LANG, CHANGE_LEARN_LANG, CHANGE_LEVEL, CHANGE_LESSON, FETCH_DATA,
 } from './types';
 import content from '../content.json';
 
@@ -34,6 +34,13 @@ export function changeLevel(level) {
   return {
     type: CHANGE_LEVEL,
     payload: level,
+  };
+}
+
+export function changeLesson(lesson) {
+  return {
+    type: CHANGE_LESSON,
+    payload: lesson,
   };
 }
 
