@@ -15,13 +15,13 @@ const WordsList: React.FC = () => {
   const data = useSelector(selectData);
 
   interface Lesson {
-    level:number;
-    lesson:number;
+    level: number;
+    lesson: number;
   }
 
   const current:Lesson = {
     level: appState.level,
-    lesson: 1,
+    lesson: appState.lesson,
   };
 
   const { words } = data[`level${current.level}`][`lesson${current.lesson}`];

@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import ChooseTranslation from './ChooseTranslation';
 import KittyWithPencil from './KittyWithPencil';
 
-const getRandomWords = (appState: { level: number }, data: any) => {
+const getRandomWords = (appState: { level: number, lesson: number }, data: any) => {
   interface Lesson {
     level: number;
     lesson: number;
@@ -11,13 +11,13 @@ const getRandomWords = (appState: { level: number }, data: any) => {
 
   const current:Lesson = {
     level: appState.level,
-    lesson: 1,
+    lesson: appState.lesson,
   };
 
   const { words } = data[`level${current.level}`][`lesson${current.lesson}`];
 
   // to increase number of random words - slice the array
-  const randomWords:string[][] = words
+  const randomWords: string[][] = words
     .sort(() => 0.5 - Math.random())
     .slice(0, 10);
 
