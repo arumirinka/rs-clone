@@ -5,6 +5,7 @@
 }
 .makeAPhrase__buttons{
     max-width: 100%;
+    min-height: 50px;
     margin: 0 0 1em;
     padding: 5px;
     border-radius: 10px;

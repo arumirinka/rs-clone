@@ -19,9 +19,9 @@ const MakeAPhrase = ({
   const progressGap:number = 10;
   const [points, setPoints] = useState(0);
   const [phrasesArray, setPhrasesArray] = useState(randomPhrases);
-  const phraseToCheck:any = phrasesArray[0][0];
-  const translationToCheck = phrasesArray[0][1].replace(/[.,!?]+/g, '').split(' ');
-  const translationPerWordArray = phrasesArray.map((el) => el.filter((newEl, index) => index === 1))
+  const phraseToCheck:any = phrasesArray[0][1];
+  const translationToCheck = phrasesArray[0][0].replace(/[.,!?]+/g, '').split(' ');
+  const translationPerWordArray = phrasesArray.map((el) => el.filter((newEl, index) => index === 0))
     .flat().map((phrase) => phrase.replace(/[.,!?]+/g, '').split(' ')).flat();
   let newTranslationPerWordArray = [...translationPerWordArray];
   const buttonsContainer = useRef<HTMLDivElement>(null!);
