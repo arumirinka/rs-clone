@@ -50,7 +50,7 @@ function App() {
           {!isAuthenticated && (
           <Switch>
             <Route path="/" component={LoginPage} exact />
-            {/* <Redirect to="/" /> */}
+            <Redirect to="/" />
           </Switch>
           )}
         </div>
