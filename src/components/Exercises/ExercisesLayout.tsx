@@ -1,24 +1,21 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import ChooseTranslation from './ChooseTranslation';
-import content from '../../content.json';
 import KittyWithPencil from './KittyWithPencil';
 
-const getRandomWords = (appState: { appLang: string; learnLang: string; }) => {
-  const theContent:any = content;
+const getRandomWords = (appState: { level: number }, data: any) => {
   interface Lesson {
-    UI:string;
-    learning:string;
-    level:number;
-    lesson:number;
+    level: number;
+    lesson: number;
   }
+
   const current:Lesson = {
-    UI: appState.appLang,
-    learning: appState.learnLang,
-    level: 1,
+    level: appState.level,
     lesson: 1,
   };
-  const { words } = theContent[current.UI][current.learning][`level${current.level}`][`lesson${current.lesson}`];
+
+  const { words } = data[`level${current.level}`][`lesson${current.lesson}`];
+
   // to increase number of random words - slice the array
   const randomWords:string[][] = words
     .sort(() => 0.5 - Math.random())
@@ -31,7 +28,10 @@ const ExercisesLayout: React.FC = () => {
   const selectAppState = (state: { app: any; }) => state.app;
   const appState = useSelector(selectAppState);
 
-  const randomWords = getRandomWords(appState);
+  const selectData = (state: { data: { fetchedData: any; }; }) => state.data.fetchedData;
+  const dataFromState = useSelector(selectData);
+
+  const randomWords = getRandomWords(appState, dataFromState);
 
   return (
     <div className="exercises-container">
