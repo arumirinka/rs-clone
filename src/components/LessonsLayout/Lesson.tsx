@@ -12,7 +12,7 @@ const Lesson = ({ lesson, number, isOpen }: Props) => {
 
   const history = useHistory();
   const goToLesson = () => {
-    history.push('/lessons/exercises');
+    history.push('/words');
   };
 
   const style = {

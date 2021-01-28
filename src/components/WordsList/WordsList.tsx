@@ -1,40 +1,41 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { PlayCircleOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
-import content from '../../content.json';
 import './WordsList.css';
 import voiceLanguage from './voiceLanguage';
 import { wordsListHeader, practiseButtonText } from './wordListTranslate';
 
 const WordsList: React.FC = () => {
+  const selectAppState = (state: { app: any; }) => state.app;
+  const appState = useSelector(selectAppState);
+
+  const selectData = (state: { data: { fetchedData: any; }; }) => state.data.fetchedData;
+  const data = useSelector(selectData);
+
   interface Lesson {
-    UI:string;
-    learning:string;
     level:number;
     lesson:number;
   }
 
   const current:Lesson = {
-    UI: 'russian',
-    learning: 'english',
-    level: 1,
+    level: appState.level,
     lesson: 1,
   };
 
-  const theContent:any = content;
-  const { words } = theContent[current.UI][current.learning][`level${current.level}`][`lesson${current.lesson}`];
+  const { words } = data[`level${current.level}`][`lesson${current.lesson}`];
 
   function handleWordClick(word: string) {
     const utter = new SpeechSynthesisUtterance();
-    utter.lang = voiceLanguage[current.learning];
+    utter.lang = voiceLanguage[appState.learnLang];
     utter.text = word;
     window.speechSynthesis.speak(utter);
   }
 
   return (
     <div className="words">
-      <h2 className="words__header">{wordsListHeader[current.UI]}</h2>
+      <h2 className="words__header">{wordsListHeader[appState.appLang]}</h2>
       <table className="words__table">
         <thead />
         <tbody>
@@ -57,7 +58,7 @@ const WordsList: React.FC = () => {
       </table>
       <Link to="/lessons/exercises">
         <Button type="primary">
-          {practiseButtonText[current.UI]}
+          {practiseButtonText[appState.appLang]}
         </Button>
       </Link>
     </div>
