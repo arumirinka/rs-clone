@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Button } from 'antd';
 import CSS from 'csstype';
 import EndOfExerciseModal from '../EndOfExerciseModal';
@@ -59,40 +59,43 @@ const MakeAPhrase = ({
     setWords([]);
     setContainerDisabled({ pointerEvents: 'all' });
   };
-  const checkAndShowNewWords = ():void => {
-    if (continueBtnName === exercisesInterface[appLang].сheck) {
-      setProgress(progress + progressGap);
-      setContainerDisabled({ pointerEvents: 'none' });
-      const phraseMade:string[] = [];
-      Array.from(phraseMakerContainer.current.children)
-        .map((child:any) => phraseMade.push(child.dataset.id));
-      const isCorrect = checkPhrase(phraseMade, translationToCheck);
-      let audioPath:string;
-      if (isCorrect) {
-        phraseMakerContainer.current.classList.add('phrase-maker--correct');
-        audioPath = '../../audio/success_sound.mp3';
-        setPoints(points + progressGap);
-      } else {
-        phraseMakerContainer.current.classList.add('phrase-maker--wrong');
-        audioPath = '../../audio/mistake_sound.mp3';
-        setTimeout(() => {
-          setWordsBtns([]);
-          setWordsBtns(translationToCheck);
-          buttonsContainer.current.classList.add('phrase-maker--correct');
-        }, 500);
-      }
-      const audio = new Audio(audioPath);
-      audio.play();
-      setContinueBtnName(exercisesInterface[appLang].сontinue);
-    } else if (progress === maxProgress) {
+  const checkPhraseMade = ():void => {
+    setContinueBtnDisabled(true);
+    setProgress(progress + progressGap);
+    setContainerDisabled({ pointerEvents: 'none' });
+    const phraseMade:string[] = [];
+    Array.from(phraseMakerContainer.current.children)
+      .map((child:any) => phraseMade.push(child.dataset.id));
+    const isCorrect = checkPhrase(phraseMade, translationToCheck);
+    let audioPath:string;
+    if (isCorrect) {
+      phraseMakerContainer.current.classList.add('phrase-maker--correct');
+      audioPath = '../../audio/success_sound.mp3';
+      setPoints(points + progressGap);
+      setContinueBtnDisabled(false);
+    } else {
+      phraseMakerContainer.current.classList.add('phrase-maker--wrong');
+      audioPath = '../../audio/mistake_sound.mp3';
+      setTimeout(() => {
+        setWordsBtns([]);
+        setWordsBtns(translationToCheck);
+        buttonsContainer.current.classList.add('phrase-maker--correct');
+        setContinueBtnDisabled(false);
+      }, 500);
+    }
+    const audio = new Audio(audioPath);
+    audio.play();
+    setContinueBtnName(exercisesInterface[appLang].сontinue);
+  };
+  const showNewWords = () => {
+    if (progress === maxProgress) {
       showModal();
     } else {
-      nextWordsLayout();
       setContinueBtnDisabled(true);
       setContinueBtnName(exercisesInterface[appLang].сheck);
+      nextWordsLayout();
     }
   };
-
   const handleClick = (event:any) => {
     const newWord = event.target;
     if (words.find((word) => word.dataset.key === newWord.dataset.key)) {
@@ -105,10 +108,40 @@ const MakeAPhrase = ({
         return prev;
       });
     }
-    setContinueBtnDisabled(false);
   };
+  const handleContinueBtnClick = () => {
+    if (continueBtnName === exercisesInterface[appLang].сheck
+      && !continueBtnDisabled) {
+      checkPhraseMade();
+    } else {
+      showNewWords();
+    }
+  };
+  const handleEnterPress = (event:any) => {
+    if (event.key === 'Enter' && !continueBtnDisabled) {
+      if (continueBtnName === exercisesInterface[appLang].сheck) {
+        checkPhraseMade();
+      } else {
+        showNewWords();
+      }
+    }
+  };
+  useEffect(() => {
+    window.addEventListener('keypress', handleEnterPress);
+    return () => {
+      window.removeEventListener('keypress', handleEnterPress);
+    };
+  });
+  useEffect(() => {
+    if (words.length >= 1) {
+      setContinueBtnDisabled(false);
+    } else {
+      setContinueBtnDisabled(true);
+    }
+  }, [words.length]);
 
   const generateKey = (index:string) => `${index}_${new Date().getMilliseconds()}`;
+
   return (
     <>
       <div className="makeAPhrase-container__phrase">{ exercisesInterface[appLang].makeAPhrase}: &quot;{phraseToCheck}&quot;</div>
@@ -153,7 +186,7 @@ const MakeAPhrase = ({
       <Button
         type="primary"
         htmlType="submit"
-        onClick={() => { checkAndShowNewWords(); }}
+        onClick={() => { handleContinueBtnClick(); }}
         className="chooseTranslation-container__continueButton"
         disabled={continueBtnDisabled}
       >{continueBtnName}
