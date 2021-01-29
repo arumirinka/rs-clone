@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Button } from 'antd';
 import ChooseTranslationBtn from './ChooseTranslationBtn';
 import EndOfExerciseModal from '../EndOfExerciseModal';
@@ -51,11 +51,19 @@ const chooseTranslation = ({
       setBtnStyle(false);
     }
   };
-  window.addEventListener('keypress', (event) => {
-    if (event.key === 'Enter' && !checkIfButtonsEnabled(buttonsContainer)) {
+  const handleEnterPress = (event:any) => {
+    if (event.key === 'Enter'
+      && !checkIfButtonsEnabled(buttonsContainer)) {
       showNewWords();
     }
-  });
+  };
+  useEffect(() => {
+    window.addEventListener('keypress', handleEnterPress);
+    return () => {
+      window.removeEventListener('keypress', handleEnterPress);
+    };
+  }, []);
+
   return (
     <>
       <div className="chooseTranslation-container__word">{ exercisesInterface[appLang].chooseTranslation} &quot;{wordToCheck}&quot;</div>
