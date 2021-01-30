@@ -1,0 +1,38 @@
+.words {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.words__table {
+  margin-bottom: 20px;
+}
+
+.words__table td {
+  text-align: left;
+  padding: 5px 10px;
+}
+
+.words__word {
+  max-width: 300px;
+  word-wrap: break-word;
+}
+
+.words__play-button {
+  background: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.words__play-button:hover path {
+  fill: #1c8673;
+}
+
+@media (max-width: 768px) {
+
+  .words__word {
+    max-width: 150px;
+  }
+}
