@@ -1,0 +1,115 @@
+.exercises-container{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content: center;
+    max-width:1200px;
+    margin: 1em auto 0;
+}
+.exercises-container__kitty{
+    flex-basis:30%;
+    display:flex;
+    align-items: center;
+}
+.exercises-container__content{
+    flex-basis:70%;
+}
+.exercises-container__kitty>svg{
+    width:150px;
+}
+.ant-progress-success-bg, .ant-progress-bg {
+    background-color: #1c8673;
+}
+.exercises-container__progress-bar{
+    margin: 0 0 2em;
+}
+.chooseTranslation-container--disabled{
+    pointer-events: none;
+}
+.chooseTranslation-container__word{
+    margin: 0 0 2em;
+    font-size: 1.5em;
+    font-weight: 600;
+}
+.chooseTranslation-container__buttons{
+    max-width: 100%;
+    margin: 0 0 2em;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+}
+.buttons__translateBtn{
+    width: 130px;
+    margin: 0 0.5em 0.7em;
+    padding: 5px 2px;
+    border: 2px black solid;
+    border-radius: 10px;
+    outline: none;
+    background: #ffffff;
+    font-size: 1.2em;
+    cursor: pointer;
+}
+.buttons__translateBtn--disabled{
+    pointer-events: none;
+}
+.buttons__translateBtn:hover{
+    background:#d5f6f0;
+    transform: scale(1.1);
+}
+.buttons__translateBtn--wrong{
+    border-color: red;
+    background: #eaaeae;
+}
+.buttons__translateBtn--correct{
+    border-color: green;
+    background: #acecac;
+}
+.buttons__translateBtn--bigger{
+    animation:btnAnimation 0.5s 1 ease;
+}
+.chooseTranslation-container__continueButton{
+    transform: scale(1.2);
+    box-shadow: 2px 2px 10px 2px #e3fa70;
+}
+@keyframes btnAnimation{
+    0% { transform: rotateZ(5deg); }
+    50% {transform: rotateZ(-5deg);}
+    100% { transform: rotateZ(5deg); }    
+}
+.buttons__translateBtn--correct:hover{
+    border-color: green;
+    background: #acecac;
+}
+.buttons__translateBtn--wrong:hover{
+    border-color: red;
+    background: #eaaeae;
+}
+@media(max-width:800px){
+    .exercises-container__kitty{
+        flex-basis: 25%;
+    }
+    .exercises-container__content{
+        flex-basis:75%;
+    }
+    .exercises-container__kitty>svg{
+        width: 120px;
+    }
+    .buttons__translateBtn{
+        font-size: 1em;
+    }
+}
+@media(max-width:550px){
+    .exercises-container__kitty{
+        flex-basis: 100%;
+        justify-content: center;
+    }
+    .exercises-container__content{
+        flex-basis:100%;
+    }
+    .chooseTranslation-container__word{
+        font-size: 1.3em;
+    }
+    .exercises-container__kitty>svg{
+        width:70px
+    }
+}

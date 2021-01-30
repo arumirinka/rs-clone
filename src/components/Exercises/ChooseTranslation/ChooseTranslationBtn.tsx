@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import checkIfButtonsEnabled from './checkIfButtonsEnabled';
 
 type Props = {
@@ -58,13 +58,19 @@ const ChooseTranslationBtn:React.FC<Props> = ({
     updateBtnStyle(true);
   };
 
-  window.addEventListener('keypress', (event) => {
+  const handleDigitsPress = (event:any) => {
     if ((checkIfButtonsEnabled(buttonsContainer))
-     && (event.key === '1' || event.key === '2' || event.key === '3' || event.key === '4')
-     && (currentProgress < 20)) {
+     && (event.key === '1' || event.key === '2' || event.key === '3' || event.key === '4')) {
       checkWord(event);
     }
-  });
+  };
+  useEffect(() => {
+    window.addEventListener('keypress', handleDigitsPress);
+    return () => {
+      window.removeEventListener('keypress', handleDigitsPress);
+    };
+  }, []);
+
   return (
     <button
       type="button"
