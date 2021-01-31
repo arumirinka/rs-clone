@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { Progress } from 'antd';
 // import ChooseTranslation from './ChooseTranslation';
 import MatchWords from './MatchWords/MatchWords';
@@ -28,6 +29,18 @@ console.log(randomWords);
 
 const ExercisesLayout: React.FC = () => {
   const [progress, setProgress] = useState(0);
+  const history = useHistory();
+  const handleEscPress = (event:any) => {
+    if (event.key === 'Escape') {
+      history.push('/lessons');
+    }
+  };
+  useEffect(() => {
+    window.addEventListener('keydown', handleEscPress);
+    return () => {
+      window.removeEventListener('keydown', handleEscPress);
+    };
+  });
   return (
     <div className="exercises-container">
       <div className="exercises-container__kitty">
