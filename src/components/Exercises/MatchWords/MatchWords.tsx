@@ -17,11 +17,12 @@ type Props={
   setCurrentStep:React.Dispatch<React.SetStateAction<number>>,
   modalVisible:boolean,
   appLang:string,
+  progressGap:number,
 };
 
 const MatchWords = ({
   words, progress, setProgress, points, setPoints, id, visibleID, setVisibleID,
-  lessonPlan, currentStep, setCurrentStep, modalVisible, appLang,
+  lessonPlan, currentStep, setCurrentStep, modalVisible, appLang, progressGap,
 }:Props) => {
   function shuffle(array: any) {
     const shuffled = array.slice();
@@ -75,10 +76,8 @@ const MatchWords = ({
     if (picked.size === currentWords.length) {
       setDisabled(false);
       nextButtonRef.current.classList.remove('match-word__next-button--hidden');
-      const PROGRESS_STEP = 10;
-      const POINTS_GAIN = 10;
-      const currentGain = POINTS_GAIN - pointsPenalty > 0 ? POINTS_GAIN - pointsPenalty : 0;
-      setProgress(progress + PROGRESS_STEP);
+      const currentGain = progressGap - pointsPenalty > 0 ? progressGap - pointsPenalty : 0;
+      setProgress(progress + progressGap);
       setPoints(points + currentGain);
     }
   }, [picked.size]);
@@ -133,7 +132,7 @@ const MatchWords = ({
         setPrev(null);
         button.disabled = true;
       } else {
-        const PENALTY_PER_MISS = 5;
+        const PENALTY_PER_MISS = 2;
         setPointsPenalty(pointsPenalty + PENALTY_PER_MISS);
         const ERROR_URL = '../../../audio/mistake_sound.mp3';
         playSound(ERROR_URL);

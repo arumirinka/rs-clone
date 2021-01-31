@@ -13,6 +13,7 @@ type Props = {
   buttonsContainer:any,
   points:number,
   setPoints:any,
+  progressGap:number,
 };
 let checkWord:(event:any)=>void;
 const ChooseTranslationBtn:React.FC<Props> = ({
@@ -22,7 +23,7 @@ const ChooseTranslationBtn:React.FC<Props> = ({
   btnStyle, updateBtnStyle,
   updateContinueBtn,
   buttonsContainer,
-  points, setPoints,
+  points, setPoints, progressGap,
 }:Props) => {
   const translationButton = useRef<HTMLButtonElement>(null!);
   checkWord = (event:any) => {
@@ -39,7 +40,7 @@ const ChooseTranslationBtn:React.FC<Props> = ({
     const word:string | null = currentButton.getAttribute('data-id');
     if (word === translationToCheck) {
       currentButton.classList.add('buttons__translateBtn--correct');
-      setPoints(points + 10);
+      setPoints(points + progressGap);
       audioPath = '../../audio/success_sound.mp3';
     } else {
       currentButton.classList.add('buttons__translateBtn--wrong');
@@ -53,7 +54,7 @@ const ChooseTranslationBtn:React.FC<Props> = ({
     }
     const audio = new Audio(audioPath);
     audio.play();
-    updateProgress(currentProgress + 10);
+    updateProgress(currentProgress + progressGap);
     updateContinueBtn(false);
     updateBtnStyle(true);
   };

@@ -35,7 +35,8 @@ const randomPhrases:string[][] = phrases
   .sort(() => 0.5 - Math.random())
   .slice(0, 10);
 
-const lessonPlan = [3, 3, 2, 1, 3, 2, 3, 3, 1, 2];
+const PROGRESS_GAP = 5;
+const lessonPlan = [1, 1, 3, 1, 2, 3, 3, 2, 1, 1, 3, 2, 3, 1, 2, 1, 1, 1, 2, 3];
 
 const ExercisesLayout: React.FC<IProps> = ({ appLang }: IProps) => {
   const [progress, setProgress] = useState(0);
@@ -75,6 +76,7 @@ const ExercisesLayout: React.FC<IProps> = ({ appLang }: IProps) => {
           setCurrentStep={setCurrentStep}
           modalVisible={modalVisible}
           appLang={appLang}
+          progressGap={PROGRESS_GAP}
         />
         <MatchWords
           words={words}
@@ -90,6 +92,7 @@ const ExercisesLayout: React.FC<IProps> = ({ appLang }: IProps) => {
           setCurrentStep={setCurrentStep}
           modalVisible={modalVisible}
           appLang={appLang}
+          progressGap={PROGRESS_GAP}
         />
         <MakeAPhrase
           randomPhrases={randomPhrases}
@@ -105,6 +108,7 @@ const ExercisesLayout: React.FC<IProps> = ({ appLang }: IProps) => {
           setCurrentStep={setCurrentStep}
           modalVisible={modalVisible}
           appLang={appLang}
+          progressGap={PROGRESS_GAP}
         />
         <EndOfExerciseModal
           visible={modalVisible}

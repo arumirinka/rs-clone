@@ -19,12 +19,12 @@ type Props={
   setCurrentStep:React.Dispatch<React.SetStateAction<number>>,
   modalVisible:boolean,
   appLang:string,
+  progressGap:number,
 };
 const MakeAPhrase = ({
   randomPhrases, progress, setProgress, points, setPoints, id, visibleID, setVisibleID,
-  lessonPlan, currentStep, setCurrentStep, modalVisible, appLang,
+  lessonPlan, currentStep, setCurrentStep, modalVisible, appLang, progressGap,
 }:Props) => {
-  const progressGap:number = 10;
   const [phrasesArray, setPhrasesArray] = useState(randomPhrases);
   const phraseToCheck:any = phrasesArray[0][1];
   const translationToCheck = phrasesArray[0][0].replace(/[.,!?]+/g, '').split(' ');

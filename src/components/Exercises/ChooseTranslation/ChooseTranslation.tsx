@@ -24,11 +24,12 @@ type Props={
   setCurrentStep:React.Dispatch<React.SetStateAction<number>>,
   modalVisible:boolean,
   appLang:string,
+  progressGap:number,
 };
 let showNewWords:() => void;
 const chooseTranslation = ({
   randomWords, progress, setProgress, points, setPoints, id, visibleID, setVisibleID, lessonPlan,
-  currentStep, setCurrentStep, modalVisible, appLang,
+  currentStep, setCurrentStep, modalVisible, appLang, progressGap,
 }:Props) => {
   const [wordsArray, setWordsArray] = useState(randomWords);
   const wordToCheck:any = wordsArray[0][0];
@@ -102,6 +103,7 @@ const chooseTranslation = ({
           buttonsContainer={buttonsContainer}
           points={points}
           setPoints={setPoints}
+          progressGap={progressGap}
         />
         <ChooseTranslationBtn
           index={2}
@@ -115,6 +117,7 @@ const chooseTranslation = ({
           buttonsContainer={buttonsContainer}
           points={points}
           setPoints={setPoints}
+          progressGap={progressGap}
         />
         <ChooseTranslationBtn
           index={3}
@@ -128,6 +131,7 @@ const chooseTranslation = ({
           buttonsContainer={buttonsContainer}
           points={points}
           setPoints={setPoints}
+          progressGap={progressGap}
         />
         <ChooseTranslationBtn
           index={4}
@@ -141,6 +145,7 @@ const chooseTranslation = ({
           buttonsContainer={buttonsContainer}
           points={points}
           setPoints={setPoints}
+          progressGap={progressGap}
         />
       </div>
 
