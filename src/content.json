@@ -2220,7 +2220,7 @@
             ["You are too weak.", "Du bist zu schwach."],
             ["They are weak.", "Sie sind schwach."],
             ["He is weak.", "Er ist schwach."],
-            ["She is weak.", "Sie ist schwach."],
+            ["She is weak.", "Sie ist schwach."]
           ]
         },
         "lesson4": {
@@ -2581,6 +2581,7 @@
             ["Merci beaucoup !", "Danke schön!"],
             ["De rien.", "Gern geschehen."]
           ]
+        }
         }
       }
     }
