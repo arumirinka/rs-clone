@@ -35,7 +35,7 @@ const randomPhrases:string[][] = phrases
   .sort(() => 0.5 - Math.random())
   .slice(0, 10);
 
-const lessonPlan = [1, 1, 2, 1, 1, 2, 1, 1, 1, 2];
+const lessonPlan = [3, 3, 2, 1, 3, 2, 3, 3, 1, 2];
 
 const ExercisesLayout: React.FC<IProps> = ({ appLang }: IProps) => {
   const [progress, setProgress] = useState(0);
@@ -78,7 +78,6 @@ const ExercisesLayout: React.FC<IProps> = ({ appLang }: IProps) => {
         />
         <MatchWords
           words={words}
-          current={current}
           progress={progress}
           setProgress={setProgress}
           points={points}
@@ -96,6 +95,15 @@ const ExercisesLayout: React.FC<IProps> = ({ appLang }: IProps) => {
           randomPhrases={randomPhrases}
           progress={progress}
           setProgress={setProgress}
+          points={points}
+          setPoints={setPoints}
+          id={3}
+          visibleID={visibileID}
+          setVisibleID={setVisibleID}
+          lessonPlan={lessonPlan}
+          currentStep={currentStep}
+          setCurrentStep={setCurrentStep}
+          modalVisible={modalVisible}
           appLang={appLang}
         />
         <EndOfExerciseModal

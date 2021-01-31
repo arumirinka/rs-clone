@@ -5,7 +5,6 @@ import { matchWordsConst, nextButtonConst } from '../../../assets/appLangConst';
 
 type Props={
   words:string[][],
-  current: any,
   progress:number,
   setProgress:React.Dispatch<React.SetStateAction<number>>,
   points:number,
@@ -17,11 +16,12 @@ type Props={
   currentStep:number,
   setCurrentStep:React.Dispatch<React.SetStateAction<number>>,
   modalVisible:boolean,
+  appLang:string,
 };
 
 const MatchWords = ({
-  words, current, progress, setProgress, points, setPoints, id, visibleID, setVisibleID,
-  lessonPlan, currentStep, setCurrentStep, modalVisible,
+  words, progress, setProgress, points, setPoints, id, visibleID, setVisibleID,
+  lessonPlan, currentStep, setCurrentStep, modalVisible, appLang,
 }:Props) => {
   function shuffle(array: any) {
     const shuffled = array.slice();
@@ -152,7 +152,7 @@ const MatchWords = ({
 
   return (
     <div className="match-words">
-      <h2>{matchWordsConst[current.UI].header}</h2>
+      <h2>{matchWordsConst[appLang].header}</h2>
       <div ref={wordsContainerRef} className="match-words__words-container">
         {currentWords.map((word: string) => <button className="match-words__word" type="button" key={word.toString()} onClick={(evt) => buttonClickHandler(evt)}>{word}</button>)}
       </div>
@@ -163,7 +163,7 @@ const MatchWords = ({
         onClick={() => { showNewWords(currentStep); }}
         disabled={isDisabled}
       >
-        {nextButtonConst[current.UI].nextButton}
+        {nextButtonConst[appLang].nextButton}
       </Button>
       <audio ref={audioRef}>
         <track kind="captions" />
