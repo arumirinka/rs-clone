@@ -58,17 +58,16 @@ const ChooseTranslationBtn:React.FC<Props> = ({
     updateBtnStyle(true);
   };
 
-  const handleDigitPress = (event:any) => {
+  const handleDigitsPress = (event:any) => {
     if ((checkIfButtonsEnabled(buttonsContainer))
      && (event.key === '1' || event.key === '2' || event.key === '3' || event.key === '4')) {
       checkWord(event);
     }
   };
-
   useEffect(() => {
-    window.addEventListener('keypress', handleDigitPress);
+    window.addEventListener('keypress', handleDigitsPress);
     return () => {
-      window.removeEventListener('keypress', handleDigitPress);
+      window.removeEventListener('keypress', handleDigitsPress);
     };
   }, []);
 

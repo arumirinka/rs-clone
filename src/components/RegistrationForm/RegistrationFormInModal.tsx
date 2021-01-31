@@ -33,7 +33,9 @@ const RegistrationFormInModal: React.FC<IProps> = ({ appLang }: IProps) => {
         onCancel={handleCancel}
         footer={null}
       >
-        <RegistrationForm />
+        <RegistrationForm
+          appLang={appLang}
+        />
       </Modal>
     </>
   );

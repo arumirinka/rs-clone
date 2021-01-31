@@ -3,6 +3,7 @@ import { Button } from 'antd';
 import ChooseTranslationBtn from './ChooseTranslationBtn';
 import checkIfButtonsEnabled from './checkIfButtonsEnabled';
 import './chooseTranslation.css';
+import { exercisesInterface } from '../../../assets/appLangConst';
 
 const getRandomNumbers = ():number[] => {
   const arr:number[] = [0, 1, 2, 3];
@@ -22,11 +23,12 @@ type Props={
   currentStep:number,
   setCurrentStep:React.Dispatch<React.SetStateAction<number>>,
   modalVisible:boolean,
+  appLang:string,
 };
 let showNewWords:() => void;
 const chooseTranslation = ({
   randomWords, progress, setProgress, points, setPoints, id, visibleID, setVisibleID, lessonPlan,
-  currentStep, setCurrentStep, modalVisible,
+  currentStep, setCurrentStep, modalVisible, appLang,
 }:Props) => {
   const [wordsArray, setWordsArray] = useState(randomWords);
   const wordToCheck:any = wordsArray[0][0];
@@ -86,7 +88,7 @@ const chooseTranslation = ({
 
   return (
     <>
-      <div className="chooseTranslation-container__word">Выберите перевод для слова &quot;{wordToCheck}&quot;</div>
+      <div className="chooseTranslation-container__word">{ exercisesInterface[appLang].chooseTranslation} &quot;{wordToCheck}&quot;</div>
       <div className="chooseTranslation-container__buttons" ref={buttonsContainer}>
         <ChooseTranslationBtn
           index={1}
@@ -148,7 +150,7 @@ const chooseTranslation = ({
         onClick={() => { showNewWords(); }}
         className="chooseTranslation-container__continueButton"
         disabled={continueBtnDisabled}
-      >Продолжить
+      >{ exercisesInterface[appLang].сontinue}
       </Button>
     </>
   );

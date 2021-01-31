@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { Modal } from 'antd';
 import 'antd/dist/antd.css';
 import './LanguagesLayout.css';
-import RegistrationForm from '../RegistrationForm/RegistrationForm';
-import '../RegistrationForm/RegistrationForm.css';
+// import RegistrationForm from '../RegistrationForm/RegistrationForm';
+// import '../RegistrationForm/RegistrationForm.css';
 import { useAuth } from '../../hooks/auth.hook';
 
 type Props = {
@@ -34,7 +34,7 @@ const LanguageButton = ({ language }: Props) => {
         onCancel={handleCancel}
         footer={null}
       >
-        <RegistrationForm />
+        {/* <RegistrationForm /> */}
       </Modal>
       )}
     </>

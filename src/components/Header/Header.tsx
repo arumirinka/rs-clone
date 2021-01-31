@@ -100,7 +100,7 @@ const Header: React.FC<IProps> = ({ handleLangChange, appLang }: IProps) => {
           </Button>
         </Dropdown>
         <Button type="primary" htmlType="submit" onClick={logoutHandler}>
-          Выйти
+          {appLangConst[appLang].logout}
         </Button>
 
         <SettingOutlined onClick={toggleSettings} className="header__icon" />

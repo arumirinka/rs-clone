@@ -1,11 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { Progress } from 'antd';
-import ChooseTranslation from './ChooseTranslation';
+import ChooseTranslation from './ChooseTranslation/ChooseTranslation';
+import './ChooseTranslation/chooseTranslation.css';
 import MatchWords from './MatchWords/MatchWords';
+import MakeAPhrase from './MakeAPhrase/MakeAPhrase';
 import content from '../../content.json';
 import KittyWithPencil from './KittyWithPencil';
 import './exercisesLayout.css';
 import EndOfExerciseModal from './EndOfExerciseModal';
+
+interface IProps {
+  appLang: string
+}
 
 const theContent:any = content;
 interface Lesson {
@@ -20,15 +26,18 @@ const current:Lesson = {
   level: 1,
   lesson: 1,
 };
-const { words } = theContent[current.UI][current.learning][`level${current.level}`][`lesson${current.lesson}`];
+const { words, phrases } = theContent[current.UI][current.learning][`level${current.level}`][`lesson${current.lesson}`];
 // to increase number of random words - slice the array
 const randomWords:string[][] = words
+  .sort(() => 0.5 - Math.random())
+  .slice(0, 10);
+const randomPhrases:string[][] = phrases
   .sort(() => 0.5 - Math.random())
   .slice(0, 10);
 
 const lessonPlan = [1, 1, 2, 1, 1, 2, 1, 1, 1, 2];
 
-const ExercisesLayout: React.FC = () => {
+const ExercisesLayout: React.FC<IProps> = ({ appLang }: IProps) => {
   const [progress, setProgress] = useState(0);
   const [points, setPoints] = useState(0);
   const [visibileID, setVisibleID] = useState(lessonPlan[0]);
@@ -65,6 +74,7 @@ const ExercisesLayout: React.FC = () => {
           currentStep={currentStep}
           setCurrentStep={setCurrentStep}
           modalVisible={modalVisible}
+          appLang={appLang}
         />
         <MatchWords
           words={words}
@@ -80,6 +90,13 @@ const ExercisesLayout: React.FC = () => {
           currentStep={currentStep}
           setCurrentStep={setCurrentStep}
           modalVisible={modalVisible}
+          appLang={appLang}
+        />
+        <MakeAPhrase
+          randomPhrases={randomPhrases}
+          progress={progress}
+          setProgress={setProgress}
+          appLang={appLang}
         />
         <EndOfExerciseModal
           visible={modalVisible}
