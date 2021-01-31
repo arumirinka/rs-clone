@@ -1,9 +1,10 @@
-import React, { useState, useRef } from 'react';
-import { Button, Progress } from 'antd';
+import React, { useState, useRef, useEffect } from 'react';
+import { Button } from 'antd';
 import ChooseTranslationBtn from './ChooseTranslationBtn';
-import EndOfExerciseModal from './EndOfExerciseModal';
+import EndOfExerciseModal from '../EndOfExerciseModal';
 import checkIfButtonsEnabled from './checkIfButtonsEnabled';
 import './chooseTranslation.css';
+import { exercisesInterface } from '../../../assets/appLangConst';
 
 const getRandomNumbers = ():number[] => {
   const arr:number[] = [0, 1, 2, 3];
@@ -11,16 +12,19 @@ const getRandomNumbers = ():number[] => {
 };
 let randomNumbersArray = getRandomNumbers();
 type Props={
-  randomWords:string[][]
+  randomWords:string[][],
+  progress:number,
+  setProgress:any,
+  appLang:string,
 };
 let showNewWords:() => void;
-const chooseTranslation = (randomWords:Props) => {
+const chooseTranslation = ({
+  randomWords, progress, setProgress, appLang,
+}:Props) => {
   const [points, setPoints] = useState(0);
-  const [wordsArray, setWordsArray] = useState(randomWords.randomWords);
+  const [wordsArray, setWordsArray] = useState(randomWords);
   const wordToCheck:any = wordsArray[0][0];
   const translationToCheck:string = wordsArray[0][1];
-
-  const [progress, setProgress] = useState(0);
 
   const [btnStyle, setBtnStyle] = useState(false);
   const buttonsContainer = useRef<HTMLDivElement>(null!);
@@ -47,17 +51,22 @@ const chooseTranslation = (randomWords:Props) => {
       setBtnStyle(false);
     }
   };
-  window.addEventListener('keypress', (event) => {
-    if (event.key === 'Enter' && !checkIfButtonsEnabled(buttonsContainer)) {
+  const handleEnterPress = (event:any) => {
+    if (event.key === 'Enter'
+      && !checkIfButtonsEnabled(buttonsContainer)) {
       showNewWords();
     }
-  });
+  };
+  useEffect(() => {
+    window.addEventListener('keypress', handleEnterPress);
+    return () => {
+      window.removeEventListener('keypress', handleEnterPress);
+    };
+  }, []);
+
   return (
-    <div className="chooseTranslation-container">
-      <div className="exercises-container__progress-bar">
-        <Progress percent={progress} showInfo={false} />
-      </div>
-      <div className="chooseTranslation-container__word">Выберите перевод для слова &quot;{wordToCheck}&quot;</div>
+    <>
+      <div className="chooseTranslation-container__word">{ exercisesInterface[appLang].chooseTranslation} &quot;{wordToCheck}&quot;</div>
       <div className="chooseTranslation-container__buttons" ref={buttonsContainer}>
         <ChooseTranslationBtn
           index={1}
@@ -122,9 +131,9 @@ const chooseTranslation = (randomWords:Props) => {
         onClick={() => { showNewWords(); }}
         className="chooseTranslation-container__continueButton"
         disabled={continueBtnDisabled}
-      >Продолжить
+      >{ exercisesInterface[appLang].сontinue}
       </Button>
-    </div>
+    </>
   );
 };
 export default chooseTranslation;
