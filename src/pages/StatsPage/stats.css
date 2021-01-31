@@ -1,0 +1,12 @@
+.stats {
+    display: flex;
+    justify-content: space-around;
+}
+
+.stats_best {
+    width: 30%;
+}
+
+.stats_table_row {
+    background-color: #e6ffec;
+}

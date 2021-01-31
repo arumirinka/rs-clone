@@ -3,7 +3,10 @@ import {
   Menu, Dropdown, Button, Space, Drawer,
 } from 'antd';
 import Icon, {
-  DownOutlined, MenuOutlined, SettingOutlined,
+  DownOutlined,
+  MenuOutlined,
+  SettingOutlined,
+  StarOutlined,
 } from '@ant-design/icons';
 import { useHistory } from 'react-router-dom';
 import SideMenu from '../Menu/Menu';
@@ -18,8 +21,8 @@ import flag_US from '../../assets/US.svg';
 import flag_DE from '../../assets/DE.svg';
 
 type IProps = {
-  handleLangChange: any,
-  appLang: string
+  handleLangChange: any;
+  appLang: string;
 };
 
 let currLang = 'Русский';
@@ -40,13 +43,40 @@ const Header: React.FC<IProps> = ({ handleLangChange, appLang }: IProps) => {
 
   const langMenu = (
     <Menu onClick={handleLangMenuClick}>
-      <Menu.Item key="russian" icon={<Icon component={() => (<img src={flag_RU} alt="ru" className="lang-img" />)} />}>
+      <Menu.Item
+        key="russian"
+        icon={(
+          <Icon
+            component={() => (
+              <img src={flag_RU} alt="ru" className="lang-img" />
+            )}
+          />
+        )}
+      >
         Русский
       </Menu.Item>
-      <Menu.Item key="english" icon={<Icon component={() => (<img src={flag_US} alt="en" className="lang-img" />)} />}>
+      <Menu.Item
+        key="english"
+        icon={(
+          <Icon
+            component={() => (
+              <img src={flag_US} alt="en" className="lang-img" />
+            )}
+          />
+        )}
+      >
         English
       </Menu.Item>
-      <Menu.Item key="german" icon={<Icon component={() => (<img src={flag_DE} alt="de" className="lang-img" />)} />}>
+      <Menu.Item
+        key="german"
+        icon={(
+          <Icon
+            component={() => (
+              <img src={flag_DE} alt="de" className="lang-img" />
+            )}
+          />
+        )}
+      >
         Deutsch
       </Menu.Item>
     </Menu>
@@ -80,6 +110,7 @@ const Header: React.FC<IProps> = ({ handleLangChange, appLang }: IProps) => {
   const onChangeTheme = (value: any) => {
     setTheme(value ? 'dark' : 'light');
   };
+  const [points] = useState(0);
 
   return (
     <div>
@@ -88,9 +119,13 @@ const Header: React.FC<IProps> = ({ handleLangChange, appLang }: IProps) => {
         closable={false}
         onClose={onCloseMenu}
         visible={visibleMenu}
-        className={(theme === 'light') ? 'drawer-light' : 'drawer-dark'}
+        className={theme === 'light' ? 'drawer-light' : 'drawer-dark'}
       >
-        <SideMenu onClick={toggleMenu} onChangeTheme={onChangeTheme} appLang={appLang} />
+        <SideMenu
+          onClick={toggleMenu}
+          onChangeTheme={onChangeTheme}
+          appLang={appLang}
+        />
       </Drawer>
       <Space wrap>
         <MenuOutlined onClick={toggleMenu} className="header__icon" />
@@ -114,6 +149,18 @@ const Header: React.FC<IProps> = ({ handleLangChange, appLang }: IProps) => {
       >
         <Settings />
       </Drawer>
+
+      <span>
+        <StarOutlined
+          className="header__icon"
+          style={{
+            marginLeft: 35,
+            marginRight: 5,
+            color: '#1c8673',
+          }}
+        />
+      </span>
+      <span style={{ fontSize: 26 }}>{points}</span>
     </div>
   );
 };

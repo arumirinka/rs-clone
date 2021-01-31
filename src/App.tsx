@@ -29,7 +29,6 @@ function App() {
   const isAuthenticated = !!token;
 
   return (
-
     <AuthContext.Provider
       value={{
         token,
@@ -40,25 +39,35 @@ function App() {
       }}
     >
       <div className="App">
-        {isAuthenticated && <Header handleLangChange={handleLangChange} appLang={appLang} />}
+        {isAuthenticated && (
+          <Header handleLangChange={handleLangChange} appLang={appLang} />
+        )}
         {isAuthenticated && <Divider />}
         <div className="content-wrapper">
           {isAuthenticated && (
-          <Switch>
-            <Route path="/main" component={Main} exact />
-            <Route path="/stats" render={() => <StatsPage appLang={appLang} />} exact />
-            <Route path="/steps" component={StepsLayout} exact />
-            <Route path="/lessons" component={LessonsLayout} exact />
-            <Route path="/lessons/words" component={WordsList} exact />
-            <Route path="/lessons/exercises" component={ExercisesLayout} exact />
-            <Redirect to="/main" />
-          </Switch>
+            <Switch>
+              <Route path="/main" component={Main} exact />
+              <Route
+                path="/stats"
+                render={() => <StatsPage appLang={appLang} />}
+                exact
+              />
+              <Route path="/steps" component={StepsLayout} exact />
+              <Route path="/lessons" component={LessonsLayout} exact />
+              <Route path="/lessons/words" component={WordsList} exact />
+              <Route
+                path="/lessons/exercises"
+                component={ExercisesLayout}
+                exact
+              />
+              <Redirect to="/main" />
+            </Switch>
           )}
           {!isAuthenticated && (
-          <Switch>
-            <Route path="/" component={LoginPage} exact />
-            <Redirect to="/" />
-          </Switch>
+            <Switch>
+              <Route path="/" component={LoginPage} exact />
+              <Redirect to="/" />
+            </Switch>
           )}
         </div>
         <Divider />
