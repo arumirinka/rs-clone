@@ -43,7 +43,7 @@ const WordsList: React.FC = () => {
     return () => {
       window.removeEventListener('keydown', handleEscPress);
     };
-  });
+  }, []);
   return (
     <div className="words">
       <h2 className="words__header">{wordsListConst[current.UI].header}</h2>

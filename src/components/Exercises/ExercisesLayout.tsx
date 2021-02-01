@@ -49,7 +49,7 @@ const ExercisesLayout: React.FC<IProps> = ({ appLang }: IProps) => {
     return () => {
       window.removeEventListener('keydown', handleEscPress);
     };
-  });
+  }, []);
   return (
     <div className="exercises-container">
       <div className="exercises-container__kitty">
