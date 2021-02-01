@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Progress } from 'antd';
+import { useHistory } from 'react-router-dom';
 import ChooseTranslation from './ChooseTranslation/ChooseTranslation';
 import './ChooseTranslation/chooseTranslation.css';
 import MatchWords from './MatchWords/MatchWords';
@@ -53,6 +54,18 @@ const ExercisesLayout: React.FC<IProps> = ({ appLang }: IProps) => {
       showModal();
     }
   });
+  const history = useHistory();
+  const handleEscPress = (event:any) => {
+    if (event.key === 'Escape') {
+      history.push('/lessons');
+    }
+  };
+  useEffect(() => {
+    window.addEventListener('keydown', handleEscPress);
+    return () => {
+      window.removeEventListener('keydown', handleEscPress);
+    };
+  }, []);
 
   return (
     <div className="exercises-container">
@@ -131,6 +144,7 @@ const ExercisesLayout: React.FC<IProps> = ({ appLang }: IProps) => {
         <EndOfExerciseModal
           visible={modalVisible}
           points={points}
+          appLang={appLang}
         />
       </div>
     </div>

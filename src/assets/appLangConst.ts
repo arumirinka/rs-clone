@@ -78,21 +78,21 @@ export const lessonsConst: IAppLangConst = {
   russian: {
     level: 'Уровень',
     lesson: 'Урок',
-    lessonsIntro: 'Муррр, мы начинаем учиться! Ввожу в курс дела: для успешного перехода на новый уровень нам надо пройти 6 уроков и набрать минимум 510/600 баллов (100 баллов за урок) или 85%.',
+    lessonsIntro: 'Муррр, мы начинаем учиться! Ввожу в курс дела: для успешного перехода на новый уровень нам надо пройти 4 урока и набрать минимум 340/400 баллов (100 баллов за урок) или 85%.',
     chartCompleted: 'Пройдено',
     chartLeft: 'Осталось',
   },
   english: {
     level: 'Level',
     lesson: 'Lesson',
-    lessonsIntro: 'Meow, we\'re going to start learning now! Let me bring you up to speed: to move to the next level you\'ll have to complete 6 lessons and get at least 510/600 points (100 points per lesson) or 85%.',
+    lessonsIntro: 'Meow, we\'re going to start learning now! Let me bring you up to speed: to move to the next level you\'ll have to complete 4 lessons and get at least 340/400 points (100 points per lesson) or 85%.',
     chartCompleted: 'Completed',
     chartLeft: 'Not completed',
   },
   german: {
     level: 'Level',
     lesson: 'Lektion',
-    lessonsIntro: 'Meow, jetzt beginnen wir zu lernen! Ich setze dich ins Bild: du hast vor, 6 Lektionen abzuschließen und mindestens 510/600 Punkte (100 Punkte pro Lektion) oder 85% zu erhalten, um das nächste Level zu starten.',
+    lessonsIntro: 'Meow, jetzt beginnen wir zu lernen! Ich setze dich ins Bild: du hast vor, 4 Lektionen abzuschließen und mindestens 340/400 Punkte (100 Punkte pro Lektion) oder 85% zu erhalten, um das nächste Level zu starten.',
     chartCompleted: 'Abgeschlossen',
     chartLeft: 'Nicht abgeschlossen',
   },
@@ -139,7 +139,7 @@ export const nextButtonConst: IAppLangConst = {
     nextButton: 'Next',
   },
   german: {
-    nextButton: 'Nächster',
+    nextButton: 'Weiter',
   },
 };
 
@@ -151,7 +151,7 @@ export const matchWordsConst: IAppLangConst = {
     header: 'Match words and translations',
   },
   german: {
-    header: 'Wörter und übersetzungen abgleichen',
+    header: 'Setzen Sie Wörter und Übersetzungen zusammen',
   },
 };
 
@@ -175,6 +175,6 @@ export const wordsListConst: IAppLangConst = {
     header: 'Words for the Lesson',
   },
   german: {
-    header: 'Worte für die Lektion',
+    header: 'Wörter für die Lektion',
   },
 };
