@@ -17,6 +17,8 @@ import LoginPage from './pages/LoginPage/LoginPage';
 import ExercisesLayout from './components/Exercises/ExercisesLayout';
 
 function App() {
+  const appLang = 'russian';
+
   const {
     token, login, logout, userId,
   } = useAuth();
@@ -41,15 +43,15 @@ function App() {
             <Route path="/main" component={Main} exact />
             <Route path="/stats" component={StatsPage} exact />
             <Route path="/steps" component={StepsLayout} exact />
-            <Route path="/words" component={WordsList} exact />
             <Route path="/lessons" component={LessonsLayout} exact />
+            <Route path="/lessons/words" component={WordsList} exact />
             <Route path="/lessons/exercises" component={ExercisesLayout} exact />
             <Redirect to="/main" />
           </Switch>
           )}
           {!isAuthenticated && (
           <Switch>
-            <Route path="/" component={LoginPage} exact />
+            <Route path="/" render={() => <LoginPage appLang={appLang} />} exact />
             <Redirect to="/" />
           </Switch>
           )}

@@ -4,8 +4,8 @@ import { Modal } from 'antd';
 import 'antd/dist/antd.css';
 import './LanguagesLayout.css';
 import { useSelector, useDispatch } from 'react-redux';
-import RegistrationForm from '../RegistrationForm/RegistrationForm';
-import '../RegistrationForm/RegistrationForm.css';
+// import RegistrationForm from '../RegistrationForm/RegistrationForm';
+// import '../RegistrationForm/RegistrationForm.css';
 import { useAuth } from '../../hooks/auth.hook';
 import { appLangConst } from '../../assets/appLangConst';
 import { fetchData, changeLearnLang } from '../../redux/actions';
@@ -51,7 +51,7 @@ const LanguageButton = ({ language }: Props) => {
         onCancel={handleCancel}
         footer={null}
       >
-        <RegistrationForm />
+        {/* <RegistrationForm /> */}
       </Modal>
       )}
     </>

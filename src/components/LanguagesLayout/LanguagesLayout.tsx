@@ -24,7 +24,7 @@ const LanguagesLayout: React.FC = () => {
         </div>
         <div className="inner-container1__content">
           <div className="content__text">
-            {langsLayoutLangConst[appLang].header}
+            {langsLayoutLangConst[appLang].helpCatalie}
           </div>
           <div className="content__languages">
             <div className="languages__language">

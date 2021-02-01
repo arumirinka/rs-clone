@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { PlayCircleOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
 import './WordsList.css';
 import voiceLanguage from './voiceLanguage';
-import { wordsListHeader, practiseButtonText } from './wordListTranslate';
+import { wordsListConst, nextButtonConst } from '../../assets/appLangConst';
 
 const WordsList: React.FC = () => {
   const selectAppState = (state: { app: any; }) => state.app;
@@ -33,9 +33,23 @@ const WordsList: React.FC = () => {
     window.speechSynthesis.speak(utter);
   }
 
+  const history = useHistory();
+  const handleEscPress = (event:any) => {
+    if (event.key === 'Escape') {
+      history.push('/lessons');
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('keydown', handleEscPress);
+    return () => {
+      window.removeEventListener('keydown', handleEscPress);
+    };
+  }, []);
+
   return (
     <div className="words">
-      <h2 className="words__header">{wordsListHeader[appState.appLang]}</h2>
+      <h2 className="words__header">{wordsListConst[appState.appLang].header}</h2>
       <table className="words__table">
         <thead />
         <tbody>
@@ -58,7 +72,7 @@ const WordsList: React.FC = () => {
       </table>
       <Link to="/lessons/exercises">
         <Button type="primary">
-          {practiseButtonText[appState.appLang]}
+          {nextButtonConst[appState.appLang].nextButton}
         </Button>
       </Link>
     </div>
