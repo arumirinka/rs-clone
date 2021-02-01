@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import './App.css';
 import {
-  Redirect, Route, Switch, withRouter,
+  // Redirect,
+  Route, Switch, withRouter,
 } from 'react-router-dom';
 import { Divider } from 'antd';
 import { useAuth } from './hooks/auth.hook';
@@ -45,29 +46,21 @@ function App() {
         {isAuthenticated && <Divider />}
         <div className="content-wrapper">
           {isAuthenticated && (
-            <Switch>
-              <Route path="/main" component={Main} exact />
-              <Route
-                path="/stats"
-                render={() => <StatsPage appLang={appLang} />}
-                exact
-              />
-              <Route path="/steps" component={StepsLayout} exact />
-              <Route path="/lessons" component={LessonsLayout} exact />
-              <Route path="/lessons/words" component={WordsList} exact />
-              <Route
-                path="/lessons/exercises"
-                component={ExercisesLayout}
-                exact
-              />
-              <Redirect to="/main" />
-            </Switch>
+          <Switch>
+            <Route path="/main" render={() => <Main appLang={appLang} />} exact />
+            <Route path="/stats" render={() => <StatsPage appLang={appLang} />} exact />
+            <Route path="/steps" render={() => <StepsLayout appLang={appLang} />} exact />
+            <Route path="/lessons" render={() => <LessonsLayout appLang={appLang} />} exact />
+            <Route path="/lessons/words" component={WordsList} exact />
+            <Route path="/lessons/exercises" render={() => <ExercisesLayout appLang={appLang} />} exact />
+            {/* <Redirect to="/main" /> */}
+          </Switch>
           )}
           {!isAuthenticated && (
-            <Switch>
-              <Route path="/" component={LoginPage} exact />
-              <Redirect to="/" />
-            </Switch>
+          <Switch>
+            <Route path="/" render={() => <LoginPage appLang={appLang} />} exact />
+            {/* <Redirect to="/" /> */}
+          </Switch>
           )}
         </div>
         <Divider />

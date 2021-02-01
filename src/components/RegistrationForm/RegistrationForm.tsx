@@ -7,6 +7,7 @@ import { GithubOutlined } from '@ant-design/icons';
 import { useHttp } from '../../hooks/http.hook';
 import { AuthContext } from '../../context/AuthContext';
 import './RegistrationForm.css';
+import { appLangConst } from '../../assets/appLangConst';
 
 const layout = {
   labelCol: { span: 8 },
@@ -15,8 +16,10 @@ const layout = {
 const tailLayout = {
   wrapperCol: { offset: 8, span: 8 },
 };
-
-const RegistrationForm: React.FC = () => {
+interface IProps {
+  appLang: string
+}
+const RegistrationForm: React.FC<IProps> = ({ appLang }:IProps) => {
   const auth = useContext(AuthContext);
   const { loading, request } = useHttp();
   const [form, setForm] = useState({
@@ -64,7 +67,7 @@ const RegistrationForm: React.FC = () => {
       onFinish={changeHandler}
     >
       <Form.Item
-        label="Email"
+        label={appLangConst[appLang].email}
         rules={[
           {
             type: 'email',
@@ -87,7 +90,7 @@ const RegistrationForm: React.FC = () => {
       </Form.Item>
 
       <Form.Item
-        label="Пароль"
+        label={appLangConst[appLang].password}
         rules={[
           {
             min: 6,
@@ -117,16 +120,15 @@ const RegistrationForm: React.FC = () => {
             disabled={loading}
             onClick={loginHandler}
           >
-            Войти
+            {appLangConst[appLang].login}
           </Button>
         </Form.Item>
         <Form.Item {...tailLayout} style={{ marginBottom: '1em' }}>
           <Button type="primary" htmlType="submit" disabled={loading}>
-            Войти через Github
+            {appLangConst[appLang].loginGithub}
             <GithubOutlined style={{ color: 'black' }} />
           </Button>
         </Form.Item>
-
         <Form.Item {...tailLayout}>
           <Button
             type="primary"
@@ -135,7 +137,7 @@ const RegistrationForm: React.FC = () => {
             onClick={registerHandler}
             disabled={loading}
           >
-            Зарегистрироваться
+            {appLangConst[appLang].register}
           </Button>
         </Form.Item>
       </div>

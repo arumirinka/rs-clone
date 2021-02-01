@@ -12,14 +12,12 @@ const Lesson = ({ lesson, number, open }: Props) => {
     filter: 'none',
     animation: 'rotateLesson 2s 1',
   };
-  console.log(open);
   const openLesson = (event:any) => {
     event.target.classList.remove('lessons__lesson--closed');
     /* eslint-disable no-param-reassign */
     open = true;
     return setLevelOpen(style);
   };
-  console.log(open);
   if (open) {
     return (
       <button
