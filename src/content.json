@@ -3633,7 +3633,7 @@
             ["Yes, my wife's tall.", "Ja, meine Frau ist groß."],
             ["Your smile is so beautiful.", "Dein Lächeln ist so schön."],
             ["Oh, he has a strange sense of humor.", "Oh, er hat einen seltsamen Sinn für Humor."],
-            ["Oh, my sense of humor is strange.", "Ох, моё чувство юмора странное."],
+            ["Oh, my sense of humor is strange.", "Oh, mein Sinn für Humor ist seltsam."],
             ["My husband is not tall.", "Mein Mann ist nicht groß."],
             ["Maria is smart and beautiful!", "Maria ist schlau und schön!"],
             ["Oh, you are really smart!", "Oh, du bist wirklich schlau!"],
@@ -3958,7 +3958,7 @@
             ["she", "sie (eine Person)"],
             ["we", "wir"],
             ["they", "sie (mehrere Personen)"],
-            ["together", "вместе"]
+            ["together", "zusammen"]
           ],
           "phrases": [
             ["I know.", "Ich weiß."],
@@ -4929,9 +4929,9 @@
             ["des hommes", "Männer (Pl.)"],
             ["grands", "große (Pl.)"],
             ["petits", "kleine (Pl.)"],
-            ["jeunes", "junge(Pl.)"],
-            ["rouges", "rote(Pl.)"],
-            ["seuls", "allein(Pl.), nur"],
+            ["jeunes", "junge (Pl.)"],
+            ["rouges", "rote (Pl.)"],
+            ["seuls", "allein (Pl.), nur"],
             ["des fruits", "Obst"],
             ["des fraises", "Erdbeeren"],
             ["des pâtes", "Pasta"],
