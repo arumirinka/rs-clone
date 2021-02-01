@@ -2,17 +2,27 @@ import React, { useState, useEffect, useRef } from 'react';
 import './matchWords.css';
 import { Button } from 'antd';
 import { matchWordsConst, nextButtonConst } from '../../../assets/appLangConst';
-import EndOfExerciseModal from '../EndOfExerciseModal';
 
 type Props={
   words:string[][],
-  current: any,
   progress:number,
-  setProgress:any,
+  setProgress:React.Dispatch<React.SetStateAction<number>>,
+  points:number,
+  setPoints:React.Dispatch<React.SetStateAction<number>>,
+  id:number,
+  visibleID:number,
+  setVisibleID:React.Dispatch<React.SetStateAction<number>>,
+  lessonPlan:number[],
+  currentStep:number,
+  setCurrentStep:React.Dispatch<React.SetStateAction<number>>,
+  modalVisible:boolean,
+  appLang:string,
+  progressGap:number,
 };
 
 const MatchWords = ({
-  words, current, progress, setProgress,
+  words, progress, setProgress, points, setPoints, id, visibleID, setVisibleID,
+  lessonPlan, currentStep, setCurrentStep, modalVisible, appLang, progressGap,
 }:Props) => {
   function shuffle(array: any) {
     const shuffled = array.slice();
@@ -23,61 +33,78 @@ const MatchWords = ({
     return shuffled;
   }
 
+  if (!(id === visibleID)) {
+    return null;
+  }
+
   const NUMBER_OF_WORDS = 5;
   let currentArray = shuffle(shuffle(words).slice(0, NUMBER_OF_WORDS).flat());
 
   const [currentWords, setCurrentWords] = useState(currentArray);
   const [picked, setPicked] = useState(new Set(''));
   const [prev, setPrev]: [any, any] = useState(null);
-  const [isDisables, setDisabled]: [any, any] = useState(true);
-  const [points, setPoints] = useState(0);
-  const [visible, setVisible]: any[] = useState(false);
+  const [isDisabled, setDisabled]: [any, any] = useState(true);
   const [pointsPenalty, setPointsPenalty] = useState(0);
   const wordsContainerRef:any = useRef(null);
   const nextButtonRef:any = useRef(null);
   const audioRef:any = useRef(null);
 
-  const showModal = (): void => {
-    setVisible(true);
-  };
-
-  const showNewWords = () => {
+  const showNewWords = (step:number) => {
     const MAX_PROGRESS = 100;
     if (progress === MAX_PROGRESS) {
       const parent = wordsContainerRef.current.parentNode;
       while (parent!.firstChild) { parent!.firstChild.remove(); }
-      showModal();
+    } else {
+      Array.from(wordsContainerRef.current.children).forEach((button:any) => {
+        const theButton:HTMLButtonElement = button;
+        theButton.classList.remove('match-words__word--picked');
+        theButton.classList.remove('match-words__word--animate');
+        theButton.disabled = false;
+      });
+      setDisabled(true);
+      nextButtonRef.current.classList.add('match-word__next-button--hidden');
+      currentArray = shuffle(shuffle(words).slice(0, NUMBER_OF_WORDS).flat());
+      setCurrentWords(currentArray);
+      setPicked(new Set(''));
+      setPointsPenalty(0);
+      setVisibleID(lessonPlan[step + 1]);
+      setCurrentStep(step + 1);
     }
-    Array.from(wordsContainerRef.current.children).forEach((button:any) => {
-      const theButton:HTMLButtonElement = button;
-      theButton.classList.remove('match-words__word--picked');
-      theButton.classList.remove('match-words__word--animate');
-      theButton.disabled = false;
-    });
-    setDisabled(true);
-    nextButtonRef.current.classList.add('match-word__next-button--hidden');
-    currentArray = shuffle(shuffle(words).slice(0, NUMBER_OF_WORDS).flat());
-    setCurrentWords(currentArray);
-    setPicked(new Set(''));
-    setPointsPenalty(0);
   };
 
   useEffect(() => {
     if (picked.size === currentWords.length) {
       setDisabled(false);
       nextButtonRef.current.classList.remove('match-word__next-button--hidden');
-      const PROGRESS_STEP = 10;
-      const POINTS_GAIN = 10;
-      const currentGain = POINTS_GAIN - pointsPenalty > 0 ? POINTS_GAIN - pointsPenalty : 0;
-      setProgress(progress + PROGRESS_STEP);
+      const currentGain = progressGap - pointsPenalty > 0 ? progressGap - pointsPenalty : 0;
+      setProgress(progress + progressGap);
       setPoints(points + currentGain);
-      window.addEventListener('keypress', (event) => {
-        if (event.key === 'Enter' && !nextButtonRef.current.disabled) {
-          showNewWords();
-        }
-      });
     }
   }, [picked.size]);
+
+  const step = useRef(currentStep);
+  step.current = currentStep;
+  const visRef = useRef(visibleID);
+  visRef.current = visibleID;
+  const modalRef = useRef(modalVisible);
+  modalRef.current = modalVisible;
+
+  const handleEnterPress = (event:any) => {
+    if (visRef.current === id
+      && event.key === 'Enter'
+      && nextButtonRef.current
+      && !nextButtonRef.current.disabled
+      && !modalRef.current) {
+      showNewWords(step.current);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('keypress', handleEnterPress);
+    return () => {
+      window.removeEventListener('keypress', handleEnterPress);
+    };
+  }, []);
 
   function playSound(url: string) {
     audioRef.current.src = url;
@@ -105,7 +132,7 @@ const MatchWords = ({
         setPrev(null);
         button.disabled = true;
       } else {
-        const PENALTY_PER_MISS = 10;
+        const PENALTY_PER_MISS = 2;
         setPointsPenalty(pointsPenalty + PENALTY_PER_MISS);
         const ERROR_URL = '../../../audio/mistake_sound.mp3';
         playSound(ERROR_URL);
@@ -124,22 +151,18 @@ const MatchWords = ({
 
   return (
     <div className="match-words">
-      <h2>{matchWordsConst[current.UI].header}</h2>
+      <h2>{matchWordsConst[appLang].header}</h2>
       <div ref={wordsContainerRef} className="match-words__words-container">
         {currentWords.map((word: string) => <button className="match-words__word" type="button" key={word.toString()} onClick={(evt) => buttonClickHandler(evt)}>{word}</button>)}
       </div>
-      <EndOfExerciseModal
-        visible={visible}
-        points={points}
-      />
       <Button
         ref={nextButtonRef}
         className="match-word__next-button match-word__next-button--hidden"
         type="primary"
-        onClick={() => { showNewWords(); }}
-        disabled={isDisables}
+        onClick={() => { showNewWords(currentStep); }}
+        disabled={isDisabled}
       >
-        {nextButtonConst[current.UI].nextButton}
+        {nextButtonConst[appLang].nextButton}
       </Button>
       <audio ref={audioRef}>
         <track kind="captions" />
