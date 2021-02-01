@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import { PlayCircleOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
 import content from '../../content.json';
@@ -32,6 +32,18 @@ const WordsList: React.FC = () => {
     window.speechSynthesis.speak(utter);
   }
 
+  const history = useHistory();
+  const handleEscPress = (event:any) => {
+    if (event.key === 'Escape') {
+      history.push('/lessons');
+    }
+  };
+  useEffect(() => {
+    window.addEventListener('keydown', handleEscPress);
+    return () => {
+      window.removeEventListener('keydown', handleEscPress);
+    };
+  }, []);
   return (
     <div className="words">
       <h2 className="words__header">{wordsListConst[current.UI].header}</h2>

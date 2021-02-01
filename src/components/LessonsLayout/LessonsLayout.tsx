@@ -29,8 +29,6 @@ const LessonsLayout: React.FC<IProps> = ({ appLang }: IProps) => {
             <Lesson lesson={lessonsConst[appLang].lesson} number={2} open={false} />
             <Lesson lesson={lessonsConst[appLang].lesson} number={3} open={false} />
             <Lesson lesson={lessonsConst[appLang].lesson} number={4} open={false} />
-            <Lesson lesson={lessonsConst[appLang].lesson} number={5} open={false} />
-            <Lesson lesson={lessonsConst[appLang].lesson} number={6} open={false} />
           </div>
           <div className="content__chart">
             <PieChart
