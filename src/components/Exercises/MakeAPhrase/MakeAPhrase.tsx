@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Button } from 'antd';
 import CSS from 'csstype';
-import EndOfExerciseModal from '../EndOfExerciseModal';
 import './makeAPhrase.css';
 import checkPhrase from './checkPhrase';
 import { exercisesInterface } from '../../../assets/appLangConst';
@@ -10,14 +9,22 @@ type Props={
   randomPhrases:string[][],
   progress:number,
   setProgress:any,
+  points:number,
+  setPoints:React.Dispatch<React.SetStateAction<number>>,
+  id:number,
+  visibleID:number,
+  setVisibleID:React.Dispatch<React.SetStateAction<number>>,
+  lessonPlan:number[],
+  currentStep:number,
+  setCurrentStep:React.Dispatch<React.SetStateAction<number>>,
+  modalVisible:boolean,
   appLang:string,
+  progressGap:number,
 };
 const MakeAPhrase = ({
-  randomPhrases, progress, setProgress, appLang,
+  randomPhrases, progress, setProgress, points, setPoints, id, visibleID, setVisibleID,
+  lessonPlan, currentStep, setCurrentStep, modalVisible, appLang, progressGap,
 }:Props) => {
-  const maxProgress:number = 100;
-  const progressGap:number = 10;
-  const [points, setPoints] = useState(0);
   const [phrasesArray, setPhrasesArray] = useState(randomPhrases);
   const phraseToCheck:any = phrasesArray[0][1];
   const translationToCheck = phrasesArray[0][0].replace(/[.,!?]+/g, '').split(' ');
@@ -27,7 +34,7 @@ const MakeAPhrase = ({
   const buttonsContainer = useRef<HTMLDivElement>(null!);
   const [continueBtnDisabled, setContinueBtnDisabled] = useState(true);
   const [continueBtnName, setContinueBtnName] = useState(exercisesInterface[appLang].сheck);
-  const [visible, setVisible]: any[] = useState(false);
+
   interface IWords{
     type:string
     className:string
@@ -41,9 +48,7 @@ const MakeAPhrase = ({
     .sort(() => Math.random() - 0.5));
   const phraseMakerContainer = useRef<HTMLDivElement>(null!);
   const [containerDisabled, setContainerDisabled] = useState<CSS.Properties>({ pointerEvents: 'all' });
-  const showModal = (): void => {
-    setVisible(true);
-  };
+
   const nextWordsLayout = () => {
     phraseMakerContainer.current.classList.remove('phrase-maker--correct',
       'phrase-maker--wrong');
@@ -88,13 +93,11 @@ const MakeAPhrase = ({
     setContinueBtnName(exercisesInterface[appLang].сontinue);
   };
   const showNewWords = () => {
-    if (progress === maxProgress) {
-      showModal();
-    } else {
-      setContinueBtnDisabled(true);
-      setContinueBtnName(exercisesInterface[appLang].сheck);
-      nextWordsLayout();
-    }
+    setContinueBtnDisabled(true);
+    setContinueBtnName(exercisesInterface[appLang].сheck);
+    nextWordsLayout();
+    setVisibleID(lessonPlan[currentStep + 1]);
+    setCurrentStep(currentStep + 1);
   };
   const handleClick = (event:any) => {
     const newWord = event.target;
@@ -117,8 +120,18 @@ const MakeAPhrase = ({
       showNewWords();
     }
   };
+
+  const visRef = useRef(visibleID);
+  visRef.current = visibleID;
+  const modalRef = useRef(modalVisible);
+  modalRef.current = modalVisible;
+
   const handleEnterPress = (event:any) => {
-    if (event.key === 'Enter' && !continueBtnDisabled) {
+    if (visRef.current === id
+    && event.key === 'Enter'
+    && !continueBtnDisabled
+    && !modalRef.current
+    ) {
       if (continueBtnName === exercisesInterface[appLang].сheck) {
         checkPhraseMade();
       } else {
@@ -141,6 +154,10 @@ const MakeAPhrase = ({
   }, [words.length]);
 
   const generateKey = (index:string) => `${index}_${new Date().getMilliseconds()}`;
+
+  if (!(id === visibleID)) {
+    return null;
+  }
 
   return (
     <>
@@ -179,10 +196,7 @@ const MakeAPhrase = ({
           </button>
         ))}
       </div>
-      <EndOfExerciseModal
-        visible={visible}
-        points={points}
-      />
+
       <Button
         type="primary"
         htmlType="submit"
