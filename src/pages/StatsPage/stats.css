@@ -7,6 +7,11 @@
     width: 30%;
 }
 
-.stats_table_row {
+.ant-table-thead> tr> th {
+    color: #fff;
+    background-color: #136052;
+}
+
+.ant-table-row {
     background-color: #e6ffec;
 }

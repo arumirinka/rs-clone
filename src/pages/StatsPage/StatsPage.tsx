@@ -20,40 +20,24 @@ const rating = async () => {
       '/api/stats/rating',
     );
     const data = await res.json();
-    bestUsers = data.rating.map((item: any) => [item.email, item.points]);
-    dataSource = [
-      {
-        key: '1',
-        email: bestUsers[0][0],
-        score: bestUsers[0][1],
-      },
-      {
-        key: '2',
-        email: bestUsers[1][0],
-        score: bestUsers[1][1],
-      },
-      {
-        key: '3',
-        email: bestUsers[2][0],
-        score: bestUsers[2][1],
-      },
-      {
-        key: '4',
-        email: bestUsers[3][0],
-        score: bestUsers[3][1],
-      },
-      {
-        key: '5',
-        email: bestUsers[4][0],
-        score: bestUsers[4][1],
-      },
-    ];
-    console.log(bestUsers);
+    bestUsers = data.rating.map((item: any) => [
+      item.email,
+      item.results.english.langPoints,
+    ]);
+
+    dataSource = bestUsers.map((item) => ({
+      key: bestUsers.indexOf(item) + 1,
+      email: item[0],
+      score: item[1],
+    }));
+
+    console.log(dataSource);
   } catch (e) {
     console.log('something wrong');
   }
 };
 rating();
+console.log(dataSource);
 
 const columns = [
   {
@@ -102,9 +86,7 @@ const StatsPage: React.FC<IProps> = ({ appLang }: IProps) => (
         dataSource={dataSource}
         columns={columns}
         pagination={false}
-        rowClassName="stats_table_row"
       />
-      ;
     </div>
   </div>
 );
