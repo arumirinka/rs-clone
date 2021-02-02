@@ -27,6 +27,7 @@ const Header: React.FC = () => {
   const appLang = useSelector(selectAppLang);
 
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const handleLangMenuClick = (e: any) => {
     if (e.key === 'russian') {
@@ -39,6 +40,8 @@ const Header: React.FC = () => {
       currLang = 'Deutsch';
     }
     dispatch(changeAppLang(e.key));
+
+    history.push('/main');
   };
 
   const langMenu = (
@@ -71,7 +74,6 @@ const Header: React.FC = () => {
     setVisibleSettings(false);
   };
 
-  const history = useHistory();
   const auth = useContext(AuthContext);
 
   const logoutHandler = () => {
