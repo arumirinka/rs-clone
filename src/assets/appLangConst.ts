@@ -121,9 +121,9 @@ export const lessonsConst: IAppLangConst = {
 export const exercisesInterface: IAppLangConst = {
   russian: {
     chooseTranslation: 'Выберите перевод для слова',
-    сontinue: 'Продолжить',
+    continue: 'Продолжить',
     makeAPhrase: 'Составьте фразу',
-    сheck: 'Проверить',
+    check: 'Проверить',
     correctAnswer: 'Правильный ответ',
     endOfLessonTitle: 'Вот и урок завершён!',
     endOfLessonText: 'Смотри, сколько баллов мы смогли набрать',
@@ -131,9 +131,9 @@ export const exercisesInterface: IAppLangConst = {
   },
   english: {
     chooseTranslation: 'Choose translation for word',
-    сontinue: 'Continue',
+    continue: 'Continue',
     makeAPhrase: 'Make a phrase',
-    сheck: 'Check',
+    check: 'Check',
     correctAnswer: 'Correct answer',
     endOfLessonTitle: 'And the lesson is over!',
     endOfLessonText: 'Have a look, how many points we have gained',
@@ -141,9 +141,9 @@ export const exercisesInterface: IAppLangConst = {
   },
   german: {
     chooseTranslation: 'Wählen Sie eine Übersetzung für das Wort',
-    сontinue: 'Weiter',
+    continue: 'Weiter',
     makeAPhrase: 'Bilden Sie die Phrase',
-    сheck: 'Prüfen',
+    check: 'Prüfen',
     correctAnswer: 'Richtige Antwort',
     endOfLessonTitle: 'Und die Lektion ist vorbei!',
     endOfLessonText: 'Sieh mal, wie viele Punkte wir gekriegt haben',
