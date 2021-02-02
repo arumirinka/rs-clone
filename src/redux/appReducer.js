@@ -7,7 +7,7 @@ const initialState = {
   learnLang: 'english',
   level: 1,
   lesson: 1,
-  isSoundOn: 'true',
+  isSoundOn: true,
 };
 
 export default function appReducer(state = initialState, action) {
