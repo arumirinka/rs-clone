@@ -5,6 +5,7 @@ import ChooseTranslation from './ChooseTranslation/ChooseTranslation';
 import './ChooseTranslation/chooseTranslation.css';
 import MatchWords from './MatchWords/MatchWords';
 import MakeAPhrase from './MakeAPhrase/MakeAPhrase';
+import FindPronouncedWord from './FindPronouncedWord/FindPronouncedWord';
 import content from '../../content.json';
 import KittyWithPencil from './KittyWithPencil';
 import './exercisesLayout.css';
@@ -37,7 +38,7 @@ const randomPhrases:string[][] = phrases
   .slice(0, 10);
 
 const PROGRESS_GAP = 5;
-const lessonPlan = [1, 1, 3, 1, 2, 3, 3, 2, 1, 1, 3, 2, 3, 1, 2, 1, 1, 1, 2, 3];
+const lessonPlan = [1, 4, 3, 3, 2, 4, 3, 1, 2, 3, 1, 1, 4, 3, 2, 4, 1, 1, 2, 3];
 
 const ExercisesLayout: React.FC<IProps> = ({ appLang }: IProps) => {
   const [progress, setProgress] = useState(0);
@@ -121,6 +122,23 @@ const ExercisesLayout: React.FC<IProps> = ({ appLang }: IProps) => {
           setCurrentStep={setCurrentStep}
           modalVisible={modalVisible}
           appLang={appLang}
+          progressGap={PROGRESS_GAP}
+        />
+        <FindPronouncedWord
+          words={words}
+          progress={progress}
+          setProgress={setProgress}
+          points={points}
+          setPoints={setPoints}
+          id={4}
+          visibleID={visibileID}
+          setVisibleID={setVisibleID}
+          lessonPlan={lessonPlan}
+          currentStep={currentStep}
+          setCurrentStep={setCurrentStep}
+          modalVisible={modalVisible}
+          appLang={appLang}
+          learningLang={current.learning}
           progressGap={PROGRESS_GAP}
         />
         <EndOfExerciseModal

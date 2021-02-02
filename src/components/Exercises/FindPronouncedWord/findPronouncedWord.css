@@ -1,0 +1,81 @@
+.find-pronounced__words-container {
+  margin: 0 auto 20px;
+  max-width: 600px;
+}
+
+.find-pronounced__word {
+  width: 130px;
+  margin: 0 0.5em 0.7em;
+  padding: 5px 2px;
+  border: 2px #000000 solid;
+  border-radius: 10px;
+  outline: none;
+  background: #ffffff;
+  font-size: 1.2em;
+  cursor: pointer;
+}
+
+.find-pronounced__word:hover {
+  background: #d5f6f0;
+  transform: scale(1.1);
+}
+
+.find-pronounced__word--picked {
+  border-color: #008000;
+  background: #acecac;
+}
+
+.find-pronounced__word--picked:hover {
+  border-color: #008000;
+  background: #acecac;
+  transform: none;
+  cursor: default;
+}
+
+.find-pronounced__word--wrong {
+  border-color: #ff0000;
+  background: #eaaeae;
+}
+
+.find-pronounced__word--wrong:hover {
+  background: #eaaeae;
+}
+
+.find-pronounced__buttons-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.find-pronounced__next-button {
+  box-sizing: border-box;
+  box-shadow: 2px 2px 10px 2px #e3fa70;
+  transform: scale(1.2);
+}
+
+.find-pronounced__next-button--hidden {
+  visibility: hidden;
+}
+
+.find-pronounced__repeat-button {
+  display: inline-flex;
+  align-items: center;
+  box-sizing: border-box;
+  height: 40px;
+  margin-right: 20px;
+  border-radius: 30%;
+  font-size: 23px;
+}
+
+@keyframes btnAnimation{
+
+  0% { transform: rotateZ(5deg); }
+
+  50% {transform: rotateZ(-5deg);}
+
+  100% { transform: rotateZ(5deg); }
+}
+
+.find-pronounced__word--animate {
+  animation: btnAnimation 0.5s 1 ease;
+}
