@@ -1,5 +1,5 @@
 import {
-  CHANGE_APP_LANG, CHANGE_LEARN_LANG, CHANGE_LEVEL, CHANGE_LESSON,
+  CHANGE_APP_LANG, CHANGE_LEARN_LANG, CHANGE_LEVEL, CHANGE_LESSON, TOGGLE_SOUND,
 } from './types';
 
 const initialState = {
@@ -7,6 +7,7 @@ const initialState = {
   learnLang: 'english',
   level: 1,
   lesson: 1,
+  isSoundOn: 'true',
 };
 
 export default function appReducer(state = initialState, action) {
@@ -37,6 +38,13 @@ export default function appReducer(state = initialState, action) {
       return {
         ...state,
         lesson,
+      };
+    }
+    case TOGGLE_SOUND: {
+      const isSoundOn = action.payload;
+      return {
+        ...state,
+        isSoundOn,
       };
     }
     default:

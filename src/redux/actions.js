@@ -1,5 +1,5 @@
 import {
-  CHANGE_APP_LANG, CHANGE_LEARN_LANG, CHANGE_LEVEL, CHANGE_LESSON, FETCH_DATA,
+  CHANGE_APP_LANG, CHANGE_LEARN_LANG, CHANGE_LEVEL, CHANGE_LESSON, TOGGLE_SOUND, FETCH_DATA,
 } from './types';
 import content from '../content.json';
 
@@ -41,6 +41,13 @@ export function changeLesson(lesson) {
   return {
     type: CHANGE_LESSON,
     payload: lesson,
+  };
+}
+
+export function toggleSound(isSoundOn) {
+  return {
+    type: TOGGLE_SOUND,
+    payload: isSoundOn,
   };
 }
 
