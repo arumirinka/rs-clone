@@ -47,10 +47,22 @@ export function changeLesson(lesson) {
 export function fetchData(appLang, learnLang) {
   const learningLang = getLearningLang(learnLang);
   return async (dispatch) => {
-    // eslint-disable-next-line no-undef
-    // const response = await fetch(url);
-    // const json = await response.json();
-    const json = content[appLang][learningLang];
-    dispatch({ type: FETCH_DATA, payload: json });
+    try {
+      // eslint-disable-next-line no-undef
+      const response = await fetch(`/api/lessons/?appLang=${appLang}&learnLang=${learningLang}`);
+      const jsonDB = await response.json();
+      let data;
+      if (jsonDB.content) {
+        data = jsonDB.content;
+      } else {
+        console.log('Something went wrong:', jsonDB);
+        data = content[appLang][learningLang];
+      }
+      dispatch({ type: FETCH_DATA, payload: data });
+    } catch (e) {
+      console.log('Something went wrong:', e);
+      const data = content[appLang][learningLang];
+      dispatch({ type: FETCH_DATA, payload: data });
+    }
   };
 }
