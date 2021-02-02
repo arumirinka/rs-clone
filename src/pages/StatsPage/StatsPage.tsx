@@ -1,8 +1,10 @@
+/* eslint-disable consistent-return */
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 /* eslint-disable no-console */
 // import { message } from 'antd';
 import { Table } from 'antd';
 import React from 'react';
+import { LineChart, Line } from 'recharts';
 // import Chart from 'chart.js';
 // import { useHttp } from '../../hooks/http.hook';
 import './stats.css';
@@ -14,16 +16,43 @@ interface IProps {
 let bestUsers: Array<any> = [];
 let dataSource: Array<any> = [];
 // const { request } = useHttp();
+let weekResults;
+const weekProgress = async () => {
+  try {
+    let currentId;
+    const currentUser = localStorage.getItem('userData');
+    if (typeof currentUser === 'string') {
+      currentId = JSON.parse(currentUser).userId;
+    }
+
+    const res = await fetch('/api/stats/weekProgress', {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        userId: currentId,
+        appLang: 'russianApp',
+        learningLang: 'english',
+      }),
+    });
+    const data = await res.json();
+    weekResults = data;
+    return data;
+  } catch (e) {
+    console.log('something wrong');
+  }
+};
+
+weekProgress();
+
 const rating = async () => {
   try {
     const res = await fetch(
       '/api/stats/rating',
     );
     const data = await res.json();
-    bestUsers = data.rating.map((item: any) => [
-      item.email,
-      item.results.english.langPoints,
-    ]);
+    bestUsers = data.rating;
 
     dataSource = bestUsers.map((item) => ({
       key: bestUsers.indexOf(item) + 1,
@@ -79,14 +108,21 @@ const StatsPage: React.FC<IProps> = ({ appLang }: IProps) => (
       </header> */}
 
     <p>This is the appLang: {appLang}!</p>
+    <LineChart
+      width={400}
+      height={400}
+      data={data}
+      margin={{ top: 5, right: 20, left: 10, bottom: 5 }}>
+      <XAxis dataKey="name" />
+      <Tooltip />
+      <CartesianGrid stroke="#f5f5f5" />
+      <Line type="monotone" dataKey="uv" stroke="#ff7300" yAxisId={0} />
+      <Line type="monotone" dataKey="pv" stroke="#387908" yAxisId={1} />
+    </LineChart>
 
     <div className="stats_best">
       <h3>Лидеры</h3>
-      <Table
-        dataSource={dataSource}
-        columns={columns}
-        pagination={false}
-      />
+      <Table dataSource={dataSource} columns={columns} pagination={false} />
     </div>
   </div>
 );
