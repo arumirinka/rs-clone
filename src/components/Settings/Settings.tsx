@@ -19,14 +19,20 @@ const Settings: React.FC = () => {
 
   return (
     <>
-      <p>Toggle sound</p>
+      <span style={{ marginRight: '1rem' }}>
+        {appLangConst[appLang].toggleSound}
+      </span>
       <Switch
         checked={isSoundOn}
         onChange={handleSoundChange}
         checkedChildren={appLangConst[appLang].soundOn}
         unCheckedChildren={appLangConst[appLang].soundOff}
       />
-      <p>Some settings...</p>
+      <br />
+      <br />
+      <span style={{ marginRight: '1rem' }}>
+        {appLangConst[appLang].toggleTheme}
+      </span>
     </>
   );
 };
