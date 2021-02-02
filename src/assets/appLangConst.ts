@@ -163,6 +163,18 @@ export const matchWordsConst: IAppLangConst = {
   },
 };
 
+export const findPronouncedWordConst: IAppLangConst = {
+  russian: {
+    header: 'Выберите произнесённое слово',
+  },
+  english: {
+    header: 'Choose the pronounced word',
+  },
+  german: {
+    header: 'Wählen Sie das ausgesprochene Wort',
+  },
+};
+
 export const wordsListConst: IAppLangConst = {
   russian: {
     header: 'Слова к уроку',

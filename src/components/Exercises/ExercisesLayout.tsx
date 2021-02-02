@@ -6,6 +6,7 @@ import ChooseTranslation from './ChooseTranslation/ChooseTranslation';
 import './ChooseTranslation/chooseTranslation.css';
 import MatchWords from './MatchWords/MatchWords';
 import MakeAPhrase from './MakeAPhrase/MakeAPhrase';
+import FindPronouncedWord from './FindPronouncedWord/FindPronouncedWord';
 import KittyWithPencil from './KittyWithPencil';
 import './exercisesLayout.css';
 import EndOfExerciseModal from './EndOfExerciseModal';
@@ -16,7 +17,7 @@ const getWordsRandomWordsAndPhrases = (appState: { level: number, lesson: number
     lesson: number;
   }
 
-  const current:Lesson = {
+  const current: Lesson = {
     level: appState.level,
     lesson: appState.lesson,
   };
@@ -34,7 +35,7 @@ const getWordsRandomWordsAndPhrases = (appState: { level: number, lesson: number
 };
 
 const PROGRESS_GAP = 5;
-const lessonPlan = [1, 1, 3, 1, 2, 3, 3, 2, 1, 1, 3, 2, 3, 1, 2, 1, 1, 1, 2, 3];
+const lessonPlan = [1, 4, 3, 3, 2, 4, 3, 1, 2, 3, 1, 1, 4, 3, 2, 4, 1, 1, 2, 3];
 
 const ExercisesLayout: React.FC = () => {
   const selectAppState = (state: { app: any; }) => state.app;
@@ -63,7 +64,7 @@ const ExercisesLayout: React.FC = () => {
 
   const history = useHistory();
 
-  const handleEscPress = (event:any) => {
+  const handleEscPress = (event: any) => {
     if (event.key === 'Escape') {
       history.push('/lessons');
     }
@@ -131,6 +132,23 @@ const ExercisesLayout: React.FC = () => {
           setCurrentStep={setCurrentStep}
           modalVisible={modalVisible}
           appLang={appState.appLang}
+          progressGap={PROGRESS_GAP}
+        />
+        <FindPronouncedWord
+          words={words}
+          progress={progress}
+          setProgress={setProgress}
+          points={points}
+          setPoints={setPoints}
+          id={4}
+          visibleID={visibleID}
+          setVisibleID={setVisibleID}
+          lessonPlan={lessonPlan}
+          currentStep={currentStep}
+          setCurrentStep={setCurrentStep}
+          modalVisible={modalVisible}
+          appLang={appState.appLang}
+          learningLang={appState.learnLang}
           progressGap={PROGRESS_GAP}
         />
         <EndOfExerciseModal
