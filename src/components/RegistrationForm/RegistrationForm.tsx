@@ -36,7 +36,7 @@ const RegistrationForm: React.FC = () => {
   const registerHandler = async () => {
     try {
       const data = await request(
-        '/api/auth/register',
+        'https://enigmatic-peak-52817.herokuapp.com/api/auth/register',
         'POST',
         { ...form },
       );
@@ -49,7 +49,7 @@ const RegistrationForm: React.FC = () => {
   const loginHandler = async () => {
     try {
       const data = await request(
-        '/api/auth/login',
+        'https://enigmatic-peak-52817.herokuapp.com/api/auth/login',
         'POST',
         { ...form },
       );

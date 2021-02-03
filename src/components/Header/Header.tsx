@@ -14,7 +14,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import SideMenu from '../Menu/Menu';
 import Settings from '../Settings/Settings';
 import './header.css';
-// import statsState from '../../pages/StatsPage/'
+
+import StatsData from '../../pages/StatsPage/StatsData';
 
 import { AuthContext } from '../../context/AuthContext';
 
@@ -184,7 +185,7 @@ const Header: React.FC<IProps> = ({ isAuth }: IProps) => {
             }}
           />
         </span>
-        <span style={{ fontSize: 26 }}>{0}</span>
+        <span style={{ fontSize: 26 }}><StatsData /></span>
       </span>
       ) }
 
