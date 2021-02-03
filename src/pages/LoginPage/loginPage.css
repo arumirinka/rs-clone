@@ -1,0 +1,63 @@
+.login-container__inner-contaner1{
+    justify-content: center;
+}
+@media(max-width:800px){
+    .registration__logo{
+        font-size:27px;
+    }
+    .registration__svg{
+        max-width: 200px;
+        margin: 0 auto;
+    }
+    .form-container__content{
+        margin-left:0;
+        margin-right: 20px;
+    }
+}
+@media(max-width:600px){
+    .registration__logo{
+        font-size:24px;
+    }
+    .registration__svg{
+        max-width: 170px;
+    }
+}
+@media(max-width:500px){
+    .registration__svg {
+        max-width: 140px;
+    }
+    .registration__logo {
+        font-size: 20px;
+    }
+    .form-container__content{
+        margin: 0;
+    }
+}
+@media(max-width:400px){
+    .registration__logo {
+        font-size: 19px;
+    }
+    .login-container__inner-contaner1{
+        flex-wrap:wrap;
+    }
+    .inner-container1__registration-images{
+        flex-basis: 100%;
+        flex-direction: row;
+    }
+    .registration__logo{
+        order: 2;
+        margin: 0 0 0 10px;
+    }
+    .registration__svg{
+        max-width: 100px;
+        margin: 0 10px 0 10px;
+        order: 1;
+    }
+    .form-container__content{
+        flex-basis: 100%;
+    }
+    .ant-form{
+        max-width: 90%;
+        margin: 0 auto;
+    }
+}

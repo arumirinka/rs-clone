@@ -33,28 +33,30 @@ function App() {
       }}
     >
       <div className="App">
-        <Header isAuth={isAuthenticated} />
-        <Divider />
-        <div className="content-wrapper">
-          {isAuthenticated && (
-          <Switch>
-            <Route path="/main" component={Main} exact />
-            <Route path="/stats" component={StatsPage} exact />
-            <Route path="/steps" component={StepsLayout} exact />
-            <Route path="/lessons" component={LessonsLayout} exact />
-            <Route path="/lessons/words" component={WordsList} exact />
-            <Route path="/lessons/exercises" component={ExercisesLayout} exact />
-            <Redirect to="/main" />
-          </Switch>
-          )}
-          {!isAuthenticated && (
-          <Switch>
-            <Route path="/" render={() => <LoginPage />} exact />
-            <Redirect to="/" />
-          </Switch>
-          )}
+        <div style={{ minHeight: '90vh' }}>
+          <Header isAuth={isAuthenticated} />
+          <Divider />
+          <div className="content-wrapper">
+            {isAuthenticated && (
+            <Switch>
+              <Route path="/main" component={Main} exact />
+              <Route path="/stats" component={StatsPage} exact />
+              <Route path="/steps" component={StepsLayout} exact />
+              <Route path="/lessons" component={LessonsLayout} exact />
+              <Route path="/lessons/words" component={WordsList} exact />
+              <Route path="/lessons/exercises" component={ExercisesLayout} exact />
+              <Redirect to="/main" />
+            </Switch>
+            )}
+            {!isAuthenticated && (
+            <Switch>
+              <Route path="/" render={() => <LoginPage />} exact />
+              <Redirect to="/" />
+            </Switch>
+            )}
+          </div>
+          <Divider />
         </div>
-        <Divider />
         <Footer />
       </div>
     </AuthContext.Provider>

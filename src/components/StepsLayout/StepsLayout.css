@@ -2,7 +2,13 @@
     box-sizing: border-box;
   }
   
-.steps-сontainer {
+.steps-page-main-container{
+  position: relative;
+  margin: 20px auto;
+  padding: 10px;
+  max-width: 1200px;
+}
+  .steps-сontainer {
   max-width: 100%;
   margin: 0 auto;
   display: flex;
@@ -37,7 +43,8 @@
 .step__level{
   border: 1px solid #145e51;
   text-align: center;
-  background: #1C8673;
+  background: #5D847D;
+  filter: blur(1px);
   border-radius: 10px;
   height: 2em;
   line-height: 2em;
@@ -49,6 +56,16 @@
 }
 .step__level:hover{
     background:#104d41;
+}
+.step__level--closed:after{
+  content: '';
+    position: absolute;
+    left: 50%;
+    width: 30px;
+    height: 30px;
+    background-image: url('../../assets/lock.svg');
+    background-repeat: no-repeat;
+    background-size: contain;
 }
 .step__arrow-right{
   position: absolute;
@@ -146,6 +163,10 @@
     .kitty-img{
         width: 55px;
     }
+    .step__level--closed:after{
+      width: 23px;
+      height: 23px;
+  }
   }
   @media(max-width:500px){
     .steps-сontainer{
@@ -162,9 +183,21 @@
         top:-22px;
     }
   }
+  @media (max-width: 450px){
+    .step__level--closed:after {
+        width: 16px;
+        height: 16px;
+    }
+    .steps-сontainer{
+      padding: 0;
+  }
+  .steps-page-main-container{
+    padding:0;
+  }
+  }
   @media(max-width:400px){
     .step__level{
-        font-size: 0.7em;
+        font-size: 0.75em;;
         padding: 0;
     }
     .kitty-img{
