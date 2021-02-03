@@ -64,7 +64,9 @@ export function fetchData(appLang, learnLang) {
   return async (dispatch) => {
     try {
       // eslint-disable-next-line no-undef
-      const response = await fetch(`/api/lessons/?appLang=${appLang}&learnLang=${learningLang}`);
+      const response = await fetch(
+        `https://enigmatic-peak-52817.herokuapp.com/api/lessons/?appLang=${appLang}&learnLang=${learningLang}`,
+      );
       const jsonDB = await response.json();
       let data;
       if (jsonDB.content) {
@@ -95,17 +97,20 @@ export function sendPointsToDB(userID, appLang, learnLang, level, lesson, points
   return async (dispatch) => {
     try {
       // eslint-disable-next-line no-undef
-      const response = await fetch('/api/stats/points', {
-        method: 'PUT',
-        body: JSON.stringify({
-          userId: userID,
-          updateLesson: `results.${appLang}App.${learnLang}.level${level}.lesson${lesson}`,
-          score: points,
-        }),
-        headers: {
-          'Content-Type': 'application/json',
+      const response = await fetch(
+        'https://enigmatic-peak-52817.herokuapp.com/api/stats/points',
+        {
+          method: 'PUT',
+          body: JSON.stringify({
+            userId: userID,
+            updateLesson: `results.${appLang}App.${learnLang}.level${level}.lesson${lesson}`,
+            score: points,
+          }),
+          headers: {
+            'Content-Type': 'application/json',
+          },
         },
-      });
+      );
       const res = await response.json();
       console.log('Response from DB:', res);
       dispatch({ type: SEND_POINTS_TO_DB });
@@ -126,13 +131,16 @@ export function getPointsFromDB(userID, appLang, learnLang) {
   return async (dispatch) => {
     try {
       // eslint-disable-next-line no-undef
-      const response = await fetch('/api/stats/getPoints', {
-        method: 'POST',
-        body: JSON.stringify(sendingReq),
-        headers: {
-          'Content-Type': 'application/json',
+      const response = await fetch(
+        'https://enigmatic-peak-52817.herokuapp.com/api/stats/getPoints',
+        {
+          method: 'POST',
+          body: JSON.stringify(sendingReq),
+          headers: {
+            'Content-Type': 'application/json',
+          },
         },
-      });
+      );
       const json = await response.json();
       dispatch({ type: GET_POINTS_FROM_DB, payload: { json, appLang, learnLang } });
     } catch (e) {
