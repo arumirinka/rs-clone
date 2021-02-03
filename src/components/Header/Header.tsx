@@ -6,6 +6,7 @@ import Icon, {
   DownOutlined, MenuOutlined, SettingOutlined,
 } from '@ant-design/icons';
 import { useHistory } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import SideMenu from '../Menu/Menu';
 import Settings from '../Settings/Settings';
 import './header.css';
@@ -16,15 +17,18 @@ import { appLangConst } from '../../assets/appLangConst';
 import flag_RU from '../../assets/RU.svg';
 import flag_US from '../../assets/US.svg';
 import flag_DE from '../../assets/DE.svg';
-
-type IProps = {
-  handleLangChange: any,
-  appLang: string
-};
+import { changeAppLang } from '../../redux/actions';
 
 let currLang = 'Русский';
 
-const Header: React.FC<IProps> = ({ handleLangChange, appLang }: IProps) => {
+const selectAppLang = (state: { app: { appLang: any; }; }) => state.app.appLang;
+
+const Header: React.FC = () => {
+  const appLang = useSelector(selectAppLang);
+
+  const dispatch = useDispatch();
+  const history = useHistory();
+
   const handleLangMenuClick = (e: any) => {
     if (e.key === 'russian') {
       currLang = 'Русский';
@@ -35,7 +39,9 @@ const Header: React.FC<IProps> = ({ handleLangChange, appLang }: IProps) => {
     if (e.key === 'german') {
       currLang = 'Deutsch';
     }
-    handleLangChange(e.key);
+    dispatch(changeAppLang(e.key));
+
+    history.push('/main');
   };
 
   const langMenu = (
@@ -68,7 +74,6 @@ const Header: React.FC<IProps> = ({ handleLangChange, appLang }: IProps) => {
     setVisibleSettings(false);
   };
 
-  const history = useHistory();
   const auth = useContext(AuthContext);
 
   const logoutHandler = () => {

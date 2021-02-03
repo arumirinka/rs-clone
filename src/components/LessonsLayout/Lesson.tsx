@@ -1,12 +1,24 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { changeLesson } from '../../redux/actions';
 
 type Props = {
   lesson: string,
   number: number,
-  open:boolean,
+  isOpen: boolean,
 };
-const Lesson = ({ lesson, number, open }: Props) => {
+
+const Lesson = ({ lesson, number, isOpen }: Props) => {
   const [levelOpen, setLevelOpen] = useState({});
+
+  const dispatch = useDispatch();
+
+  const history = useHistory();
+  const goToLesson = () => {
+    history.push('/lessons/words');
+  };
+
   // remove comment and change state to false when lesson can be opened
   // const [disabledLesson, setDisabledLesson] = useState(true);
   const styleOpening = {
@@ -14,24 +26,35 @@ const Lesson = ({ lesson, number, open }: Props) => {
     filter: 'none',
     animation: 'rotateLesson 2s 1',
   };
+
   // remove comment and use this function to open new lesson
-  const openLesson = (event:any):void => {
+  const openLesson = (event: any): void => {
     // setDisabledLesson(false)
     event.target.classList.remove('lessons__lesson--closed');
     /* eslint-disable no-param-reassign */
-    open = true;
+    isOpen = true;
     setLevelOpen(styleOpening);
+
+    dispatch(changeLesson(number));
+
+    setTimeout(() => {
+      goToLesson();
+    }, 1000);
   };
-  if (open) {
+
+  if (isOpen) {
     return (
       <button
         type="button"
         className="lessons__lesson"
         style={styleOpening}
-      >{lesson} {number}
+        onClick={goToLesson}
+      >
+        {lesson} {number}
       </button>
     );
   }
+
   return (
     <button
       type="button"
@@ -44,4 +67,5 @@ const Lesson = ({ lesson, number, open }: Props) => {
     </button>
   );
 };
+
 export default Lesson;
