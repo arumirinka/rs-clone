@@ -1,7 +1,5 @@
-/* eslint-disable @typescript-eslint/no-use-before-define */
 /* eslint-disable consistent-return */
-/* eslint-disable @typescript-eslint/no-unused-expressions */
-/* eslint-disable no-console */
+/* eslint-disable @typescript-eslint/no-use-before-define */
 import { Table } from 'antd';
 import moment from 'moment';
 import React from 'react';
@@ -19,10 +17,6 @@ import { statsLangConst } from '../../assets/appLangConst';
 import { getPointsFromDB } from '../../redux/actions';
 
 import './stats.css';
-
-// interface IProps {
-//   appLang: string
-// }
 
 let bestUsers: Array<any> = [];
 let dataSource: Array<any> = [];
@@ -55,15 +49,15 @@ const weekProgress = async () => {
       },
       body: JSON.stringify({
         userId: currentId,
-        appLang: 'russianApp',
-        learningLang: 'english',
+        appLang: `${appLang}app`,
+        learningLang: { learnLang },
       }),
     });
     const data = await res.json();
     weekResults = data.weekProgress;
     console.log(weekResults);
     chartData = getWeekData();
-    return data;
+    return weekResults;
   } catch (e) {
     console.log('something wrong');
   }
@@ -83,6 +77,16 @@ const rating = async () => {
   try {
     const res = await fetch(
       '/api/stats/rating',
+      {
+        method: 'post',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          appLang: `${appLang}app`,
+          learningLang: { learnLang },
+        }),
+      },
     );
     const data = await res.json();
     bestUsers = data.rating;

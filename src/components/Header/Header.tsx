@@ -6,6 +6,7 @@ import Icon, {
   DownOutlined,
   MenuOutlined,
   SettingOutlined,
+  StarOutlined,
   // StarOutlined,
 } from '@ant-design/icons';
 import { useHistory } from 'react-router-dom';
@@ -13,6 +14,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import SideMenu from '../Menu/Menu';
 import Settings from '../Settings/Settings';
 import './header.css';
+// import statsState from '../../pages/StatsPage/'
 
 import { AuthContext } from '../../context/AuthContext';
 
@@ -124,6 +126,9 @@ const Header: React.FC<IProps> = ({ isAuth }: IProps) => {
   // };
   // const [points] = useState(0);
 
+  // const userID = JSON.parse(localStorage.getItem('userData') || '{}').userId;
+  // dispatch(getPointsFromDB(userID, appLang, learnLang));
+
   return (
     <div>
       {isAuth && (
@@ -165,19 +170,23 @@ const Header: React.FC<IProps> = ({ isAuth }: IProps) => {
         <Settings />
       </Drawer>
 
-      // <span>
-      //   <StarOutlined
-      //     className="header__icon"
-      //     style={{
-      //       marginLeft: 35,
-      //       marginRight: 5,
-      //       color: '#1c8673',
-      //     }}
-      //   />
-      // </span>
-      // <span style={{ fontSize: 26 }}>{points}</span>
-
       )}
+
+      {isAuth && (
+      <span>
+        <span>
+          <StarOutlined
+            className="header__icon"
+            style={{
+              marginLeft: 35,
+              marginRight: 5,
+              color: '#1c8673',
+            }}
+          />
+        </span>
+        <span style={{ fontSize: 26 }}>{0}</span>
+      </span>
+      ) }
 
     </div>
   );
