@@ -134,7 +134,7 @@ export function getPointsFromDB(userID, appLang, learnLang) {
         },
       });
       const json = await response.json();
-      dispatch({ type: GET_POINTS_FROM_DB, payload: json });
+      dispatch({ type: GET_POINTS_FROM_DB, payload: { json, appLang, learnLang } });
     } catch (e) {
       console.log('Something went wrong:', e);
       dispatch({ type: GET_POINTS_FROM_DB });

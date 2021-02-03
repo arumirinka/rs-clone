@@ -2,6 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { statsLangConst } from '../../assets/appLangConst';
 import { getPointsFromDB } from '../../redux/actions';
+import StatsData from './StatsData';
 
 const StatsPage: React.FC = () => {
   const selectAppState = (state: { app: any; }) => state.app;
@@ -19,6 +20,7 @@ const StatsPage: React.FC = () => {
           {statsLangConst[appLang].header}
         </h2>
       </header>
+      <StatsData />
     </div>
   );
 };
