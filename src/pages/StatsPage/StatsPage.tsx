@@ -15,6 +15,7 @@ import {
 } from 'recharts';
 import { statsLangConst } from '../../assets/appLangConst';
 import { getPointsFromDB } from '../../redux/actions';
+import StatsData from './StatsData';
 
 import './stats.css';
 
@@ -49,8 +50,8 @@ const weekProgress = async () => {
       },
       body: JSON.stringify({
         userId: currentId,
-        appLang: `${appLang}app`,
-        learningLang: { learnLang },
+        appLang: 'russianApp',
+        learningLang: 'english',
       }),
     });
     const data = await res.json();
@@ -83,8 +84,8 @@ const rating = async () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          appLang: `${appLang}app`,
-          learningLang: { learnLang },
+          appLang: 'russianApp',
+          learningLang: 'english',
         }),
       },
     );
@@ -128,7 +129,9 @@ const StatsPage: React.FC = () => {
 
   return (
     <div className="stats">
+
       <h2>{statsLangConst[appLang].header}</h2>
+      <StatsData />
       <div className="stats_chart">
         <h3>{statsLangConst[appLang].chartName}</h3>
         <ResponsiveContainer width="100%">
@@ -168,6 +171,7 @@ const StatsPage: React.FC = () => {
         <h3>{statsLangConst[appLang].tableName}</h3>
         <Table dataSource={dataSource} columns={columns} pagination={false} />
       </div>
+
     </div>
   );
 };

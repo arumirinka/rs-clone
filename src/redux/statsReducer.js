@@ -5,53 +5,80 @@ import {
 const initialState = {
   russian: {
     english: {
+      currentLevel: 1,
+      langPoints: 0,
       level1: {
         lesson1: 0,
       },
+      weekProgress: [],
     },
     japanese: {
+      currentLevel: 1,
+      langPoints: 0,
       level1: {
         lesson1: 0,
       },
+      weekProgress: [],
     },
     french: {
+      currentLevel: 1,
+      langPoints: 0,
       level1: {
         lesson1: 0,
       },
+      weekProgress: [],
     },
   },
   english: {
     russian: {
+      currentLevel: 1,
+      langPoints: 0,
       level1: {
         lesson1: 0,
       },
+      weekProgress: [],
     },
     japanese: {
+      currentLevel: 1,
+      langPoints: 0,
       level1: {
         lesson1: 0,
       },
+      weekProgress: [],
     },
     french: {
+      currentLevel: 1,
+      langPoints: 0,
       level1: {
         lesson1: 0,
       },
+      weekProgress: [],
     },
   },
   german: {
     english: {
+      currentLevel: 1,
+      langPoints: 0,
       level1: {
         lesson1: 0,
       },
+      weekProgress: [],
     },
     japanese: {
+      currentLevel: 1,
+      langPoints: 0,
       level1: {
         lesson1: 0,
       },
+      weekProgress: [],
     },
     french: {
+      currentLevel: 1,
+      langPoints: 0,
       level1: {
         lesson1: 0,
       },
+      weekProgress: [],
     },
   },
 };
@@ -78,7 +105,17 @@ export default function statsReducer(state = initialState, action) {
     }
     case GET_POINTS_FROM_DB: {
       if (action.payload) {
-        console.log('stats from database:', action.payload);
+        const { json, appLang, learnLang } = action.payload;
+        return {
+          ...state,
+          [appLang]: {
+            ...state[appLang],
+            [learnLang]: {
+              ...state[appLang][learnLang],
+              ...json,
+            },
+          },
+        };
       }
       return {
         ...state,

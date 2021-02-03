@@ -100,11 +100,13 @@ export function sendPointsToDB(userID, appLang, learnLang, level, lesson, points
         headers: {
           'Content-Type': 'application/json',
         },
+
         body: JSON.stringify({
           userId: userID,
           updateLesson: `results.${appLang}App.${learnLang}.level${level}.lesson${lesson}`,
           score: points,
         }),
+
       });
       const res = await response.json();
       console.log('Response from DB:', res);
@@ -134,7 +136,7 @@ export function getPointsFromDB(userID, appLang, learnLang) {
         },
       });
       const json = await response.json();
-      dispatch({ type: GET_POINTS_FROM_DB, payload: json });
+      dispatch({ type: GET_POINTS_FROM_DB, payload: { json, appLang, learnLang } });
     } catch (e) {
       console.log('Something went wrong:', e);
       dispatch({ type: GET_POINTS_FROM_DB });
