@@ -8,7 +8,7 @@ import { useSelector, useDispatch } from 'react-redux';
 // import '../RegistrationForm/RegistrationForm.css';
 import { useAuth } from '../../hooks/auth.hook';
 import { appLangConst } from '../../assets/appLangConst';
-import { fetchData, changeLearnLang } from '../../redux/actions';
+import { fetchData, changeLearnLang, getPointsFromDB } from '../../redux/actions';
 
 type Props = {
   language: string;
@@ -17,6 +17,8 @@ type Props = {
 const LanguageButton = ({ language }: Props) => {
   const selectAppLang = (state: { app: { appLang: any; }; }) => state.app.appLang;
   const appLang = useSelector(selectAppLang);
+
+  const userID = JSON.parse(localStorage.getItem('userData') || '{}').userId;
 
   const dispatch = useDispatch();
 
@@ -30,6 +32,7 @@ const LanguageButton = ({ language }: Props) => {
     showModal();
     dispatch(changeLearnLang(language));
     dispatch(fetchData(appLang, language));
+    dispatch(getPointsFromDB(userID, appLang, language));
   };
 
   const handleCancel = () => {
