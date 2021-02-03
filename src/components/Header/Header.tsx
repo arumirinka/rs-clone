@@ -23,7 +23,11 @@ let currLang = 'Русский';
 
 const selectAppLang = (state: { app: { appLang: any; }; }) => state.app.appLang;
 
-const Header: React.FC = () => {
+interface IProps {
+  isAuth: any
+}
+
+const Header: React.FC<IProps> = ({ isAuth }: IProps) => {
   const appLang = useSelector(selectAppLang);
 
   const dispatch = useDispatch();
@@ -41,7 +45,9 @@ const Header: React.FC = () => {
     }
     dispatch(changeAppLang(e.key));
 
-    history.push('/main');
+    if (isAuth) {
+      history.push('/main');
+    }
   };
 
   const langMenu = (
@@ -88,6 +94,7 @@ const Header: React.FC = () => {
 
   return (
     <div>
+      {isAuth && (
       <Drawer
         placement="left"
         closable={false}
@@ -97,19 +104,23 @@ const Header: React.FC = () => {
       >
         <SideMenu onClick={toggleMenu} onChangeTheme={onChangeTheme} appLang={appLang} />
       </Drawer>
+      )}
       <Space wrap>
-        <MenuOutlined onClick={toggleMenu} className="header__icon" />
+        {isAuth && <MenuOutlined onClick={toggleMenu} className="header__icon" />}
         <Dropdown overlay={langMenu}>
           <Button>
             {currLang} <DownOutlined />
           </Button>
         </Dropdown>
+        {isAuth && (
         <Button type="primary" htmlType="submit" onClick={logoutHandler}>
           {appLangConst[appLang].logout}
         </Button>
+        )}
 
-        <SettingOutlined onClick={toggleSettings} className="header__icon" />
+        {isAuth && <SettingOutlined onClick={toggleSettings} className="header__icon" />}
       </Space>
+      {isAuth && (
       <Drawer
         title={appLangConst[appLang].settingsDrawerHeader}
         placement="right"
@@ -119,6 +130,7 @@ const Header: React.FC = () => {
       >
         <Settings />
       </Drawer>
+      )}
     </div>
   );
 };

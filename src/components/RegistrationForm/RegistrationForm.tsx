@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react';
+import { useSelector } from 'react-redux';
 import {
   Button, message, Form, Input,
 } from 'antd';
@@ -13,13 +14,15 @@ const layout = {
   labelCol: { span: 8 },
   wrapperCol: { span: 8 },
 };
+
 const tailLayout = {
   wrapperCol: { offset: 8, span: 8 },
 };
-interface IProps {
-  appLang: string
-}
-const RegistrationForm: React.FC<IProps> = ({ appLang }:IProps) => {
+
+const RegistrationForm: React.FC = () => {
+  const selectAppLang = (state: { app: { appLang: any; }; }) => state.app.appLang;
+  const appLang = useSelector(selectAppLang);
+
   const auth = useContext(AuthContext);
   const { loading, request } = useHttp();
   const [form, setForm] = useState({

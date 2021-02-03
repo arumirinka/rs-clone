@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import {
   Modal, Button,
 } from 'antd';
@@ -7,11 +8,10 @@ import './RegistrationForm.css';
 import RegistrationForm from './RegistrationForm';
 import { appLangConst } from '../../assets/appLangConst';
 
-interface IProps {
-  appLang: string
-}
+const RegistrationFormInModal: React.FC = () => {
+  const selectAppLang = (state: { app: { appLang: any; }; }) => state.app.appLang;
+  const appLang = useSelector(selectAppLang);
 
-const RegistrationFormInModal: React.FC<IProps> = ({ appLang }: IProps) => {
   const [visible, setVisible]: any[] = useState(false);
 
   const showModal = (): void => {
@@ -33,9 +33,7 @@ const RegistrationFormInModal: React.FC<IProps> = ({ appLang }: IProps) => {
         onCancel={handleCancel}
         footer={null}
       >
-        <RegistrationForm
-          appLang={appLang}
-        />
+        <RegistrationForm />
       </Modal>
     </>
   );
