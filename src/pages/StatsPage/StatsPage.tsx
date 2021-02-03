@@ -22,7 +22,6 @@ interface IProps {
 
 let bestUsers: Array<any> = [];
 let dataSource: Array<any> = [];
-// const { request } = useHttp();
 let weekResults: any[];
 let chartData: any;
 
@@ -117,10 +116,9 @@ const StatsPage: React.FC<IProps> = ({ appLang }: IProps) => (
       </header>  */}
 
     <div>
-      <p>This is the appLang: {appLang}!</p>
       <h3>{statsWordsConst[appLang].chartName}</h3>
       <AreaChart
-        width={400}
+        width={600}
         height={400}
         data={chartData}
         margin={{
