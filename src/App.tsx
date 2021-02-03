@@ -17,8 +17,6 @@ import LoginPage from './pages/LoginPage/LoginPage';
 import ExercisesLayout from './components/Exercises/ExercisesLayout';
 
 function App() {
-  const appLang = 'russian';
-
   const {
     token, login, logout, userId,
   } = useAuth();
@@ -35,8 +33,8 @@ function App() {
       }}
     >
       <div className="App">
-        {isAuthenticated && <Header />}
-        {isAuthenticated && <Divider />}
+        <Header isAuth={isAuthenticated} />
+        <Divider />
         <div className="content-wrapper">
           {isAuthenticated && (
           <Switch>
@@ -51,7 +49,7 @@ function App() {
           )}
           {!isAuthenticated && (
           <Switch>
-            <Route path="/" render={() => <LoginPage appLang={appLang} />} exact />
+            <Route path="/" render={() => <LoginPage />} exact />
             <Redirect to="/" />
           </Switch>
           )}

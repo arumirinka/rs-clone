@@ -1,9 +1,9 @@
 import React, { useContext, useState } from 'react';
+import { useSelector } from 'react-redux';
 import {
   Button, message, Form, Input,
 } from 'antd';
 import 'antd/dist/antd.css';
-import { GithubOutlined } from '@ant-design/icons';
 import { useHttp } from '../../hooks/http.hook';
 import { AuthContext } from '../../context/AuthContext';
 import './RegistrationForm.css';
@@ -13,13 +13,15 @@ const layout = {
   labelCol: { span: 8 },
   wrapperCol: { span: 8 },
 };
+
 const tailLayout = {
   wrapperCol: { offset: 8, span: 8 },
 };
-interface IProps {
-  appLang: string
-}
-const RegistrationForm: React.FC<IProps> = ({ appLang }:IProps) => {
+
+const RegistrationForm: React.FC = () => {
+  const selectAppLang = (state: { app: { appLang: any; }; }) => state.app.appLang;
+  const appLang = useSelector(selectAppLang);
+
   const auth = useContext(AuthContext);
   const { loading, request } = useHttp();
   const [form, setForm] = useState({
@@ -118,12 +120,6 @@ const RegistrationForm: React.FC<IProps> = ({ appLang }:IProps) => {
             onClick={loginHandler}
           >
             {appLangConst[appLang].login}
-          </Button>
-        </Form.Item>
-        <Form.Item {...tailLayout} style={{ marginBottom: '1em' }}>
-          <Button type="primary" htmlType="submit" disabled={loading}>
-            {appLangConst[appLang].loginGithub}
-            <GithubOutlined style={{ color: 'black' }} />
           </Button>
         </Form.Item>
         <Form.Item {...tailLayout}>

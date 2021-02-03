@@ -8,10 +8,9 @@ import arrowLogo from '../../assets/arrowRight.svg';
 import kittyImg from '../../assets/superKitty.svg';
 import { lessonsConst } from '../../assets/appLangConst';
 
-const StepsLayout: React.FC = () => {
-  const selectAppLang = (state: { app: { appLang: any; }; }) => state.app.appLang;
-  const appLang = useSelector(selectAppLang);
+const numberOfLessons = 4;
 
+const StepsLayout: React.FC = () => {
   const history = useHistory();
   const goToLessons = () => {
     history.push('/lessons');
@@ -22,6 +21,24 @@ const StepsLayout: React.FC = () => {
     dispatch(changeLevel(level));
   };
 
+  const selectAppState = (state: { app: any; }) => state.app;
+  const { appLang, learnLang } = useSelector(selectAppState);
+
+  const selectStats = (state: { stats: any; }) => state.stats;
+  const stats = useSelector(selectStats);
+
+  const isLevelOpen = (num: number) => {
+    const prevLevel = stats[appLang][learnLang][`level${num - 1}`];
+    let prevScore = 0;
+    if (prevLevel) {
+      prevScore = (prevLevel.lesson1 || 0)
+        + (prevLevel.lesson2 || 0)
+        + (prevLevel.lesson3 || 0)
+        + (prevLevel.lesson4 || 0);
+    }
+    return (prevScore / numberOfLessons) >= 85;
+  };
+
   const [kittyPosition, setKittyPosition] = useState({
     left: '5%',
     top: '46%',
@@ -30,6 +47,10 @@ const StepsLayout: React.FC = () => {
   const refContainer: any = useRef(0);
 
   const setLessonsPage = (event: React.MouseEvent, levelNum: number) => {
+    if ((levelNum > 1) && (!isLevelOpen(levelNum))) {
+      return;
+    }
+
     const containerMaxWidth: number = 1200;
     const distanceFromTop: number = window.pageYOffset
     + refContainer.current.getBoundingClientRect().top;
