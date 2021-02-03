@@ -23,6 +23,9 @@
 .exercises-container__progress-bar{
   margin: 0 0 2em;
 }
+.ant-progress-inner{
+  box-shadow: 1px 1px 4px 1px #cee4dd;
+}
 
 @media(max-width: 800px) {
 

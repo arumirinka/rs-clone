@@ -73,11 +73,11 @@ const RegistrationForm: React.FC = () => {
         rules={[
           {
             type: 'email',
-            message: 'Некорректный email',
+            message: 'Email is incorrect',
           },
           {
             required: true,
-            message: 'Введите email!',
+            message: 'Enter email!',
           },
         ]}
         name="email"
@@ -96,11 +96,11 @@ const RegistrationForm: React.FC = () => {
         rules={[
           {
             min: 6,
-            message: 'Не менее 6 символов',
+            message: 'At least 6 characters',
           },
           {
             required: true,
-            message: 'Введите пароль!',
+            message: 'Enter password!',
           },
         ]}
         name="password"
