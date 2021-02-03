@@ -15,7 +15,8 @@ const Lesson = ({ lesson, number, isOpen }: Props) => {
   const dispatch = useDispatch();
 
   const history = useHistory();
-  const goToLesson = () => {
+  const storeNumberAndGoToLesson = () => {
+    dispatch(changeLesson(number));
     history.push('/lessons/words');
   };
 
@@ -35,10 +36,8 @@ const Lesson = ({ lesson, number, isOpen }: Props) => {
     isOpen = true;
     setLevelOpen(styleOpening);
 
-    dispatch(changeLesson(number));
-
     setTimeout(() => {
-      goToLesson();
+      storeNumberAndGoToLesson();
     }, 1000);
   };
 
@@ -48,7 +47,7 @@ const Lesson = ({ lesson, number, isOpen }: Props) => {
         type="button"
         className="lessons__lesson"
         style={styleOpening}
-        onClick={goToLesson}
+        onClick={storeNumberAndGoToLesson}
       >
         {lesson} {number}
       </button>

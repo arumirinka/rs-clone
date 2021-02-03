@@ -4,3 +4,6 @@ export const CHANGE_LEVEL = 'CHANGE_LEVEL';
 export const CHANGE_LESSON = 'CHANGE_LESSON';
 export const TOGGLE_SOUND = 'TOGGLE_SOUND';
 export const FETCH_DATA = 'FETCH_DATA';
+export const SET_POINTS = 'SET_POINTS';
+export const SEND_POINTS_TO_DB = 'SEND_POINTS_TO_DB';
+export const GET_POINTS_FROM_DB = 'GET_POINTS_FROM_DB';

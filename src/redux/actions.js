@@ -1,5 +1,6 @@
 import {
   CHANGE_APP_LANG, CHANGE_LEARN_LANG, CHANGE_LEVEL, CHANGE_LESSON, TOGGLE_SOUND, FETCH_DATA,
+  SET_POINTS,
 } from './types';
 import content from '../content.json';
 
@@ -71,5 +72,14 @@ export function fetchData(appLang, learnLang) {
       const data = content[appLang][learningLang];
       dispatch({ type: FETCH_DATA, payload: data });
     }
+  };
+}
+
+export function setPoints(appLang, learnLang, level, lesson, points) {
+  return {
+    type: SET_POINTS,
+    payload: {
+      appLang, learnLang, level, lesson, points,
+    },
   };
 }
