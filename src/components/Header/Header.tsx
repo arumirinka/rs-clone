@@ -3,7 +3,10 @@ import {
   Menu, Dropdown, Button, Space, Drawer,
 } from 'antd';
 import Icon, {
-  DownOutlined, MenuOutlined, SettingOutlined,
+  DownOutlined,
+  MenuOutlined,
+  SettingOutlined,
+
 } from '@ant-design/icons';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
@@ -17,6 +20,7 @@ import { appLangConst } from '../../assets/appLangConst';
 import flag_RU from '../../assets/RU.svg';
 import flag_US from '../../assets/US.svg';
 import flag_DE from '../../assets/DE.svg';
+
 import { changeAppLang } from '../../redux/actions';
 
 let currLang = 'Русский';
@@ -52,13 +56,40 @@ const Header: React.FC<IProps> = ({ isAuth }: IProps) => {
 
   const langMenu = (
     <Menu onClick={handleLangMenuClick}>
-      <Menu.Item key="russian" icon={<Icon component={() => (<img src={flag_RU} alt="ru" className="lang-img" />)} />}>
+      <Menu.Item
+        key="russian"
+        icon={(
+          <Icon
+            component={() => (
+              <img src={flag_RU} alt="ru" className="lang-img" />
+            )}
+          />
+        )}
+      >
         Русский
       </Menu.Item>
-      <Menu.Item key="english" icon={<Icon component={() => (<img src={flag_US} alt="en" className="lang-img" />)} />}>
+      <Menu.Item
+        key="english"
+        icon={(
+          <Icon
+            component={() => (
+              <img src={flag_US} alt="en" className="lang-img" />
+            )}
+          />
+        )}
+      >
         English
       </Menu.Item>
-      <Menu.Item key="german" icon={<Icon component={() => (<img src={flag_DE} alt="de" className="lang-img" />)} />}>
+      <Menu.Item
+        key="german"
+        icon={(
+          <Icon
+            component={() => (
+              <img src={flag_DE} alt="de" className="lang-img" />
+            )}
+          />
+        )}
+      >
         Deutsch
       </Menu.Item>
     </Menu>
@@ -87,6 +118,15 @@ const Header: React.FC<IProps> = ({ isAuth }: IProps) => {
     history.push('/');
   };
 
+  // const [theme, setTheme] = useState('light');
+  // const onChangeTheme = (value: any) => {
+  //   setTheme(value ? 'dark' : 'light');
+  // };
+  // const [points] = useState(0);
+
+  // const userID = JSON.parse(localStorage.getItem('userData') || '{}').userId;
+  // dispatch(getPointsFromDB(userID, appLang, learnLang));
+
   return (
     <div>
       {isAuth && (
@@ -95,9 +135,10 @@ const Header: React.FC<IProps> = ({ isAuth }: IProps) => {
         closable={false}
         onClose={onCloseMenu}
         visible={visibleMenu}
-        className={(theme === 'light') ? 'drawer-light' : 'drawer-dark'}
+        className={theme === 'light' ? 'drawer-light' : 'drawer-dark'}
       >
         <SideMenu onClick={toggleMenu} appTheme={theme} appLang={appLang} />
+
       </Drawer>
       )}
       <Space wrap>
@@ -126,7 +167,9 @@ const Header: React.FC<IProps> = ({ isAuth }: IProps) => {
       >
         <Settings />
       </Drawer>
+
       )}
+
     </div>
   );
 };

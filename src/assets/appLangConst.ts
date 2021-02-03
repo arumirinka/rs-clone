@@ -214,11 +214,24 @@ export const wordsListConst: IAppLangConst = {
 export const statsLangConst: IAppLangConst = {
   russian: {
     header: 'Статистика',
+    chartName: 'Ваш прогресс',
+    tableName: 'Лучшие ученики',
+    email: 'Почта',
+    score: 'Результат',
   },
   english: {
     header: 'Statistics',
+    chartName: 'Your progress',
+    tableName: 'Best students',
+    email: 'Email',
+    score: 'Score',
   },
   german: {
     header: 'Statistik',
+    chartName: 'Dein Fortschritt',
+    tableName: 'Die besten Schüler',
+    email: 'Email',
+    score: 'Ergebnis',
+
   },
 };

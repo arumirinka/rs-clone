@@ -15,6 +15,7 @@
     "antd": "^4.10.2",
     "chart.js": "^2.9.4",
     "csstype": "^3.0.6",
+    "moment": "^2.29.1",
     "prop-types": "^15.7.2",
     "react": "^17.0.1",
     "react-chartjs-2": "^2.11.1",
@@ -22,6 +23,7 @@
     "react-redux": "^7.2.2",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.1",
+    "recharts": "^2.0.4",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
     "typescript": "^4.1.3",
@@ -39,7 +41,6 @@
       "react-app/jest"
     ]
   },
-  "proxy": "https://enigmatic-peak-52817.herokuapp.com",
   "browserslist": {
     "production": [
       ">0.2%",

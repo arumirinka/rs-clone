@@ -1,0 +1,30 @@
+.stats {
+    display: flex; 
+    flex-direction: column;
+}
+.stats_inner {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.stats_chart {
+    width: 40%;
+    min-width: 310px;
+    max-height: 50vh;
+    margin-bottom: 40px;
+}
+
+.stats_best {
+    width: 30%;
+    min-width: 300px;
+}
+
+.ant-table-thead> tr> th {
+    color: #fff;
+    background-color: #136052;
+}
+
+.ant-table-row {
+    background-color: #e6ffec;
+}

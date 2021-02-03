@@ -15,7 +15,8 @@ export const useHttp = () => {
       body = null,
       headers = {
         'X-Requested-With': 'XMLHttpRequest',
-        'Access-Control-Allow-Origin': 'http://localhost:3000/',
+        'Access-Control-Allow-Origin':
+          'https://catalie-wanna-speak.herokuapp.com/',
       },
     ) => {
       setLoading(true);

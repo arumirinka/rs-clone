@@ -101,14 +101,15 @@ export function sendPointsToDB(userID, appLang, learnLang, level, lesson, points
         'https://enigmatic-peak-52817.herokuapp.com/api/stats/points',
         {
           method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
           body: JSON.stringify({
             userId: userID,
             updateLesson: `results.${appLang}App.${learnLang}.level${level}.lesson${lesson}`,
             score: points,
           }),
-          headers: {
-            'Content-Type': 'application/json',
-          },
+
         },
       );
       const res = await response.json();
