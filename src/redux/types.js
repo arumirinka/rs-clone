@@ -1,0 +1,6 @@
+export const CHANGE_APP_LANG = 'CHANGE_APP_LANG';
+export const CHANGE_LEARN_LANG = 'CHANGE_LEARN_LANG';
+export const CHANGE_LEVEL = 'CHANGE_LEVEL';
+export const CHANGE_LESSON = 'CHANGE_LESSON';
+export const TOGGLE_SOUND = 'TOGGLE_SOUND';
+export const FETCH_DATA = 'FETCH_DATA';

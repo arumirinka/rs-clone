@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './App.css';
 import {
-  // Redirect,
-  Route, Switch, withRouter,
+  Redirect, Route, Switch, withRouter,
 } from 'react-router-dom';
 import { Divider } from 'antd';
 import { useAuth } from './hooks/auth.hook';
@@ -18,11 +17,7 @@ import LoginPage from './pages/LoginPage/LoginPage';
 import ExercisesLayout from './components/Exercises/ExercisesLayout';
 
 function App() {
-  const [appLang, setAppLang] = useState('russian');
-
-  const handleLangChange:any = (lang: string) => {
-    setAppLang(lang);
-  };
+  const appLang = 'russian';
 
   const {
     token, login, logout, userId,
@@ -40,24 +35,24 @@ function App() {
       }}
     >
       <div className="App">
-        {isAuthenticated && <Header handleLangChange={handleLangChange} appLang={appLang} />}
+        {isAuthenticated && <Header />}
         {isAuthenticated && <Divider />}
         <div className="content-wrapper">
           {isAuthenticated && (
           <Switch>
-            <Route path="/main" render={() => <Main appLang={appLang} />} exact />
-            <Route path="/stats" render={() => <StatsPage appLang={appLang} />} exact />
-            <Route path="/steps" render={() => <StepsLayout appLang={appLang} />} exact />
-            <Route path="/lessons" render={() => <LessonsLayout appLang={appLang} />} exact />
+            <Route path="/main" component={Main} exact />
+            <Route path="/stats" component={StatsPage} exact />
+            <Route path="/steps" component={StepsLayout} exact />
+            <Route path="/lessons" component={LessonsLayout} exact />
             <Route path="/lessons/words" component={WordsList} exact />
-            <Route path="/lessons/exercises" render={() => <ExercisesLayout appLang={appLang} />} exact />
-            {/* <Redirect to="/main" /> */}
+            <Route path="/lessons/exercises" component={ExercisesLayout} exact />
+            <Redirect to="/main" />
           </Switch>
           )}
           {!isAuthenticated && (
           <Switch>
             <Route path="/" render={() => <LoginPage appLang={appLang} />} exact />
-            {/* <Redirect to="/" /> */}
+            <Redirect to="/" />
           </Switch>
           )}
         </div>

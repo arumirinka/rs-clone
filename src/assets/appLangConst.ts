@@ -4,7 +4,6 @@ interface IAppLangConst {
   }
 }
 
-// eslint-disable-next-line import/prefer-default-export
 export const appLangConst: IAppLangConst = {
   russian: {
     login: 'Войти',
@@ -18,12 +17,19 @@ export const appLangConst: IAppLangConst = {
     menuMain: 'Главная',
     menuStats: 'Статистика',
     settingsDrawerHeader: 'Настройки',
+    toggleTheme: 'Сменить тему',
     lightTheme: 'Светло',
     darkTheme: 'Темно',
+    toggleSound: 'Звук',
+    soundOn: 'Вкл',
+    soundOff: 'Выкл',
+    lang1: 'Английский',
+    lang2: 'Японский',
+    lang3: 'Французский',
   },
   english: {
     login: 'Log in',
-    logout: 'Logout',
+    logout: 'Log out',
     plzLogin: 'Please log in or register',
     email: 'E-mail',
     password: 'Password',
@@ -33,8 +39,15 @@ export const appLangConst: IAppLangConst = {
     menuMain: 'Main',
     menuStats: 'Stats',
     settingsDrawerHeader: 'Settings',
+    toggleTheme: 'Toggle theme',
     lightTheme: 'Light',
     darkTheme: 'Dark',
+    toggleSound: 'Toggle sound',
+    soundOn: 'On',
+    soundOff: 'Off',
+    lang1: 'Russian',
+    lang2: 'Japanese',
+    lang3: 'French',
   },
   german: {
     login: 'Einloggen',
@@ -48,29 +61,36 @@ export const appLangConst: IAppLangConst = {
     menuMain: 'Home',
     menuStats: 'Statistik',
     settingsDrawerHeader: 'Einstellungen',
+    toggleTheme: 'Toggle theme',
     lightTheme: 'Hell',
     darkTheme: 'Dunkel',
+    toggleSound: 'Toggle sound',
+    soundOn: 'On',
+    soundOff: 'Off',
+    lang1: 'Englisch',
+    lang2: 'Japanisch',
+    lang3: 'Französisch',
   },
 };
 
-export const mainPageConst: IAppLangConst = {
+export const langsLayoutLangConst: IAppLangConst = {
   russian: {
-    english: 'Английский',
-    japanese: 'Японский',
-    french: 'Французский',
+    lang1: 'Английский',
+    lang2: 'Японский',
+    lang3: 'Французский',
     helpCatalie: 'Помоги Кэтали найти с людьми общий язык!',
   },
   english: {
-    english: 'English',
-    japanese: 'Japanese',
-    french: 'French',
+    lang1: 'Russian',
+    lang2: 'Japanese',
+    lang3: 'French',
     helpCatalie: 'Help CATalie to find common language with people!',
   },
   german: {
-    english: 'Englisch',
-    japanese: 'Japanisch',
-    french: 'Französisch',
-    helpCatalie: 'Hilf CATalie, gemeinsame Sprache mit Menschen zu finden! ',
+    lang1: 'Englisch',
+    lang2: 'Japanisch',
+    lang3: 'Französisch',
+    helpCatalie: 'Hilf CATalie, gemeinsame Sprache mit Menschen zu finden!',
   },
 };
 
@@ -101,9 +121,9 @@ export const lessonsConst: IAppLangConst = {
 export const exercisesInterface: IAppLangConst = {
   russian: {
     chooseTranslation: 'Выберите перевод для слова',
-    сontinue: 'Продолжить',
+    continue: 'Продолжить',
     makeAPhrase: 'Составьте фразу',
-    сheck: 'Проверить',
+    check: 'Проверить',
     correctAnswer: 'Правильный ответ',
     endOfLessonTitle: 'Вот и урок завершён!',
     endOfLessonText: 'Смотри, сколько баллов мы смогли набрать',
@@ -111,9 +131,9 @@ export const exercisesInterface: IAppLangConst = {
   },
   english: {
     chooseTranslation: 'Choose translation for word',
-    сontinue: 'Continue',
+    continue: 'Continue',
     makeAPhrase: 'Make a phrase',
-    сheck: 'Check',
+    check: 'Check',
     correctAnswer: 'Correct answer',
     endOfLessonTitle: 'And the lesson is over!',
     endOfLessonText: 'Have a look, how many points we have gained',
@@ -121,9 +141,9 @@ export const exercisesInterface: IAppLangConst = {
   },
   german: {
     chooseTranslation: 'Wählen Sie eine Übersetzung für das Wort',
-    сontinue: 'Weiter',
+    continue: 'Weiter',
     makeAPhrase: 'Bilden Sie die Phrase',
-    сheck: 'Prüfen',
+    check: 'Prüfen',
     correctAnswer: 'Richtige Antwort',
     endOfLessonTitle: 'Und die Lektion ist vorbei!',
     endOfLessonText: 'Sieh mal, wie viele Punkte wir gekriegt haben',
