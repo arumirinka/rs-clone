@@ -204,3 +204,15 @@ export const wordsListConst: IAppLangConst = {
     header: 'Wörter für die Lektion',
   },
 };
+
+export const statsLangConst: IAppLangConst = {
+  russian: {
+    header: 'Статистика',
+  },
+  english: {
+    header: 'Statistics',
+  },
+  german: {
+    header: 'Statistik',
+  },
+};

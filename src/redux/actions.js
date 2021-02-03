@@ -107,16 +107,18 @@ export function sendPointsToDB(userID, appLang, learnLang, level, lesson, points
 }
 
 export function getPointsFromDB(userID, appLang, learnLang) {
+  const sendingReq = {
+    userId: userID,
+    appLang: `${appLang}App`,
+    learningLang: learnLang,
+  };
+
   return async (dispatch) => {
     try {
       // eslint-disable-next-line no-undef
-      const response = await fetch('api/stats/getPoints', {
+      const response = await fetch('/api/stats/getPoints', {
         method: 'POST',
-        body: {
-          userId: userID,
-          appLang: `${appLang}App`,
-          learningLang: learnLang,
-        },
+        body: JSON.stringify(sendingReq),
       });
       const json = await response.json();
       dispatch({ type: GET_POINTS_FROM_DB, payload: json });
