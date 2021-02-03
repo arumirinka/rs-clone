@@ -9,7 +9,7 @@
     margin: 0 0 1em;
     padding: 5px;
     border-radius: 10px;
-    background:white;
+    background:transparent;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;

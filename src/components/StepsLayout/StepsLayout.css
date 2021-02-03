@@ -2,7 +2,13 @@
     box-sizing: border-box;
   }
   
-.steps-сontainer {
+.steps-page-main-container{
+  position: relative;
+  margin: 20px auto;
+  padding: 10px;
+  max-width: 1200px;
+}
+  .steps-сontainer {
   max-width: 100%;
   margin: 0 auto;
   display: flex;
@@ -182,10 +188,16 @@
         width: 16px;
         height: 16px;
     }
+    .steps-сontainer{
+      padding: 0;
+  }
+  .steps-page-main-container{
+    padding:0;
+  }
   }
   @media(max-width:400px){
     .step__level{
-        font-size: 0.7em;
+        font-size: 0.75em;;
         padding: 0;
     }
     .kitty-img{

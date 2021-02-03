@@ -77,19 +77,12 @@ const StepsLayout: React.FC = () => {
     }, 1000);
   };
 
-  const styles: CSS.Properties = {
-    position: 'relative',
-    margin: '20px auto',
-    padding: '10px',
-    maxWidth: '1200px',
-  };
-
   const levelOpenStyle: CSS.Properties = {
     background: '#1C8673',
     filter: 'none',
   };
   return (
-    <div style={styles} ref={refContainer}>
+    <div ref={refContainer} className="steps-page-main-container">
       <img src={kittyImg} alt="super kitty" className="kitty-img anim-11" style={kittyPosition} />
       <div className="steps-сontainer">
         <div className="steps-container__step">
