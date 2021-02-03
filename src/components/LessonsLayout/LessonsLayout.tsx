@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import KittyImg from './KittyImg';
 import Lesson from './Lesson';
@@ -6,6 +6,8 @@ import PieChart from './PieChart';
 import './LessonsLayout.css';
 import '../../assets/lock.svg';
 import { lessonsConst } from '../../assets/appLangConst';
+
+const numberOfLessons = 4;
 
 const LessonsLayout: React.FC = () => {
   const selectAppState = (state: { app: any; }) => state.app;
@@ -25,9 +27,18 @@ const LessonsLayout: React.FC = () => {
     return false;
   };
 
-  /* eslint-disable @typescript-eslint/no-unused-vars */
-  /* setChartValue - to update %  of completed lessons in chart => remove previous line */
-  const [chartValue, setChartValue] = useState(0);
+  const getCurrentChartValue = () => {
+    const currLevel = stats[appLang][learnLang][`level${level}`];
+    let value = 0;
+    if (currLevel) {
+      value = (currLevel.lesson1 || 0)
+        + (currLevel.lesson2 || 0)
+        + (currLevel.lesson3 || 0)
+        + (currLevel.lesson4 || 0);
+    }
+    return value / numberOfLessons;
+  };
+
   return (
     <div className="outer-container">
       <div className="outer-container__inner-container">
@@ -48,7 +59,7 @@ const LessonsLayout: React.FC = () => {
             <PieChart
               done={lessonsConst[appLang].chartCompleted}
               toDo={lessonsConst[appLang].chartLeft}
-              value={chartValue}
+              value={getCurrentChartValue()}
             />
           </div>
         </div>
@@ -56,4 +67,5 @@ const LessonsLayout: React.FC = () => {
     </div>
   );
 };
+
 export default LessonsLayout;
