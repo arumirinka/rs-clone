@@ -97,10 +97,13 @@ export function sendPointsToDB(userID, appLang, learnLang, level, lesson, points
       // eslint-disable-next-line no-undef
       const response = await fetch('/api/stats/points', {
         method: 'PUT',
-        body: {
+        body: JSON.stringify({
           userId: userID,
           updateLesson: `results.${appLang}App.${learnLang}.level${level}.lesson${lesson}`,
           score: points,
+        }),
+        headers: {
+          'Content-Type': 'application/json',
         },
       });
       const res = await response.json();
@@ -126,6 +129,9 @@ export function getPointsFromDB(userID, appLang, learnLang) {
       const response = await fetch('/api/stats/getPoints', {
         method: 'POST',
         body: JSON.stringify(sendingReq),
+        headers: {
+          'Content-Type': 'application/json',
+        },
       });
       const json = await response.json();
       dispatch({ type: GET_POINTS_FROM_DB, payload: json });
