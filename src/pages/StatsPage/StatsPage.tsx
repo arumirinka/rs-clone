@@ -5,7 +5,7 @@
 import { Table } from 'antd';
 import moment from 'moment';
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   AreaChart,
   ResponsiveContainer,
@@ -15,9 +15,10 @@ import {
   CartesianGrid,
   Tooltip,
 } from 'recharts';
+import { statsLangConst } from '../../assets/appLangConst';
+import { getPointsFromDB } from '../../redux/actions';
 
 import './stats.css';
-import { statsWordsConst } from '../../assets/appLangConst';
 
 // interface IProps {
 //   appLang: string
@@ -113,13 +114,19 @@ const columns = [
 ];
 
 const StatsPage: React.FC = () => {
-  // const num: number = 2;
-  const selectAppLang = (state: { app: { appLang: any; }; }) => state.app.appLang;
-  const appLang = useSelector(selectAppLang);
+  const selectAppState = (state: { app: any; }) => state.app;
+  const appState = useSelector(selectAppState);
+  const { appLang, learnLang } = appState;
+
+  const dispatch = useDispatch();
+  const userID = JSON.parse(localStorage.getItem('userData') || '{}').userId;
+  dispatch(getPointsFromDB(userID, appLang, learnLang));
+
   return (
     <div className="stats">
+      <h2>{statsLangConst[appLang].header}</h2>
       <div className="stats_chart">
-        <h3>{statsWordsConst[appLang].chartName}</h3>
+        <h3>{statsLangConst[appLang].chartName}</h3>
         <ResponsiveContainer width="100%">
           <AreaChart
             width={600}
@@ -154,7 +161,7 @@ const StatsPage: React.FC = () => {
       </div>
 
       <div className="stats_best">
-        <h3>{statsWordsConst[appLang].tableName}</h3>
+        <h3>{statsLangConst[appLang].tableName}</h3>
         <Table dataSource={dataSource} columns={columns} pagination={false} />
       </div>
     </div>

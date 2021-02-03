@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import KittyImg from './KittyImg';
 import Lesson from './Lesson';
 import PieChart from './PieChart';
@@ -7,18 +8,45 @@ import './LessonsLayout.css';
 import '../../assets/lock.svg';
 import { lessonsConst } from '../../assets/appLangConst';
 
-const LessonsLayout: React.FC = () => {
-  const selectAppLang = (state: { app: { appLang: any; }; }) => state.app.appLang;
-  const appLang = useSelector(selectAppLang);
+const numberOfLessons = 4;
 
-  /* eslint-disable @typescript-eslint/no-unused-vars */
-  /* setChartValue - to update %  of completed lessons in chart => remove previous line */
-  const [chartValue, setChartValue] = useState(0);
+const LessonsLayout: React.FC = () => {
+  const selectAppState = (state: { app: any; }) => state.app;
+  const {
+    appLang, learnLang, level,
+  } = useSelector(selectAppState);
+
+  const selectStats = (state: { stats: any; }) => state.stats;
+  const stats = useSelector(selectStats);
+
+  const isLessonOpen = (num: number) => {
+    const currentLevel = stats[appLang][learnLang][`level${level}`];
+    if (currentLevel) {
+      const openState = currentLevel[`lesson${num - 1}`];
+      return Boolean(openState);
+    }
+    return false;
+  };
+
+  const getCurrentChartValue = () => {
+    const currLevel = stats[appLang][learnLang][`level${level}`];
+    let value = 0;
+    if (currLevel) {
+      value = (currLevel.lesson1 || 0)
+        + (currLevel.lesson2 || 0)
+        + (currLevel.lesson3 || 0)
+        + (currLevel.lesson4 || 0);
+    }
+    return value / numberOfLessons;
+  };
+
   return (
     <div className="outer-container">
       <div className="outer-container__inner-container">
         <div className="inner-container__text">
-          { lessonsConst[appLang].lessonsIntro}
+          <p>{lessonsConst[appLang].lessonsIntro}</p>
+          <p>{lessonsConst[appLang].hotKeys}</p>
+          <br />
         </div>
         <div className="inner-container__content">
           <div className="content__image">
@@ -26,15 +54,18 @@ const LessonsLayout: React.FC = () => {
           </div>
           <div className="content__lessons">
             <Lesson lesson={lessonsConst[appLang].lesson} number={1} isOpen />
-            <Lesson lesson={lessonsConst[appLang].lesson} number={2} isOpen={false} />
-            <Lesson lesson={lessonsConst[appLang].lesson} number={3} isOpen={false} />
-            <Lesson lesson={lessonsConst[appLang].lesson} number={4} isOpen={false} />
+            <Lesson lesson={lessonsConst[appLang].lesson} number={2} isOpen={isLessonOpen(2)} />
+            <Lesson lesson={lessonsConst[appLang].lesson} number={3} isOpen={isLessonOpen(3)} />
+            <Lesson lesson={lessonsConst[appLang].lesson} number={4} isOpen={isLessonOpen(4)} />
+            <Link to="/steps">
+              {lessonsConst[appLang].backToLevels}
+            </Link>
           </div>
           <div className="content__chart">
             <PieChart
               done={lessonsConst[appLang].chartCompleted}
               toDo={lessonsConst[appLang].chartLeft}
-              value={chartValue}
+              value={getCurrentChartValue()}
             />
           </div>
         </div>
@@ -42,4 +73,5 @@ const LessonsLayout: React.FC = () => {
     </div>
   );
 };
+
 export default LessonsLayout;

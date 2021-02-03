@@ -6,7 +6,7 @@ import Icon, {
   DownOutlined,
   MenuOutlined,
   SettingOutlined,
-  StarOutlined,
+  // StarOutlined,
 } from '@ant-design/icons';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
@@ -25,10 +25,14 @@ import { changeAppLang } from '../../redux/actions';
 
 let currLang = 'Русский';
 
-const selectAppLang = (state: { app: { appLang: any; }; }) => state.app.appLang;
+const selectAppState = (state: { app: any }) => state.app;
 
-const Header: React.FC = () => {
-  const appLang = useSelector(selectAppLang);
+interface IProps {
+  isAuth: any
+}
+
+const Header: React.FC<IProps> = ({ isAuth }: IProps) => {
+  const { appLang, theme } = useSelector(selectAppState);
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -45,7 +49,9 @@ const Header: React.FC = () => {
     }
     dispatch(changeAppLang(e.key));
 
-    history.push('/main');
+    if (isAuth) {
+      history.push('/main');
+    }
   };
 
   const langMenu = (
@@ -112,14 +118,15 @@ const Header: React.FC = () => {
     history.push('/');
   };
 
-  const [theme, setTheme] = useState('light');
-  const onChangeTheme = (value: any) => {
-    setTheme(value ? 'dark' : 'light');
-  };
-  const [points] = useState(0);
+  // const [theme, setTheme] = useState('light');
+  // const onChangeTheme = (value: any) => {
+  //   setTheme(value ? 'dark' : 'light');
+  // };
+  // const [points] = useState(0);
 
   return (
     <div>
+      {isAuth && (
       <Drawer
         placement="left"
         closable={false}
@@ -127,46 +134,51 @@ const Header: React.FC = () => {
         visible={visibleMenu}
         className={theme === 'light' ? 'drawer-light' : 'drawer-dark'}
       >
-        <SideMenu
-          onClick={toggleMenu}
-          onChangeTheme={onChangeTheme}
-          appLang={appLang}
-        />
+        <SideMenu onClick={toggleMenu} appTheme={theme} appLang={appLang} />
+
       </Drawer>
+      )}
       <Space wrap>
-        <MenuOutlined onClick={toggleMenu} className="header__icon" />
+        {isAuth && <MenuOutlined onClick={toggleMenu} className="header__icon" />}
         <Dropdown overlay={langMenu}>
           <Button>
             {currLang} <DownOutlined />
           </Button>
         </Dropdown>
+        {isAuth && (
         <Button type="primary" htmlType="submit" onClick={logoutHandler}>
           {appLangConst[appLang].logout}
         </Button>
+        )}
 
-        <SettingOutlined onClick={toggleSettings} className="header__icon" />
+        {isAuth && <SettingOutlined onClick={toggleSettings} className="header__icon" />}
       </Space>
+      {isAuth && (
       <Drawer
         title={appLangConst[appLang].settingsDrawerHeader}
         placement="right"
         closable={false}
         onClose={onCloseSettings}
         visible={visibleSettings}
+        className={(theme === 'light') ? 'drawer-light' : 'drawer-dark'}
       >
         <Settings />
       </Drawer>
 
-      <span>
-        <StarOutlined
-          className="header__icon"
-          style={{
-            marginLeft: 35,
-            marginRight: 5,
-            color: '#1c8673',
-          }}
-        />
-      </span>
-      <span style={{ fontSize: 26 }}>{points}</span>
+      // <span>
+      //   <StarOutlined
+      //     className="header__icon"
+      //     style={{
+      //       marginLeft: 35,
+      //       marginRight: 5,
+      //       color: '#1c8673',
+      //     }}
+      //   />
+      // </span>
+      // <span style={{ fontSize: 26 }}>{points}</span>
+
+      )}
+
     </div>
   );
 };
