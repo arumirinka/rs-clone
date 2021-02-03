@@ -2,8 +2,7 @@ import React from 'react';
 import './App.css';
 import {
   Redirect, Route, Switch, withRouter,
-} 
-from 'react-router-dom';
+} from 'react-router-dom';
 import { Divider } from 'antd';
 import { useAuth } from './hooks/auth.hook';
 import { AuthContext } from './context/AuthContext';

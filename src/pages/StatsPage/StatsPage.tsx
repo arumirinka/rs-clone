@@ -5,6 +5,7 @@
 import { Table } from 'antd';
 import moment from 'moment';
 import React from 'react';
+import { useSelector } from 'react-redux';
 import {
   AreaChart,
   Area,
@@ -13,12 +14,13 @@ import {
   CartesianGrid,
   Tooltip,
 } from 'recharts';
+
 import './stats.css';
 import { statsWordsConst } from '../../assets/appLangConst';
 
-interface IProps {
-  appLang: string
-}
+// interface IProps {
+//   appLang: string
+// }
 
 let bestUsers: Array<any> = [];
 let dataSource: Array<any> = [];
@@ -109,51 +111,55 @@ const columns = [
   },
 ];
 
-const StatsPage: React.FC<IProps> = ({ appLang }: IProps) => (
-  <div className="stats">
-    {/* {
+const StatsPage: React.FC = () => {
+  // const num: number = 2;
+  const selectAppLang = (state: { app: { appLang: any; }; }) => state.app.appLang;
+  const appLang = useSelector(selectAppLang);
+  return (
+    <div className="stats">
+      <p>
+        This is the appLang: {appLang}!
+      </p>
 
-        <HelloWorld propName="props" propNum={num} />
-      </header>  */}
+      <div>
+        <h3>{statsWordsConst[appLang].chartName}</h3>
+        <AreaChart
+          width={600}
+          height={400}
+          data={chartData}
+          margin={{
+            top: 5,
+            right: 20,
+            left: 10,
+            bottom: 5,
+          }}
+        >
+          <defs>
+            <linearGradient id="color-fill" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="5%" stopColor="#136052" stopOpacity={0.8} />
+              <stop offset="95%" stopColor="#e6ffec" stopOpacity={0.5} />
+            </linearGradient>
+          </defs>
+          <XAxis dataKey="date" />
+          <YAxis />
+          <Tooltip />
+          <CartesianGrid strokeDasharray="3 3" />
+          <Area
+            type="monotone"
+            dataKey="points"
+            stroke="#136052"
+            fillOpacity={1}
+            fill="url(#color-fill)"
+          />
+        </AreaChart>
+      </div>
 
-    <div>
-      <h3>{statsWordsConst[appLang].chartName}</h3>
-      <AreaChart
-        width={600}
-        height={400}
-        data={chartData}
-        margin={{
-          top: 5,
-          right: 20,
-          left: 10,
-          bottom: 5,
-        }}
-      >
-        <defs>
-          <linearGradient id="color-fill" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="5%" stopColor="#136052" stopOpacity={0.8} />
-            <stop offset="95%" stopColor="#e6ffec" stopOpacity={0.5} />
-          </linearGradient>
-        </defs>
-        <XAxis dataKey="date" />
-        <YAxis />
-        <Tooltip />
-        <CartesianGrid strokeDasharray="3 3" />
-        <Area
-          type="monotone"
-          dataKey="points"
-          stroke="#136052"
-          fillOpacity={1}
-          fill="url(#color-fill)"
-        />
-      </AreaChart>
+      <div className="stats_best">
+        <h3>{statsWordsConst[appLang].tableName}</h3>
+        <Table dataSource={dataSource} columns={columns} pagination={false} />
+      </div>
     </div>
-
-    <div className="stats_best">
-      <h3>{statsWordsConst[appLang].tableName}</h3>
-      <Table dataSource={dataSource} columns={columns} pagination={false} />
-    </div>
-  </div>
-);
+  );
+};
 
 export default StatsPage;
