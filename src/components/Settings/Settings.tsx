@@ -2,19 +2,20 @@ import React from 'react';
 import { Switch } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { appLangConst } from '../../assets/appLangConst';
-import { toggleSound } from '../../redux/actions';
+import { changeTheme, toggleSound } from '../../redux/actions';
 
 const Settings: React.FC = () => {
-  const selectAppLang = (state: { app: { appLang: any; }; }) => state.app.appLang;
-  const appLang = useSelector(selectAppLang);
-
-  const selectSoundState = (state: { app: { isSoundOn: any; }; }) => state.app.isSoundOn;
-  const isSoundOn = useSelector(selectSoundState);
+  const selectAppState = (state: { app: any; }) => state.app;
+  const { appLang, isSoundOn, theme } = useSelector(selectAppState);
 
   const dispatch = useDispatch();
 
   const handleSoundChange = () => {
     dispatch(toggleSound(!isSoundOn));
+  };
+
+  const handleThemeChange = (value: any) => {
+    dispatch(changeTheme(value ? 'dark' : 'light'));
   };
 
   return (
@@ -33,6 +34,12 @@ const Settings: React.FC = () => {
       <span style={{ marginRight: '1rem' }}>
         {appLangConst[appLang].toggleTheme}
       </span>
+      <Switch
+        checked={theme === 'dark'}
+        onChange={handleThemeChange}
+        checkedChildren={appLangConst[appLang].darkTheme}
+        unCheckedChildren={appLangConst[appLang].lightTheme}
+      />
     </>
   );
 };

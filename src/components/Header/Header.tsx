@@ -21,14 +21,14 @@ import { changeAppLang } from '../../redux/actions';
 
 let currLang = 'Русский';
 
-const selectAppLang = (state: { app: { appLang: any; }; }) => state.app.appLang;
+const selectAppState = (state: { app: any }) => state.app;
 
 interface IProps {
   isAuth: any
 }
 
 const Header: React.FC<IProps> = ({ isAuth }: IProps) => {
-  const appLang = useSelector(selectAppLang);
+  const { appLang, theme } = useSelector(selectAppState);
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -87,11 +87,6 @@ const Header: React.FC<IProps> = ({ isAuth }: IProps) => {
     history.push('/');
   };
 
-  const [theme, setTheme] = useState('light');
-  const onChangeTheme = (value: any) => {
-    setTheme(value ? 'dark' : 'light');
-  };
-
   return (
     <div>
       {isAuth && (
@@ -102,7 +97,7 @@ const Header: React.FC<IProps> = ({ isAuth }: IProps) => {
         visible={visibleMenu}
         className={(theme === 'light') ? 'drawer-light' : 'drawer-dark'}
       >
-        <SideMenu onClick={toggleMenu} onChangeTheme={onChangeTheme} appLang={appLang} />
+        <SideMenu onClick={toggleMenu} appTheme={theme} appLang={appLang} />
       </Drawer>
       )}
       <Space wrap>
@@ -127,6 +122,7 @@ const Header: React.FC<IProps> = ({ isAuth }: IProps) => {
         closable={false}
         onClose={onCloseSettings}
         visible={visibleSettings}
+        className={(theme === 'light') ? 'drawer-light' : 'drawer-dark'}
       >
         <Settings />
       </Drawer>
