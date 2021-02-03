@@ -8,8 +8,22 @@ import '../../assets/lock.svg';
 import { lessonsConst } from '../../assets/appLangConst';
 
 const LessonsLayout: React.FC = () => {
-  const selectAppLang = (state: { app: { appLang: any; }; }) => state.app.appLang;
-  const appLang = useSelector(selectAppLang);
+  const selectAppState = (state: { app: any; }) => state.app;
+  const {
+    appLang, learnLang, level,
+  } = useSelector(selectAppState);
+
+  const selectStats = (state: { stats: any; }) => state.stats;
+  const stats = useSelector(selectStats);
+
+  const isLessonOpen = (num: number) => {
+    const currentLevel = stats[appLang][learnLang][`level${level}`];
+    if (currentLevel) {
+      const openState = currentLevel[`lesson${num - 1}`];
+      return Boolean(openState);
+    }
+    return false;
+  };
 
   /* eslint-disable @typescript-eslint/no-unused-vars */
   /* setChartValue - to update %  of completed lessons in chart => remove previous line */
@@ -26,9 +40,9 @@ const LessonsLayout: React.FC = () => {
           </div>
           <div className="content__lessons">
             <Lesson lesson={lessonsConst[appLang].lesson} number={1} isOpen />
-            <Lesson lesson={lessonsConst[appLang].lesson} number={2} isOpen={false} />
-            <Lesson lesson={lessonsConst[appLang].lesson} number={3} isOpen={false} />
-            <Lesson lesson={lessonsConst[appLang].lesson} number={4} isOpen={false} />
+            <Lesson lesson={lessonsConst[appLang].lesson} number={2} isOpen={isLessonOpen(2)} />
+            <Lesson lesson={lessonsConst[appLang].lesson} number={3} isOpen={isLessonOpen(3)} />
+            <Lesson lesson={lessonsConst[appLang].lesson} number={4} isOpen={isLessonOpen(4)} />
           </div>
           <div className="content__chart">
             <PieChart
