@@ -85,12 +85,11 @@ export function setPoints(appLang, learnLang, level, lesson, points) {
 }
 
 export function sendPointsToDB(userID, appLang, learnLang, level, lesson, points) {
-  console.log('sending data:', userID, appLang, learnLang, level, lesson, points);
   return async (dispatch) => {
     try {
       // eslint-disable-next-line no-undef
       const response = await fetch('/api/stats/points', {
-        method: 'POST',
+        method: 'PUT',
         body: {
           userId: userID,
           updateLesson: `results.${appLang}App.${learnLang}.level${level}.lesson${lesson}`,
@@ -98,7 +97,7 @@ export function sendPointsToDB(userID, appLang, learnLang, level, lesson, points
         },
       });
       const res = await response.json();
-      console.log('result', res);
+      console.log('Response from DB:', res);
       dispatch({ type: SEND_POINTS_TO_DB });
     } catch (e) {
       console.log('Something went wrong:', e);
@@ -112,7 +111,7 @@ export function getPointsFromDB(userID, appLang, learnLang) {
     try {
       // eslint-disable-next-line no-undef
       const response = await fetch('api/stats/getPoints', {
-        method: 'GET',
+        method: 'POST',
         body: {
           userId: userID,
           appLang: `${appLang}App`,

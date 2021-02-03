@@ -1,11 +1,18 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import HelloWorld from '../../components/HelloWorld/HelloWorld';
+import { getPointsFromDB } from '../../redux/actions';
 
 const StatsPage: React.FC = () => {
+  const selectAppState = (state: { app: any; }) => state.app;
+  const appState = useSelector(selectAppState);
+  const { appLang, learnLang } = appState;
+
+  const dispatch = useDispatch();
+  const userID = JSON.parse(localStorage.getItem('userData') || '{}').userId;
+  dispatch(getPointsFromDB(userID, appLang, learnLang));
+
   const num: number = 2;
-  const selectAppLang = (state: { app: { appLang: any; }; }) => state.app.appLang;
-  const appLang = useSelector(selectAppLang);
   return (
     <div className="stats">
       <header className="stats-header">
