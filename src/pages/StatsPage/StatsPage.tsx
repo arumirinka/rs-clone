@@ -8,6 +8,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import {
   AreaChart,
+  ResponsiveContainer,
   Area,
   XAxis,
   YAxis,
@@ -117,41 +118,39 @@ const StatsPage: React.FC = () => {
   const appLang = useSelector(selectAppLang);
   return (
     <div className="stats">
-      <p>
-        This is the appLang: {appLang}!
-      </p>
-
-      <div>
+      <div className="stats_chart">
         <h3>{statsWordsConst[appLang].chartName}</h3>
-        <AreaChart
-          width={600}
-          height={400}
-          data={chartData}
-          margin={{
-            top: 5,
-            right: 20,
-            left: 10,
-            bottom: 5,
-          }}
-        >
-          <defs>
-            <linearGradient id="color-fill" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="5%" stopColor="#136052" stopOpacity={0.8} />
-              <stop offset="95%" stopColor="#e6ffec" stopOpacity={0.5} />
-            </linearGradient>
-          </defs>
-          <XAxis dataKey="date" />
-          <YAxis />
-          <Tooltip />
-          <CartesianGrid strokeDasharray="3 3" />
-          <Area
-            type="monotone"
-            dataKey="points"
-            stroke="#136052"
-            fillOpacity={1}
-            fill="url(#color-fill)"
-          />
-        </AreaChart>
+        <ResponsiveContainer width="100%">
+          <AreaChart
+            width={600}
+            height={400}
+            data={chartData}
+            margin={{
+              top: 5,
+              right: 20,
+              left: 10,
+              bottom: 5,
+            }}
+          >
+            <defs>
+              <linearGradient id="color-fill" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="5%" stopColor="#136052" stopOpacity={0.8} />
+                <stop offset="95%" stopColor="#e6ffec" stopOpacity={0.5} />
+              </linearGradient>
+            </defs>
+            <XAxis dataKey="date" />
+            <YAxis />
+            <Tooltip />
+            <CartesianGrid strokeDasharray="3 3" />
+            <Area
+              type="monotone"
+              dataKey="points"
+              stroke="#136052"
+              fillOpacity={1}
+              fill="url(#color-fill)"
+            />
+          </AreaChart>
+        </ResponsiveContainer>
       </div>
 
       <div className="stats_best">

@@ -1,10 +1,19 @@
 .stats {
     display: flex;
     justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.stats_chart {
+    width: 40%;
+    min-width: 310px;
+    max-height: 50vh;
+    margin-bottom: 40px;
 }
 
 .stats_best {
     width: 30%;
+    min-width: 300px;
 }
 
 .ant-table-thead> tr> th {
