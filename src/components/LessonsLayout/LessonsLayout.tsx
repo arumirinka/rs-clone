@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import KittyImg from './KittyImg';
 import Lesson from './Lesson';
 import PieChart from './PieChart';
@@ -43,7 +44,9 @@ const LessonsLayout: React.FC = () => {
     <div className="outer-container">
       <div className="outer-container__inner-container">
         <div className="inner-container__text">
-          { lessonsConst[appLang].lessonsIntro}
+          <p>{lessonsConst[appLang].lessonsIntro}</p>
+          <p>{lessonsConst[appLang].hotKeys}</p>
+          <br />
         </div>
         <div className="inner-container__content">
           <div className="content__image">
@@ -54,6 +57,9 @@ const LessonsLayout: React.FC = () => {
             <Lesson lesson={lessonsConst[appLang].lesson} number={2} isOpen={isLessonOpen(2)} />
             <Lesson lesson={lessonsConst[appLang].lesson} number={3} isOpen={isLessonOpen(3)} />
             <Lesson lesson={lessonsConst[appLang].lesson} number={4} isOpen={isLessonOpen(4)} />
+            <Link to="/steps">
+              {lessonsConst[appLang].backToLevels}
+            </Link>
           </div>
           <div className="content__chart">
             <PieChart

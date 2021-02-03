@@ -99,22 +99,28 @@ export const lessonsConst: IAppLangConst = {
     level: 'Уровень',
     lesson: 'Урок',
     lessonsIntro: 'Муррр, мы начинаем учиться! Ввожу в курс дела: для успешного перехода на новый уровень нам надо пройти 4 урока и набрать минимум 340/400 баллов (100 баллов за урок) или 85%.',
+    hotKeys: 'Горячие клавиши: 1-4 для выбора ответа, Enter - продолжить, Esc - выйти из урока. Приступим?',
     chartCompleted: 'Пройдено',
     chartLeft: 'Осталось',
+    backToLevels: 'Вернуться к уровням',
   },
   english: {
     level: 'Level',
     lesson: 'Lesson',
     lessonsIntro: 'Meow, we\'re going to start learning now! Let me bring you up to speed: to move to the next level you\'ll have to complete 4 lessons and get at least 340/400 points (100 points per lesson) or 85%.',
+    hotKeys: 'Hot keys: 1-4 to choose one of the answers, Enter - next, Esc - exit the lesson. Let\'s go!',
     chartCompleted: 'Completed',
     chartLeft: 'Not completed',
+    backToLevels: 'Back to levels',
   },
   german: {
     level: 'Level',
     lesson: 'Lektion',
     lessonsIntro: 'Meow, jetzt beginnen wir zu lernen! Ich setze dich ins Bild: du hast vor, 4 Lektionen abzuschließen und mindestens 340/400 Punkte (100 Punkte pro Lektion) oder 85% zu erhalten, um das nächste Level zu starten.',
+    hotKeys: 'Hot keys: 1-4 to choose one of the answers, Enter - next, Esc - exit the lesson. Let\'s go!',
     chartCompleted: 'Abgeschlossen',
     chartLeft: 'Nicht abgeschlossen',
+    backToLevels: 'Back to levels',
   },
 };
 
