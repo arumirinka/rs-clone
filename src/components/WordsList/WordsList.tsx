@@ -1,40 +1,55 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { Link, useHistory } from 'react-router-dom';
 import { PlayCircleOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
-import content from '../../content.json';
 import './WordsList.css';
 import voiceLanguage from './voiceLanguage';
 import { wordsListConst, nextButtonConst } from '../../assets/appLangConst';
 
 const WordsList: React.FC = () => {
+  const selectAppState = (state: { app: any; }) => state.app;
+  const appState = useSelector(selectAppState);
+
+  const selectData = (state: { data: { fetchedData: any; }; }) => state.data.fetchedData;
+  const data = useSelector(selectData);
+
   interface Lesson {
-    UI:string;
-    learning:string;
-    level:number;
-    lesson:number;
+    level: number;
+    lesson: number;
   }
 
   const current:Lesson = {
-    UI: 'russian',
-    learning: 'english',
-    level: 1,
-    lesson: 1,
+    level: appState.level,
+    lesson: appState.lesson,
   };
 
-  const theContent:any = content;
-  const { words } = theContent[current.UI][current.learning][`level${current.level}`][`lesson${current.lesson}`];
+  const { words } = data[`level${current.level}`][`lesson${current.lesson}`];
 
   function handleWordClick(word: string) {
     const utter = new SpeechSynthesisUtterance();
-    utter.lang = voiceLanguage[current.learning];
+    utter.lang = voiceLanguage[appState.learnLang];
     utter.text = word;
     window.speechSynthesis.speak(utter);
   }
 
+  const history = useHistory();
+  const handleEscPress = (event:any) => {
+    if (event.key === 'Escape') {
+      history.push('/lessons');
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('keydown', handleEscPress);
+    return () => {
+      window.removeEventListener('keydown', handleEscPress);
+    };
+  }, []);
+
   return (
     <div className="words">
-      <h2 className="words__header">{wordsListConst[current.UI].header}</h2>
+      <h2 className="words__header">{wordsListConst[appState.appLang].header}</h2>
       <table className="words__table">
         <thead />
         <tbody>
@@ -57,7 +72,7 @@ const WordsList: React.FC = () => {
       </table>
       <Link to="/lessons/exercises">
         <Button type="primary">
-          {nextButtonConst[current.UI].nextButton}
+          {nextButtonConst[appState.appLang].nextButton}
         </Button>
       </Link>
     </div>

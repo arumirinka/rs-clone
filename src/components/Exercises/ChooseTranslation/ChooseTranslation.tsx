@@ -5,34 +5,38 @@ import checkIfButtonsEnabled from './checkIfButtonsEnabled';
 import './chooseTranslation.css';
 import { exercisesInterface } from '../../../assets/appLangConst';
 
-const getRandomNumbers = ():number[] => {
-  const arr:number[] = [0, 1, 2, 3];
+const getRandomNumbers = (): number[] => {
+  const arr: number[] = [0, 1, 2, 3];
   return arr.sort(() => 0.5 - Math.random());
 };
+
 let randomNumbersArray = getRandomNumbers();
-type Props={
-  randomWords:string[][],
-  progress:number,
-  setProgress:React.Dispatch<React.SetStateAction<number>>,
-  points:number,
-  setPoints:React.Dispatch<React.SetStateAction<number>>,
-  id:number,
-  visibleID:number,
-  setVisibleID:React.Dispatch<React.SetStateAction<number>>,
-  lessonPlan:number[],
-  currentStep:number,
-  setCurrentStep:React.Dispatch<React.SetStateAction<number>>,
-  modalVisible:boolean,
-  appLang:string,
-  progressGap:number,
+
+type Props = {
+  randomWords: string[][],
+  progress: number,
+  setProgress: React.Dispatch<React.SetStateAction<number>>,
+  points: number,
+  setPoints: React.Dispatch<React.SetStateAction<number>>,
+  id: number,
+  visibleID: number,
+  setVisibleID: React.Dispatch<React.SetStateAction<number>>,
+  lessonPlan: number[],
+  currentStep: number,
+  setCurrentStep: React.Dispatch<React.SetStateAction<number>>,
+  modalVisible: boolean,
+  appLang: string,
+  progressGap: number,
 };
-let showNewWords:() => void;
+
+let showNewWords: () => void;
+
 const chooseTranslation = ({
   randomWords, progress, setProgress, points, setPoints, id, visibleID, setVisibleID, lessonPlan,
   currentStep, setCurrentStep, modalVisible, appLang, progressGap,
-}:Props) => {
+}: Props) => {
   const [wordsArray, setWordsArray] = useState(randomWords);
-  const wordToCheck:any = wordsArray[0][0];
+  const wordToCheck: any = wordsArray[0][0];
   const translationToCheck:string = wordsArray[0][1];
 
   const [btnStyle, setBtnStyle] = useState(false);
@@ -44,7 +48,7 @@ const chooseTranslation = ({
   const modalRef = useRef(modalVisible);
   modalRef.current = modalVisible;
 
-  const handleEnterPress = (event:any) => {
+  const handleEnterPress = (event: any) => {
     if (visRef.current === id
       && event.key === 'Enter'
       && !checkIfButtonsEnabled(buttonsContainer)
@@ -80,6 +84,7 @@ const chooseTranslation = ({
       newWords.push(wordsArray[0]);
       setWordsArray(newWords);
       randomNumbersArray = getRandomNumbers();
+
       setContinueBtnDisabled(true);
       setBtnStyle(false);
       setVisibleID(lessonPlan[currentStep + 1]);
@@ -89,7 +94,7 @@ const chooseTranslation = ({
 
   return (
     <>
-      <div className="chooseTranslation-container__word">{ exercisesInterface[appLang].chooseTranslation} &quot;{wordToCheck}&quot;</div>
+      <div className="chooseTranslation-container__word">{exercisesInterface[appLang].chooseTranslation} &quot;{wordToCheck}&quot;</div>
       <div className="chooseTranslation-container__buttons" ref={buttonsContainer}>
         <ChooseTranslationBtn
           index={1}
@@ -155,9 +160,11 @@ const chooseTranslation = ({
         onClick={() => { showNewWords(); }}
         className="chooseTranslation-container__continueButton"
         disabled={continueBtnDisabled}
-      >{ exercisesInterface[appLang].сontinue}
+      >
+        {exercisesInterface[appLang].continue}
       </Button>
     </>
   );
 };
+
 export default chooseTranslation;

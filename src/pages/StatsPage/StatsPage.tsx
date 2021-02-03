@@ -112,6 +112,7 @@ const columns = [
 const StatsPage: React.FC<IProps> = ({ appLang }: IProps) => (
   <div className="stats">
     {/* {
+
         <HelloWorld propName="props" propNum={num} />
       </header>  */}
 

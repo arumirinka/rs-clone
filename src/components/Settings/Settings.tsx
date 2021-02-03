@@ -1,11 +1,40 @@
 import React from 'react';
+import { Switch } from 'antd';
+import { useDispatch, useSelector } from 'react-redux';
+import { appLangConst } from '../../assets/appLangConst';
+import { toggleSound } from '../../redux/actions';
 
-const Settings: React.FC = () => (
-  <>
-    <p>Some settings...</p>
-    <p>Some settings...</p>
-    <p>Some settings...</p>
-  </>
-);
+const Settings: React.FC = () => {
+  const selectAppLang = (state: { app: { appLang: any; }; }) => state.app.appLang;
+  const appLang = useSelector(selectAppLang);
+
+  const selectSoundState = (state: { app: { isSoundOn: any; }; }) => state.app.isSoundOn;
+  const isSoundOn = useSelector(selectSoundState);
+
+  const dispatch = useDispatch();
+
+  const handleSoundChange = () => {
+    dispatch(toggleSound(!isSoundOn));
+  };
+
+  return (
+    <>
+      <span style={{ marginRight: '1rem' }}>
+        {appLangConst[appLang].toggleSound}
+      </span>
+      <Switch
+        checked={isSoundOn}
+        onChange={handleSoundChange}
+        checkedChildren={appLangConst[appLang].soundOn}
+        unCheckedChildren={appLangConst[appLang].soundOff}
+      />
+      <br />
+      <br />
+      <span style={{ marginRight: '1rem' }}>
+        {appLangConst[appLang].toggleTheme}
+      </span>
+    </>
+  );
+};
 
 export default Settings;
