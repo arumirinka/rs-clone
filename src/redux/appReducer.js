@@ -1,5 +1,5 @@
 import {
-  CHANGE_APP_LANG, CHANGE_LEARN_LANG, CHANGE_LEVEL, CHANGE_LESSON, TOGGLE_SOUND,
+  CHANGE_APP_LANG, CHANGE_LEARN_LANG, CHANGE_LEVEL, CHANGE_LESSON, CHANGE_THEME, TOGGLE_SOUND,
 } from './types';
 
 const initialState = {
@@ -8,6 +8,7 @@ const initialState = {
   level: 1,
   lesson: 1,
   isSoundOn: true,
+  theme: 'light',
 };
 
 export default function appReducer(state = initialState, action) {
@@ -38,6 +39,13 @@ export default function appReducer(state = initialState, action) {
       return {
         ...state,
         lesson,
+      };
+    }
+    case CHANGE_THEME: {
+      const theme = action.payload;
+      return {
+        ...state,
+        theme,
       };
     }
     case TOGGLE_SOUND: {

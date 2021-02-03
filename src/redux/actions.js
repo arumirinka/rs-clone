@@ -1,6 +1,6 @@
 import {
-  CHANGE_APP_LANG, CHANGE_LEARN_LANG, CHANGE_LEVEL, CHANGE_LESSON, TOGGLE_SOUND, FETCH_DATA,
-  SET_POINTS, SEND_POINTS_TO_DB, GET_POINTS_FROM_DB,
+  CHANGE_APP_LANG, CHANGE_LEARN_LANG, CHANGE_LEVEL, CHANGE_LESSON, CHANGE_THEME, TOGGLE_SOUND,
+  FETCH_DATA, SET_POINTS, SEND_POINTS_TO_DB, GET_POINTS_FROM_DB,
 } from './types';
 import content from '../content.json';
 
@@ -42,6 +42,13 @@ export function changeLesson(lesson) {
   return {
     type: CHANGE_LESSON,
     payload: lesson,
+  };
+}
+
+export function changeTheme(theme) {
+  return {
+    type: CHANGE_THEME,
+    payload: theme,
   };
 }
 
