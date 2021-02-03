@@ -12,6 +12,34 @@
   font-size: 1.5rem;
 }
 
+.drawer-dark .ant-drawer-header {
+  background-color: #135a4d;
+}
+
+.drawer-light .ant-drawer-header {
+  background-color: #ffffff;
+}
+
+.drawer-dark .ant-drawer-title {
+  color: #ffffff;
+}
+
+.drawer-light .ant-drawer-title {
+  color: #000000d9;
+}
+
+.drawer-dark span {
+  color: #ffffff;
+}
+
+.drawer-light span {
+  color: #000000d9;
+}
+
+.drawer-light span.ant-switch-inner {
+  color: #ffffff;
+}
+
 .drawer-dark .ant-drawer-content {
   background-color: #135a4d;
 }

@@ -1,5 +1,6 @@
 import {
-  CHANGE_APP_LANG, CHANGE_LEARN_LANG, CHANGE_LEVEL, CHANGE_LESSON, TOGGLE_SOUND, FETCH_DATA,
+  CHANGE_APP_LANG, CHANGE_LEARN_LANG, CHANGE_LEVEL, CHANGE_LESSON, CHANGE_THEME, TOGGLE_SOUND,
+  FETCH_DATA, SET_POINTS, SEND_POINTS_TO_DB, GET_POINTS_FROM_DB,
 } from './types';
 import content from '../content.json';
 
@@ -44,6 +45,13 @@ export function changeLesson(lesson) {
   };
 }
 
+export function changeTheme(theme) {
+  return {
+    type: CHANGE_THEME,
+    payload: theme,
+  };
+}
+
 export function toggleSound(isSoundOn) {
   return {
     type: TOGGLE_SOUND,
@@ -70,6 +78,60 @@ export function fetchData(appLang, learnLang) {
       console.log('Something went wrong:', e);
       const data = content[appLang][learningLang];
       dispatch({ type: FETCH_DATA, payload: data });
+    }
+  };
+}
+
+export function setPoints(appLang, learnLang, level, lesson, points) {
+  return {
+    type: SET_POINTS,
+    payload: {
+      appLang, learnLang, level, lesson, points,
+    },
+  };
+}
+
+export function sendPointsToDB(userID, appLang, learnLang, level, lesson, points) {
+  return async (dispatch) => {
+    try {
+      // eslint-disable-next-line no-undef
+      const response = await fetch('/api/stats/points', {
+        method: 'PUT',
+        body: {
+          userId: userID,
+          updateLesson: `results.${appLang}App.${learnLang}.level${level}.lesson${lesson}`,
+          score: points,
+        },
+      });
+      const res = await response.json();
+      console.log('Response from DB:', res);
+      dispatch({ type: SEND_POINTS_TO_DB });
+    } catch (e) {
+      console.log('Something went wrong:', e);
+      dispatch({ type: SEND_POINTS_TO_DB });
+    }
+  };
+}
+
+export function getPointsFromDB(userID, appLang, learnLang) {
+  const sendingReq = {
+    userId: userID,
+    appLang: `${appLang}App`,
+    learningLang: learnLang,
+  };
+
+  return async (dispatch) => {
+    try {
+      // eslint-disable-next-line no-undef
+      const response = await fetch('/api/stats/getPoints', {
+        method: 'POST',
+        body: JSON.stringify(sendingReq),
+      });
+      const json = await response.json();
+      dispatch({ type: GET_POINTS_FROM_DB, payload: json });
+    } catch (e) {
+      console.log('Something went wrong:', e);
+      dispatch({ type: GET_POINTS_FROM_DB });
     }
   };
 }

@@ -3,11 +3,7 @@ import BlaBlaImg from '../../components/LanguagesLayout/BlaBlaImg';
 import KittyImg from '../../components/LessonsLayout/KittyImg';
 import RegistrationForm from '../../components/RegistrationForm/RegistrationForm';
 
-interface IProps {
-  appLang: string
-}
-
-const LoginPage: React.FC<IProps> = ({ appLang }: IProps) => (
+const LoginPage: React.FC = () => (
   <>
     <div className="lang-container">
       <div className="lang-container__inner-container1">
@@ -19,7 +15,7 @@ const LoginPage: React.FC<IProps> = ({ appLang }: IProps) => (
           </div>
         </div>
         <div className="form-container__content">
-          <RegistrationForm appLang={appLang} />
+          <RegistrationForm />
         </div>
       </div>
     </div>

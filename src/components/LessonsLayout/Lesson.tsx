@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { changeLesson } from '../../redux/actions';
@@ -10,12 +10,14 @@ type Props = {
 };
 
 const Lesson = ({ lesson, number, isOpen }: Props) => {
-  const [levelOpen, setLevelOpen] = useState({});
+  // const [levelOpen, setLevelOpen] = useState({});
+  const levelOpen = {};
 
   const dispatch = useDispatch();
 
   const history = useHistory();
-  const goToLesson = () => {
+  const storeNumberAndGoToLesson = () => {
+    dispatch(changeLesson(number));
     history.push('/lessons/words');
   };
 
@@ -28,19 +30,17 @@ const Lesson = ({ lesson, number, isOpen }: Props) => {
   };
 
   // remove comment and use this function to open new lesson
-  const openLesson = (event: any): void => {
-    // setDisabledLesson(false)
-    event.target.classList.remove('lessons__lesson--closed');
-    /* eslint-disable no-param-reassign */
-    isOpen = true;
-    setLevelOpen(styleOpening);
+  // const openLesson = (event: any): void => {
+  //   // setDisabledLesson(false)
+  //   event.target.classList.remove('lessons__lesson--closed');
+  //   /* eslint-disable no-param-reassign */
+  //   isOpen = true;
+  //   setLevelOpen(styleOpening);
 
-    dispatch(changeLesson(number));
-
-    setTimeout(() => {
-      goToLesson();
-    }, 1000);
-  };
+  //   setTimeout(() => {
+  //     storeNumberAndGoToLesson();
+  //   }, 1000);
+  // };
 
   if (isOpen) {
     return (
@@ -48,7 +48,7 @@ const Lesson = ({ lesson, number, isOpen }: Props) => {
         type="button"
         className="lessons__lesson"
         style={styleOpening}
-        onClick={goToLesson}
+        onClick={storeNumberAndGoToLesson}
       >
         {lesson} {number}
       </button>
@@ -60,7 +60,7 @@ const Lesson = ({ lesson, number, isOpen }: Props) => {
       type="button"
       className="lessons__lesson lessons__lesson--closed"
       // remove comment and onClick function for lesson opening
-      onClick={(event: React.MouseEvent) => openLesson(event)}
+      // onClick={(event: React.MouseEvent) => openLesson(event)}
       style={levelOpen}
       // disabled={disabledLesson}
     >{lesson} {number}

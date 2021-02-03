@@ -39,7 +39,7 @@ const LanguageButton = ({ language }: Props) => {
   const isAuthenticated = !!token;
   return (
     <>
-      <Link to="/steps">
+      <Link to="/steps" style={{ borderRadius: '50%' }}>
         <button type="button" className="language__button" onClick={handleLangBtnClick}>
           {language}
         </button>
