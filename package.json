@@ -15,6 +15,7 @@
     "antd": "^4.10.2",
     "chart.js": "^2.9.4",
     "csstype": "^3.0.6",
+    "moment": "^2.29.1",
     "prop-types": "^15.7.2",
     "react": "^17.0.1",
     "react-chartjs-2": "^2.11.1",

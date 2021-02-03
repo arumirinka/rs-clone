@@ -1,13 +1,20 @@
+/* eslint-disable @typescript-eslint/no-use-before-define */
 /* eslint-disable consistent-return */
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 /* eslint-disable no-console */
-// import { message } from 'antd';
 import { Table } from 'antd';
+import moment from 'moment';
 import React from 'react';
-import { LineChart, Line } from 'recharts';
-// import Chart from 'chart.js';
-// import { useHttp } from '../../hooks/http.hook';
+import {
+  AreaChart,
+  Area,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+} from 'recharts';
 import './stats.css';
+import { statsWordsConst } from '../../assets/appLangConst';
 
 interface IProps {
   appLang: string
@@ -16,7 +23,20 @@ interface IProps {
 let bestUsers: Array<any> = [];
 let dataSource: Array<any> = [];
 // const { request } = useHttp();
-let weekResults;
+let weekResults: any[];
+let chartData: any;
+
+const getDate = (daysBefore: moment.DurationInputArg1) => moment().subtract(daysBefore, 'days').format('DD/MM');
+const weekDays = [
+  getDate(6),
+  getDate(5),
+  getDate(4),
+  getDate(3),
+  getDate(2),
+  getDate(1),
+  getDate(0),
+];
+
 const weekProgress = async () => {
   try {
     let currentId;
@@ -37,11 +57,21 @@ const weekProgress = async () => {
       }),
     });
     const data = await res.json();
-    weekResults = data;
+    weekResults = data.weekProgress;
+    console.log(weekResults);
+    chartData = getWeekData();
     return data;
   } catch (e) {
     console.log('something wrong');
   }
+};
+const getWeekData = () => {
+  const weekData = weekDays.map((item) => ({
+    date: item,
+    points: weekResults[weekDays.indexOf(item)],
+  }));
+  console.log(weekData);
+  return weekData;
 };
 
 weekProgress();
@@ -66,7 +96,6 @@ const rating = async () => {
   }
 };
 rating();
-console.log(dataSource);
 
 const columns = [
   {
@@ -83,45 +112,46 @@ const columns = [
 
 const StatsPage: React.FC<IProps> = ({ appLang }: IProps) => (
   <div className="stats">
-    {/* <header className="stats-header">
-        <p>
-          This is going to be the statistics page!
-        </p>
-        <p>
-          This is the appLang: {appLang}!
-        </p>
-        <p>
-          This is the way to print variables inside jsx/tsx.
-          <br />
-          Here is the <code>num</code> variable value: {num}
-          , and its type is <code>number</code>.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    {/* {
         <HelloWorld propName="props" propNum={num} />
-      </header> */}
+      </header>  */}
 
-    <p>This is the appLang: {appLang}!</p>
-    <LineChart
-      width={400}
-      height={400}
-      data={data}
-      margin={{ top: 5, right: 20, left: 10, bottom: 5 }}>
-      <XAxis dataKey="name" />
-      <Tooltip />
-      <CartesianGrid stroke="#f5f5f5" />
-      <Line type="monotone" dataKey="uv" stroke="#ff7300" yAxisId={0} />
-      <Line type="monotone" dataKey="pv" stroke="#387908" yAxisId={1} />
-    </LineChart>
+    <div>
+      <p>This is the appLang: {appLang}!</p>
+      <h3>{statsWordsConst[appLang].chartName}</h3>
+      <AreaChart
+        width={400}
+        height={400}
+        data={chartData}
+        margin={{
+          top: 5,
+          right: 20,
+          left: 10,
+          bottom: 5,
+        }}
+      >
+        <defs>
+          <linearGradient id="color-fill" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="5%" stopColor="#136052" stopOpacity={0.8} />
+            <stop offset="95%" stopColor="#e6ffec" stopOpacity={0.5} />
+          </linearGradient>
+        </defs>
+        <XAxis dataKey="date" />
+        <YAxis />
+        <Tooltip />
+        <CartesianGrid strokeDasharray="3 3" />
+        <Area
+          type="monotone"
+          dataKey="points"
+          stroke="#136052"
+          fillOpacity={1}
+          fill="url(#color-fill)"
+        />
+      </AreaChart>
+    </div>
 
     <div className="stats_best">
-      <h3>Лидеры</h3>
+      <h3>{statsWordsConst[appLang].tableName}</h3>
       <Table dataSource={dataSource} columns={columns} pagination={false} />
     </div>
   </div>
