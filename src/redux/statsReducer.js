@@ -77,6 +77,9 @@ export default function statsReducer(state = initialState, action) {
       };
     }
     case GET_POINTS_FROM_DB: {
+      if (action.payload) {
+        console.log('stats from database:', action.payload);
+      }
       return {
         ...state,
       };

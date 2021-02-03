@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Modal } from 'antd';
 import successSvg from '../../assets/success.svg';
 import { exercisesInterface } from '../../assets/appLangConst';
-import { setPoints } from '../../redux/actions';
+import { sendPointsToDB, setPoints } from '../../redux/actions';
 
 type Props = {
   visible: any,
@@ -19,7 +19,9 @@ const EndOfExerciseModal: React.FC<Props> = ({ visible, points, appLang }: Props
 
   const dispatch = useDispatch();
   if (visible) {
+    const userID = JSON.parse(localStorage.getItem('userData') || '{}').userId;
     dispatch(setPoints(appLang, learnLang, `level${level}`, `lesson${lesson}`, points));
+    dispatch(sendPointsToDB(userID, appLang, learnLang, level, lesson, points));
   }
 
   const src: any = successSvg;

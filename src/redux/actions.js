@@ -1,6 +1,6 @@
 import {
   CHANGE_APP_LANG, CHANGE_LEARN_LANG, CHANGE_LEVEL, CHANGE_LESSON, TOGGLE_SOUND, FETCH_DATA,
-  SET_POINTS,
+  SET_POINTS, SEND_POINTS_TO_DB, GET_POINTS_FROM_DB,
 } from './types';
 import content from '../content.json';
 
@@ -81,5 +81,49 @@ export function setPoints(appLang, learnLang, level, lesson, points) {
     payload: {
       appLang, learnLang, level, lesson, points,
     },
+  };
+}
+
+export function sendPointsToDB(userID, appLang, learnLang, level, lesson, points) {
+  console.log('sending data:', userID, appLang, learnLang, level, lesson, points);
+  return async (dispatch) => {
+    try {
+      // eslint-disable-next-line no-undef
+      const response = await fetch('/api/stats/points', {
+        method: 'POST',
+        body: {
+          userId: userID,
+          updateLesson: `results.${appLang}App.${learnLang}.level${level}.lesson${lesson}`,
+          score: points,
+        },
+      });
+      const res = await response.json();
+      console.log('result', res);
+      dispatch({ type: SEND_POINTS_TO_DB });
+    } catch (e) {
+      console.log('Something went wrong:', e);
+      dispatch({ type: SEND_POINTS_TO_DB });
+    }
+  };
+}
+
+export function getPointsFromDB(userID, appLang, learnLang) {
+  return async (dispatch) => {
+    try {
+      // eslint-disable-next-line no-undef
+      const response = await fetch('api/stats/getPoints', {
+        method: 'GET',
+        body: {
+          userId: userID,
+          appLang: `${appLang}App`,
+          learningLang: learnLang,
+        },
+      });
+      const json = await response.json();
+      dispatch({ type: GET_POINTS_FROM_DB, payload: json });
+    } catch (e) {
+      console.log('Something went wrong:', e);
+      dispatch({ type: GET_POINTS_FROM_DB });
+    }
   };
 }
