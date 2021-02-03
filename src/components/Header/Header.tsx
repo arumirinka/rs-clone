@@ -6,16 +6,13 @@ import Icon, {
   DownOutlined,
   MenuOutlined,
   SettingOutlined,
-  StarOutlined,
-  // StarOutlined,
+
 } from '@ant-design/icons';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import SideMenu from '../Menu/Menu';
 import Settings from '../Settings/Settings';
 import './header.css';
-
-import StatsData from '../../pages/StatsPage/StatsData';
 
 import { AuthContext } from '../../context/AuthContext';
 
@@ -172,22 +169,6 @@ const Header: React.FC<IProps> = ({ isAuth }: IProps) => {
       </Drawer>
 
       )}
-
-      {isAuth && (
-      <span>
-        <span>
-          <StarOutlined
-            className="header__icon"
-            style={{
-              marginLeft: 35,
-              marginRight: 5,
-              color: '#1c8673',
-            }}
-          />
-        </span>
-        <span style={{ fontSize: 26 }}><StatsData /></span>
-      </span>
-      ) }
 
     </div>
   );

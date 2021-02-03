@@ -1,4 +1,8 @@
 .stats {
+    display: flex; 
+    flex-direction: column;
+}
+.stats_inner {
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
