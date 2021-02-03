@@ -4,7 +4,6 @@ import {
   Button, message, Form, Input,
 } from 'antd';
 import 'antd/dist/antd.css';
-import { GithubOutlined } from '@ant-design/icons';
 import { useHttp } from '../../hooks/http.hook';
 import { AuthContext } from '../../context/AuthContext';
 import './RegistrationForm.css';
@@ -121,12 +120,6 @@ const RegistrationForm: React.FC = () => {
             onClick={loginHandler}
           >
             {appLangConst[appLang].login}
-          </Button>
-        </Form.Item>
-        <Form.Item {...tailLayout} style={{ marginBottom: '1em' }}>
-          <Button type="primary" htmlType="submit" disabled={loading}>
-            {appLangConst[appLang].loginGithub}
-            <GithubOutlined style={{ color: 'black' }} />
           </Button>
         </Form.Item>
         <Form.Item {...tailLayout}>
