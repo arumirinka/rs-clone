@@ -37,7 +37,8 @@
 .step__level{
   border: 1px solid #145e51;
   text-align: center;
-  background: #1C8673;
+  background: #5D847D;
+  filter: blur(1px);
   border-radius: 10px;
   height: 2em;
   line-height: 2em;
@@ -49,6 +50,16 @@
 }
 .step__level:hover{
     background:#104d41;
+}
+.step__level--closed:after{
+  content: '';
+    position: absolute;
+    left: 50%;
+    width: 30px;
+    height: 30px;
+    background-image: url('../../assets/lock.svg');
+    background-repeat: no-repeat;
+    background-size: contain;
 }
 .step__arrow-right{
   position: absolute;
@@ -146,6 +157,10 @@
     .kitty-img{
         width: 55px;
     }
+    .step__level--closed:after{
+      width: 23px;
+      height: 23px;
+  }
   }
   @media(max-width:500px){
     .steps-сontainer{
@@ -160,6 +175,12 @@
     }
     .step__arrow-right{
         top:-22px;
+    }
+  }
+  @media (max-width: 450px){
+    .step__level--closed:after {
+        width: 16px;
+        height: 16px;
     }
   }
   @media(max-width:400px){
