@@ -58,7 +58,7 @@ const StepsLayout: React.FC = () => {
     }
 
     if (levelNum > numberOfLevels) {
-      console.log('Sorry, there is no content for this lesson yet!');
+      console.log('Sorry, there is no content for this level yet!');
       return;
     }
 
