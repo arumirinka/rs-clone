@@ -1,7 +1,7 @@
 import { Table } from 'antd';
 import moment from 'moment';
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   AreaChart,
   ResponsiveContainer,
@@ -15,6 +15,7 @@ import { StarOutlined } from '@ant-design/icons';
 import { statsLangConst } from '../../assets/appLangConst';
 
 import './stats.css';
+import { getPointsFromDB } from '../../redux/actions';
 
 let bestUsers: Array<any> = [];
 let dataSource: Array<any> = [];
@@ -40,14 +41,15 @@ const StatsPage: React.FC = () => {
   const selectStats = (state: { stats: any }) => state.stats;
   const stats = useSelector(selectStats);
 
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const userID = JSON.parse(localStorage.getItem('userData') || '{}').userId;
-  // dispatch(getPointsFromDB(userID, appLang, learnLang));
+  dispatch(getPointsFromDB(userID, appLang, learnLang));
 
   const lessonsNumber = 4;
   const levelsNumber = (appLang === 'russian' && learnLang === 'english') ? 5 : 2;
   let totalScore = 0;
   for (let i = 1; i <= levelsNumber; i += 1) {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     for (let j = 1; j <= lessonsNumber; j += 1) totalScore += (stats[appLang][learnLang][`level${i}`][`lesson${j}`]);
   }
 
@@ -68,20 +70,19 @@ const StatsPage: React.FC = () => {
           }),
         },
       );
-      const data = await res.json();
-      console.log('Response from DB:', data);
+      await res.json();
     } catch (e) {
       console.log('something wrong:', e);
     }
   };
 
   updateScore();
+
   const getWeekData = () => {
     const weekData = weekDays.map((item) => ({
       date: item,
       points: weekResults[weekDays.indexOf(item)],
     }));
-    console.log(weekData);
     return weekData;
   };
 
@@ -136,8 +137,6 @@ const StatsPage: React.FC = () => {
         email: item[0],
         score: item[1],
       }));
-
-      console.log(dataSource);
     } catch (e) {
       console.log('something wrong');
     }
