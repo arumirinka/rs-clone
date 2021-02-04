@@ -27,7 +27,14 @@ const StepsLayout: React.FC = () => {
   const selectStats = (state: { stats: any; }) => state.stats;
   const stats = useSelector(selectStats);
 
+  const numberOfLevels = learnLang === 'english' ? 5 : 2;
+
   const isLevelOpen = (num: number) => {
+    if (num > numberOfLevels) {
+      console.log('Sorry, there is no content for this lesson yet!');
+      return false;
+    }
+
     const prevLevel = stats[appLang][learnLang][`level${num - 1}`];
     let prevScore = 0;
     if (prevLevel) {
@@ -81,6 +88,7 @@ const StepsLayout: React.FC = () => {
     background: '#1C8673',
     filter: 'none',
   };
+
   return (
     <div ref={refContainer} className="steps-page-main-container">
       <img src={kittyImg} alt="super kitty" className="kitty-img anim-11" style={kittyPosition} />
@@ -101,7 +109,8 @@ const StepsLayout: React.FC = () => {
           <img src={arrowLogo} alt="arrow right" className="step__arrow-right anim-4" />
           <button
             type="button"
-            className="step__level anim-3 step__level--closed"
+            className={isLevelOpen(2) ? 'step__level anim-3' : 'step__level anim-3 step__level--closed'}
+            style={isLevelOpen(2) ? levelOpenStyle : {}}
             data-id="2"
             onClick={(event: React.MouseEvent) => setLessonsPage(event, 2)}
           >
@@ -112,7 +121,8 @@ const StepsLayout: React.FC = () => {
           <img src={arrowLogo} alt="arrow right" className="step__arrow-right anim-6" />
           <button
             type="button"
-            className="step__level anim-5 step__level--closed"
+            className={isLevelOpen(3) ? 'step__level anim-5' : 'step__level anim-5 step__level--closed'}
+            style={isLevelOpen(3) ? levelOpenStyle : {}}
             data-id="3"
             onClick={(event: React.MouseEvent) => setLessonsPage(event, 3)}
           >
@@ -123,7 +133,8 @@ const StepsLayout: React.FC = () => {
           <img src={arrowLogo} alt="arrow right" className="step__arrow-right anim-8" />
           <button
             type="button"
-            className="step__level anim-7 step__level--closed"
+            className={isLevelOpen(4) ? 'step__level anim-7' : 'step__level anim-7 step__level--closed'}
+            style={isLevelOpen(4) ? levelOpenStyle : {}}
             data-id="4"
             onClick={(event: React.MouseEvent) => setLessonsPage(event, 4)}
           >
@@ -133,7 +144,8 @@ const StepsLayout: React.FC = () => {
         <div className="steps-container__step anim-10">
           <button
             type="button"
-            className="step__level anim-9 step__level--closed"
+            className={isLevelOpen(5) ? 'step__level anim-9' : 'step__level anim-9 step__level--closed'}
+            style={isLevelOpen(5) ? levelOpenStyle : {}}
             data-id="5"
             onClick={(event: React.MouseEvent) => setLessonsPage(event, 5)}
           >
