@@ -13,4 +13,6 @@ code {
 }
 #root{
   background: #d3f4f1;
+  min-height:100%;
+  position: relative;
 }

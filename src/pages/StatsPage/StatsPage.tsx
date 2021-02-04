@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Button } from 'antd';
 import { getPointsFromDB } from '../../redux/actions';
 import StatsData from './StatsData';
+import { statsLangConst } from '../../assets/appLangConst';
 
 const StatsPage: React.FC = () => {
   const selectAppState = (state: { app: any }) => state.app;
@@ -25,7 +26,7 @@ const StatsPage: React.FC = () => {
       <br />
       <br />
       <Button type="primary" htmlType="submit" onClick={handleUpdate}>
-        Update stats!
+        {statsLangConst[appLang].updateStats}
       </Button>
     </>
   );

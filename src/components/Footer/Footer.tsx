@@ -2,7 +2,7 @@ import React from 'react';
 import './footer.css';
 
 const Footer: React.FC = () => (
-  <footer>
+  <footer className="footer">
     <p>
       2021 &copy;&nbsp;
       <a className="footer__link" href="https://github.com/arumirinka" rel="noopener noreferrer" target="_blank">

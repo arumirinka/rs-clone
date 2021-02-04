@@ -172,7 +172,7 @@ const StatsData: React.FC = () => {
               }}
             />
           </span>
-          <span style={{ fontSize: 26 }}>{ stats[appLang][learnLang].langPoints }</span>
+          <span style={{ fontSize: 26 }}>{ stats[appLang][currLang].langPoints }</span>
         </span>
       </div>
       <div className="stats_inner">

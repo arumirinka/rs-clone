@@ -218,6 +218,7 @@ export const statsLangConst: IAppLangConst = {
     tableName: 'Лучшие ученики',
     email: 'Почта',
     score: 'Результат',
+    updateStats: 'Обновить статистику!',
   },
   english: {
     header: 'Statistics',
@@ -225,6 +226,7 @@ export const statsLangConst: IAppLangConst = {
     tableName: 'Best students',
     email: 'Email',
     score: 'Score',
+    updateStats: 'Update stats!',
   },
   german: {
     header: 'Statistik',
@@ -232,6 +234,6 @@ export const statsLangConst: IAppLangConst = {
     tableName: 'Die besten Schüler',
     email: 'Email',
     score: 'Ergebnis',
-
+    updateStats: 'Statistik aktualisieren!',
   },
 };
