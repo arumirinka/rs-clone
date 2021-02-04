@@ -2,3 +2,9 @@
   text-align: center;
   padding: 1rem;
 }
+.footer-container{
+    position:absolute;
+    left:0;
+    bottom:0;
+    right:0;
+}

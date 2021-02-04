@@ -54,8 +54,10 @@ function App() {
             </Switch>
           )}
         </div>
-        <Divider />
-        <Footer />
+        <div className="footer-container">
+          <Divider />
+          <Footer />
+        </div>
       </div>
     </AuthContext.Provider>
   );
