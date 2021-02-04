@@ -31,7 +31,6 @@ const StepsLayout: React.FC = () => {
 
   const isLevelOpen = (num: number) => {
     if (num > numberOfLevels) {
-      console.log('Sorry, there is no content for this lesson yet!');
       return false;
     }
 
@@ -55,6 +54,11 @@ const StepsLayout: React.FC = () => {
 
   const setLessonsPage = (event: React.MouseEvent, levelNum: number) => {
     if ((levelNum > 1) && (!isLevelOpen(levelNum))) {
+      return;
+    }
+
+    if (levelNum > numberOfLevels) {
+      console.log('Sorry, there is no content for this lesson yet!');
       return;
     }
 
