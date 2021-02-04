@@ -1,14 +1,7 @@
-/* eslint-disable guard-for-in */
-/* eslint-disable no-restricted-syntax */
-/* eslint-disable no-console */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable no-prototype-builtins */
-/* eslint-disable consistent-return */
-/* eslint-disable @typescript-eslint/no-use-before-define */
 import { Table } from 'antd';
 import moment from 'moment';
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import {
   AreaChart,
   ResponsiveContainer,
@@ -20,8 +13,6 @@ import {
 } from 'recharts';
 import { StarOutlined } from '@ant-design/icons';
 import { statsLangConst } from '../../assets/appLangConst';
-import { getPointsFromDB } from '../../redux/actions';
-import StatsData from './StatsData';
 
 import './stats.css';
 
@@ -41,92 +32,6 @@ const weekDays = [
   getDate(0),
 ];
 
-const weekProgress = async () => {
-  try {
-    let currentId;
-    const currentUser = localStorage.getItem('userData');
-    if (typeof currentUser === 'string') {
-      currentId = JSON.parse(currentUser).userId;
-    }
-
-    const res = await fetch(
-      'https://enigmatic-peak-52817.herokuapp.com/api/stats/weekProgress',
-      {
-        method: 'post',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          userId: currentId,
-          appLang: 'russianApp',
-          learningLang: 'english',
-        }),
-      },
-    );
-    const data = await res.json();
-    weekResults = data.weekProgress;
-    console.log(weekResults);
-    chartData = getWeekData();
-    return weekResults;
-  } catch (e) {
-    console.log('something wrong');
-  }
-};
-const getWeekData = () => {
-  const weekData = weekDays.map((item) => ({
-    date: item,
-    points: weekResults[weekDays.indexOf(item)],
-  }));
-  console.log(weekData);
-  return weekData;
-};
-
-weekProgress();
-
-const rating = async () => {
-  try {
-    const res = await fetch(
-      'https://enigmatic-peak-52817.herokuapp.com/api/stats/rating',
-      {
-        method: 'post',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          appLang: 'russianApp',
-          learningLang: 'english',
-        }),
-      },
-    );
-    const data = await res.json();
-    bestUsers = data.rating;
-
-    dataSource = bestUsers.map((item) => ({
-      key: bestUsers.indexOf(item) + 1,
-      email: item[0],
-      score: item[1],
-    }));
-
-    console.log(dataSource);
-  } catch (e) {
-    console.log('something wrong');
-  }
-};
-rating();
-
-const columns = [
-  {
-    title: 'Email',
-    dataIndex: 'email',
-    key: 'email',
-  },
-  {
-    title: 'Score',
-    dataIndex: 'score',
-    key: 'score',
-  },
-];
-
 const StatsPage: React.FC = () => {
   const selectAppState = (state: { app: any }) => state.app;
   const appState = useSelector(selectAppState);
@@ -135,9 +40,9 @@ const StatsPage: React.FC = () => {
   const selectStats = (state: { stats: any }) => state.stats;
   const stats = useSelector(selectStats);
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const userID = JSON.parse(localStorage.getItem('userData') || '{}').userId;
-  dispatch(getPointsFromDB(userID, appLang, learnLang));
+  // dispatch(getPointsFromDB(userID, appLang, learnLang));
 
   const lessonsNumber = 4;
   const levelsNumber = (appLang === 'russian' && learnLang === 'english') ? 5 : 2;
@@ -146,17 +51,8 @@ const StatsPage: React.FC = () => {
     for (let j = 1; j <= lessonsNumber; j += 1) totalScore += (stats[appLang][learnLang][`level${i}`][`lesson${j}`]);
   }
 
-  console.log(totalScore);
-
   const updateScore = async () => {
     try {
-      console.log(JSON.stringify({
-        userId: userID,
-        appLang: `${appLang}App`,
-        learningLang: learnLang,
-        score: totalScore,
-      }));
-
       const res = await fetch(
         'https://enigmatic-peak-52817.herokuapp.com/api/stats/updateScore',
         {
@@ -180,6 +76,86 @@ const StatsPage: React.FC = () => {
   };
 
   updateScore();
+  const getWeekData = () => {
+    const weekData = weekDays.map((item) => ({
+      date: item,
+      points: weekResults[weekDays.indexOf(item)],
+    }));
+    console.log(weekData);
+    return weekData;
+  };
+
+  // eslint-disable-next-line consistent-return
+  const weekProgress = async () => {
+    try {
+      const res = await fetch(
+        'https://enigmatic-peak-52817.herokuapp.com/api/stats/weekProgress',
+        {
+          method: 'post',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            userId: userID,
+            appLang: `${appLang}App`,
+            learningLang: learnLang,
+          }),
+        },
+      );
+      const data = await res.json();
+      weekResults = data.weekProgress;
+      chartData = getWeekData();
+      return weekResults;
+    } catch (e) {
+      console.log('something wrong');
+    }
+  };
+
+  weekProgress();
+
+  const rating = async () => {
+    try {
+      const res = await fetch(
+        'https://enigmatic-peak-52817.herokuapp.com/api/stats/rating',
+        {
+          method: 'post',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            appLang: `${appLang}App`,
+            learningLang: learnLang,
+          }),
+        },
+      );
+      const data = await res.json();
+      bestUsers = data.rating;
+
+      dataSource = bestUsers.map((item) => ({
+        key: bestUsers.indexOf(item) + 1,
+        email: item[0],
+        score: item[1],
+      }));
+
+      console.log(dataSource);
+    } catch (e) {
+      console.log('something wrong');
+    }
+  };
+  rating();
+
+  const columns = [
+    {
+      title: 'Email',
+      dataIndex: 'email',
+      key: 'email',
+    },
+    {
+      title: 'Score',
+      dataIndex: 'score',
+      key: 'score',
+    },
+  ];
 
   return (
 

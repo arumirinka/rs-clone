@@ -1,3 +1,4 @@
+import moment from 'moment';
 import {
   CHANGE_APP_LANG, CHANGE_LEARN_LANG, CHANGE_LEVEL, CHANGE_LESSON, CHANGE_THEME, TOGGLE_SOUND,
   FETCH_DATA, SET_POINTS, SEND_POINTS_TO_DB, GET_POINTS_FROM_DB,
@@ -111,6 +112,7 @@ export function sendPointsToDB(userID, appLang, learnLang, level, lesson, points
             level: `level${level}`,
             lesson: `lesson${lesson}`,
             score: points,
+            date: moment().format('DD/MM'),
           }),
         },
       );

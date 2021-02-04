@@ -118,15 +118,6 @@ const Header: React.FC<IProps> = ({ isAuth }: IProps) => {
     history.push('/');
   };
 
-  // const [theme, setTheme] = useState('light');
-  // const onChangeTheme = (value: any) => {
-  //   setTheme(value ? 'dark' : 'light');
-  // };
-  // const [points] = useState(0);
-
-  // const userID = JSON.parse(localStorage.getItem('userData') || '{}').userId;
-  // dispatch(getPointsFromDB(userID, appLang, learnLang));
-
   return (
     <div>
       {isAuth && (
