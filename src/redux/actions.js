@@ -106,10 +106,12 @@ export function sendPointsToDB(userID, appLang, learnLang, level, lesson, points
           },
           body: JSON.stringify({
             userId: userID,
-            updateLesson: `results.${appLang}App.${learnLang}.level${level}.lesson${lesson}`,
+            appLang: `${appLang}App`,
+            learningLang: learnLang,
+            level: `level${level}`,
+            lesson: `lesson${lesson}`,
             score: points,
           }),
-
         },
       );
       const res = await response.json();

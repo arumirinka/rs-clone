@@ -21,7 +21,7 @@ import {
 import { StarOutlined } from '@ant-design/icons';
 import { statsLangConst } from '../../assets/appLangConst';
 import { getPointsFromDB } from '../../redux/actions';
-// import StatsData from './StatsData';
+import StatsData from './StatsData';
 
 import './stats.css';
 
@@ -132,25 +132,57 @@ const StatsPage: React.FC = () => {
   const appState = useSelector(selectAppState);
   const { appLang, learnLang } = appState;
 
+  const selectStats = (state: { stats: any }) => state.stats;
+  const stats = useSelector(selectStats);
+
   const dispatch = useDispatch();
   const userID = JSON.parse(localStorage.getItem('userData') || '{}').userId;
   dispatch(getPointsFromDB(userID, appLang, learnLang));
 
-  const selectStats = (state: { stats: any }) => state.stats;
-  const stats = useSelector(selectStats);
-  // const totalScore = stats[appLang][learnLang].langPoints;
-  // const totalScore = stats[appLang][learnLang];
-  //   const totalScore = Object.values(stats[appLang][learnLang].level1).concat(
-  //     Object.values(stats[appLang][learnLang].level1),
-  //   ).reduce((a, b) => (a + b), 0);
-  // е
-  // let totalScore = 0;
-  // for (let i = 1; i <= 2; i += 1) {
-  //   for (let j = 1; j <= 4; j += 1) totalScore += stats[appLang][learnLang][level{i}][lesson{j}];
-  // }
-  // console.log(totalScore);
+  const lessonsNumber = 4;
+  const levelsNumber = (appLang === 'russian' && learnLang === 'english') ? 5 : 2;
+  let totalScore = 0;
+  for (let i = 1; i <= levelsNumber; i += 1) {
+    for (let j = 1; j <= lessonsNumber; j += 1) totalScore += (stats[appLang][learnLang][`level${i}`][`lesson${j}`]);
+  }
+
+  console.log(totalScore);
+
+  const updateScore = async () => {
+    try {
+      console.log(JSON.stringify({
+        userId: userID,
+        appLang: `${appLang}App`,
+        learningLang: learnLang,
+        score: totalScore,
+      }));
+
+      const res = await fetch(
+        'https://enigmatic-peak-52817.herokuapp.com/api/stats/updateScore',
+        {
+          method: 'put',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            userId: userID,
+            appLang: `${appLang}App`,
+            learningLang: learnLang,
+            score: totalScore,
+          }),
+        },
+      );
+      const data = await res.json();
+      console.log('Response from DB:', data);
+    } catch (e) {
+      console.log('something wrong:', e);
+    }
+  };
+
+  updateScore();
 
   return (
+
     <div className="stats">
       <div style={{ display: 'flex', margin: '30px auto' }}>
         <h2>{statsLangConst[appLang].header}</h2>
@@ -165,10 +197,10 @@ const StatsPage: React.FC = () => {
               }}
             />
           </span>
-          <span style={{ fontSize: 26 }}>{ 425 }</span>
+          <span style={{ fontSize: 26 }}>{ stats[appLang][learnLang].langPoints }</span>
         </span>
       </div>
-
+      {/* <StatsData /> */}
       <div className="stats_inner">
         <div className="stats_chart">
           <h3>{statsLangConst[appLang].chartName}</h3>
