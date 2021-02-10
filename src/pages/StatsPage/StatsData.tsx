@@ -79,10 +79,16 @@ const StatsData: React.FC = () => {
 
   updateScore();
 
-  const getWeekData = () => {
+  const getWeekData = (allResults: any) => {
+    const daysResult = weekDays.map((item) => allResults[item]);
+    const daysDiff: any[] = [];
+    for (let i = 0; i < 7; i += 1) {
+      const diff = daysResult[i] || daysResult[i - 1] - daysResult[i - 1] || 0;
+      daysDiff.push(diff);
+    }
     const weekData = weekDays.map((item) => ({
       date: item,
-      points: weekResults[weekDays.indexOf(item)],
+      points: daysDiff[weekDays.indexOf(item)],
     }));
     return weekData;
   };
@@ -106,8 +112,8 @@ const StatsData: React.FC = () => {
       );
       const data = await res.json();
       weekResults = data.weekProgress;
-      chartData = getWeekData();
-      return weekResults;
+      chartData = getWeekData(weekResults);
+      return chartData;
     } catch (e) {
       console.log('something wrong');
     }

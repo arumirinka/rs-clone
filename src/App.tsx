@@ -35,7 +35,7 @@ function App() {
       <div className="App">
         <Header isAuth={isAuthenticated} />
         <Divider />
-        <div className="content-wrapper">
+        <div className="content-wrapper" style={{ paddingBottom: '74px' }}>
           {isAuthenticated && (
             <Switch>
               <Route path="/main" component={Main} exact />
@@ -43,7 +43,11 @@ function App() {
               <Route path="/steps" component={StepsLayout} exact />
               <Route path="/lessons" component={LessonsLayout} exact />
               <Route path="/lessons/words" component={WordsList} exact />
-              <Route path="/lessons/exercises" component={ExercisesLayout} exact />
+              <Route
+                path="/lessons/exercises"
+                component={ExercisesLayout}
+                exact
+              />
               <Redirect to="/main" />
             </Switch>
           )}
