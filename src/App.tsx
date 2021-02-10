@@ -33,33 +33,33 @@ function App() {
       }}
     >
       <div className="App">
-        <Header isAuth={isAuthenticated} />
-        <Divider />
-        <div className="content-wrapper" style={{ paddingBottom: '74px' }}>
-          {isAuthenticated && (
-            <Switch>
-              <Route path="/main" component={Main} exact />
-              <Route path="/stats" component={StatsPage} exact />
-              <Route path="/steps" component={StepsLayout} exact />
-              <Route path="/lessons" component={LessonsLayout} exact />
-              <Route path="/lessons/words" component={WordsList} exact />
-              <Route
-                path="/lessons/exercises"
-                component={ExercisesLayout}
-                exact
-              />
-              <Redirect to="/main" />
-            </Switch>
-          )}
-          {!isAuthenticated && (
-            <Switch>
-              <Route path="/" render={() => <LoginPage />} exact />
-              <Redirect to="/" />
-            </Switch>
-          )}
+        <div className="main-wrapper">
+          <Header isAuth={isAuthenticated} />
+          <Divider />
+          <div className="content-wrapper">
+            {isAuthenticated && (
+              <Switch>
+                <Route path="/main" component={Main} exact />
+                <Route path="/stats" component={StatsPage} exact />
+                <Route path="/steps" component={StepsLayout} exact />
+                <Route path="/lessons" component={LessonsLayout} exact />
+                <Route path="/lessons/words" component={WordsList} exact />
+                <Route path="/lessons/exercises" component={ExercisesLayout} exact />
+                <Redirect to="/main" />
+              </Switch>
+            )}
+            {!isAuthenticated && (
+              <Switch>
+                <Route path="/" render={() => <LoginPage />} exact />
+                <Redirect to="/" />
+              </Switch>
+            )}
+          </div>
         </div>
-        <Divider />
-        <Footer />
+        <div className="footer-container">
+          <Divider />
+          <Footer />
+        </div>
       </div>
     </AuthContext.Provider>
   );
